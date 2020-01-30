@@ -1,0 +1,356 @@
+.popup-left-panel {
+  border-radius: 0;
+  /* padding: 0.7em; */
+  height: 100%;
+}
+
+.modal-widgets {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  /* box-shadow: 0 0 13px 0 rgba(82, 63, 105, .05); */
+  border-radius: 4px;
+  height: 100%;
+}
+
+.bg-card {
+  background-color: #08232E !important;
+  border-radius: 5px;
+}
+
+h4.card-title {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  margin: 0;
+  display: initial;
+}
+
+.card-body {
+  flex: 1 1 auto;
+  padding: 1.25rem;
+}
+
+@media only screen and (max-width: 991px) {
+  .ai3-crowd-inputs {
+    /* width: 350px;
+    margin-left: auto;
+    margin-right: auto; */
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  .tab-min-height{
+    min-height: 450px !important;
+  }
+}
+
+.ai3-crowd-header {
+  background: #071820;
+  border-radius: 5px;
+  user-select: none;
+}
+
+/* Text ellipsis */
+.text-overflow-fix {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+button.btn.btn-outline-secondary.btn-sm.text-uppercase {
+  color: #fff !important;
+  padding: 0.4rem;
+}
+
+/* Buttons */
+.save-btn {
+  background-color: transparent;
+  color: green;
+  border-radius: 50px;
+}
+
+.save-btn i {
+  height: 15px;
+  width: 15px;
+}
+
+.save-btn:hover {
+  background-color: rgba(158, 159, 159, 0.18) !important;
+  color: green;
+}
+
+.close-btn {
+  background-color: transparent;
+  color: red;
+  border-radius: 50px;
+}
+
+.edit-btn {
+  background-color: transparent;
+  color: #12698c;
+  border-radius: 50px;
+}
+
+.close-btn i {
+  height: 15px;
+  width: 15px;
+}
+
+.close-btn:hover {
+  background-color: rgba(158, 159, 159, 0.18) !important;
+  color: red;
+}
+
+.dd-validation-error {
+  font-size: 10px;
+  color: red;
+}
+
+canvas#communicated-device {
+  background: #000;
+  width: 100% !important;
+  height: 300px;
+  border-radius: 5px;
+}
+
+.communicated-device-pi-chart {
+  position: absolute;
+  top: 16%;
+  /* background: rgba(0, 0, 0, 0.9); */
+  right: 4%;
+}
+
+.communicated-device-pi-chart h1 {
+  font-size: 1.3rem;
+  text-align: center;
+  padding: 1rem 2rem;
+}
+
+ul.filter {
+  list-style: none;
+  display: flex;
+  text-align: right;
+  float: right;
+  margin-bottom: 0px;
+  min-height: 18px;
+}
+
+ul.filter li {
+  display: inline-block;
+  position: relative;
+  padding: 0 1em;
+  border: 1px solid #1b4556;
+}
+
+
+a.filter-link {
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #8e8a8a;
+  cursor: pointer;
+}
+
+span.deviceCommCount {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+/* primeng tab view  and tab panel */
+::ng-deep .ui-tabview .ui-tabview-panels {
+  background-color: #08232E !important;
+  padding: 0.571em 1em;
+  border: 0px !important;
+  color: #333333;
+}
+
+::ng-deep .ui-tabview.ui-tabview-top .ui-tabview-nav li.ui-state-active {
+  background-color: #13698c !important;
+  /* border: 1px solid !important; */
+}
+
+::ng-deep .ui-tabview.ui-tabview-top .ui-tabview-nav li {
+  background-color: #071821 !important;
+  border: 1px solid #071821 !important;
+}
+
+.no-data-avail {
+  color: #615f5f;
+  position: relative;
+  width: 100%;
+  height: 45px;
+  z-index: 2000 !important;
+  font-size: 1em;
+  top: 40%;
+  text-align: center;
+}
+
+.communicatedDeviceNoData {
+  text-align: center;
+  color: #7d7a7a;
+}
+
+.ai3-dd-desc {
+  word-break: break-word;
+  white-space: normal;
+}
+
+.ai3-dd-cveid p a {
+  color: white !important;
+  text-decoration: underline !important;
+}
+
+.card-footer.no-height {
+  height: 1em;
+  padding: 0 !important;
+  background-color: rgb(8, 35, 46);
+  border: 0 !important;
+}
+
+.card-header {
+  background-color: inherit !important;
+  border-bottom: none !important;
+}
+
+ul#userlistwrap li span.colvalue {
+  position: relative;
+}
+
+ul#userlistwrap {
+  position: relative;
+  margin: 0;
+  font-size: 0.8rem;
+  color: #fff;
+  width: 100%;
+  list-style-type: square;
+  padding-left: 14px;
+}
+
+ul#userlistwrap li {
+  width: 99%;
+  padding: 0.3rem 0px;
+  margin: 0;
+  display: list-item;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  color: #dfdfdf !important;
+  white-space: normal;
+}
+
+ul#userlistwrap li span.col {
+  display: inline;
+  position: relative;
+  font-weight: bold;
+  padding-left: 0px;
+}
+
+/* Device detail edit */
+.ui-inputtext {
+  width: 100%;
+  border-radius: 4px;
+  background-color: #071820;
+  color: white;
+}
+
+/* Fix for bootstrap spacing scss and primeng class overlapping */
+.p-lg-4,
+.p-md-3,
+.p-lg-3,
+.p-md-2,
+.p-lg-2,
+.p-xl-2,
+.p-xl-8,
+.p-md-7,
+.p-lg-7,
+.p-xl-8 {
+  padding: 0.5rem !important;
+}
+
+.card {
+  border: 0px !important;
+}
+
+.IsActivityTimelineLoading,
+.isDeviceCommunidationLoading {
+  position: absolute;
+  display: block;
+  width: 100%;
+  /* background: #000000c7; */
+  text-align: center;
+  height: 100%;
+  top: 0 !important;
+}
+
+.IsActivityTimelineLoading .loadingtxt,
+.isDeviceCommunidationLoading .loadingtxt {
+  position: relative;
+  display: block;
+  top: 29% !important;
+  width: 100%
+}
+
+.card-body.communicated-device-wrapper {
+  position: relative;
+  display: block;
+  width: 100%;
+
+}
+
+.communicated-device-pi-chart {
+  position: absolute;
+  top: 44%;
+  background: rgba(0, 0, 0, 0.9);
+  right: 3%;
+  width: 100%;
+}
+
+.highlight-card {
+  background-color: #071821;
+  border-radius: 5px;
+}
+
+.overflow-break {
+  word-break: break-word;
+  white-space: normal;
+}
+
+ul.filter li.active {
+  background: #0d3748;
+  color: #fff !important;
+}
+
+.slider-header {
+  height: 40px;
+  padding: 10px;
+}
+
+.incident-header {
+  height: 48px;
+  padding: 10px;
+}
+
+.slider-text {
+  color: white;
+}
+
+.slider-navs .slider-nav-right,
+.slider-navs .slider-nav-left {
+  color: white;
+  font-size: 22px;
+}
+
+.slider-nav-left:hover,
+.slider-nav-right:hover {
+  color: #12698c !important;
+  cursor: pointer;
+}
+
+.slider-body {
+  padding: 10px;
+  color: white;
+  min-height: 250px;
+  margin: 0px;
+}
+
+.incident-header span{
+  color: white;
+}

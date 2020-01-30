@@ -1,0 +1,161 @@
+<div class="ai3-reports-view-wrapper">
+  <div class="ai3-reports-view">
+    <div class="p-grid report-view-wrapper">
+      <div class="report-view-template-wrapper p-col-8 p-0">
+        <div class="report-view-template">
+          <!-- <div [innerHtml]="myTemplate | safeHtml">
+          </div> -->
+          <iframe [src]="iframesrc" id="myframe" frameborder=0 width="100%" height="1000px" (load)="onLoad()"></iframe>
+        </div>
+      </div>
+
+      <div style="height: fit-content;" class="report-view-controls p-col-4">
+        <div class="text-right mb-3">
+          <button (click)="sendReport()" pButton type="button" label="SEND REPORT"></button>
+          <button *ngIf="isViewOnlySave" (click)="saveReport()" pButton type="button" class="ml-2"
+            label="SAVE REPORT"></button>
+          <button [disabled]="recurringDataValid" *ngIf="(currentReport.report_nature == 2) && !isViewOnlySave"
+            (click)="saveReport()" pButton type="button" class="ml-2" label="SAVE REPORT"></button>
+        </div>
+
+        <div class="mb-5">
+          <h6>STANDARD REPORT TYPE</h6>
+          <h6>{{stdRptType}}</h6>
+        </div>
+
+        <div class="mb-5">
+          <h6>REPORTING PERIOD</h6>
+          <h6>{{reportingPeriod}}</h6>
+        </div>
+
+        <div class="p-grid no-gutter">
+          <!--  -->
+          <div *ngIf="currentReport.report_nature == 2" class="p-col-12 report-create-body">
+            <div class="p-grid no-gutter">
+              <div class="p-col-12 mb-3">
+                <div class="p-grid no-gutter">
+                  <div class="p-col-12 py-0 mb-2">
+                    <h6 class="float-left">
+                      FREQUENCY
+                    </h6>
+                  </div>
+                  <div class="p-col-12 py-0">
+                    <p-dropdown [style]="{'width':'50%'}" styleClass="ai3-report-dropdown"
+                      placeholder="Select frequency" (onChange)="onFreqChange()" [options]="frequencyOptions"
+                      [(ngModel)]="selectedFrequency">
+                    </p-dropdown>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="selectedFrequency == 'custom'" class="p-col-12 mb-3">
+                <div class="p-grid no-gutter">
+                  <div class="p-col-12 py-0 mb-2">
+                    <h6 class="float-left">
+                      REPEAT EVERY
+                    </h6>
+                  </div>
+                  <div class="p-col-12 py-0">
+                    <div class="p-grid no-gutter">
+                      <div class="p-col-5">
+                        <p-dropdown [style]="{'width':'80%'}" styleClass="ai3-report-dropdown"
+                          (onChange)="onRepeatCountChange()" [options]="repeatCounts" [(ngModel)]="selectedRepeatCount">
+                        </p-dropdown>
+                      </div>
+                      <div class="p-col-7">
+                        <p-dropdown [style]="{'width':'60%'}" styleClass="ai3-report-dropdown"
+                          placeholder="Select frequency" (onChange)="onRepeatOptChange(true)" [options]="repeatOptions"
+                          [(ngModel)]="selectedRepeatOption">
+                        </p-dropdown>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div *ngIf="selectedFrequency == 'weekly' || selectedFrequency == 'monthly'" class="p-col-12 mb-3">
+                <div class="p-grid no-gutter">
+                  <div class="p-col-12 py-0 mb-2">
+                    <h6 class="float-left">
+                      REPEAT EVERY
+                    </h6>
+                  </div>
+                  <div class="p-col-12 py-0">
+                    <div class="p-grid no-gutter">
+                      <div *ngIf="selectedFrequency == 'weekly'" style="white-space: normal;" class="p-col-12">
+                        <button [ngClass]="{'active': day.active }" class="report-time-buttons mb-2"
+                          *ngFor="let day of repeatDays; let i = index" (click)="onRepeatDayChange($event, i)" pButton
+                          type="button" label="{{day.label}}"></button>
+                        <p-calendar styleClass="report-time-picker" (onSelect)="onRepeatTimeChange()"
+                          [(ngModel)]="repeatTime" hourFormat="12" [timeOnly]="true"></p-calendar>
+                      </div>
+                      <div *ngIf="selectedFrequency == 'monthly'" class="p-col-3">
+                        <p-dropdown [style]="{'width':'100%'}" styleClass="ai3-report-dropdown"
+                          placeholder="Select frequency" (onChange)="onRepeatOptChange(true)" [options]="repeatOptions"
+                          [(ngModel)]="selectedRepeatOption">
+                        </p-dropdown>
+                      </div>
+                      <div *ngIf="selectedFrequency == 'monthly'" class="p-col-3">
+                        <p-calendar styleClass="report-time-picker" (onSelect)="onRepeatTimeChange()"
+                          [(ngModel)]="repeatTime" hourFormat="12" [timeOnly]="true"></p-calendar>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div *ngIf="selectedFrequency == 'custom' || selectedFrequency == 'daily'" style="white-space: normal;"
+                class="p-col-12 mb-3">
+                <div class="p-grid no-gutter">
+                  <div class="p-col-12 py-0 mb-2">
+                    <h6 class="float-left">
+                      REPEAT AT
+                    </h6>
+                  </div>
+                  <div class="p-col-12 py-0">
+                    <button [hidden]="!(selectedFrequency == 'custom' && selectedRepeatOption == 'daily')"
+                      [ngClass]="{'active': day.active }" class="report-time-buttons mb-2"
+                      *ngFor="let day of repeatDays; let i = index" (click)="onRepeatDayChange($event, i)" pButton
+                      type="button" label="{{day.label}}"></button>
+                    <p-calendar styleClass="report-time-picker" [readonlyInput]="true" (onSelect)="onRepeatTimeChange()"
+                      [(ngModel)]="repeatTime" hourFormat="12" [timeOnly]="true"></p-calendar>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--  -->
+          <div class="p-col-12 py-0 mb-2">
+            <h6 class="float-left">
+              SPECIFY RECIPIENT EMAIL
+            </h6>
+          </div>
+          <div class="p-col-12 py-0">
+            <div class="p-grid no-gutter">
+              <div *ngFor="let email of recipientEmails" class="p-col-12 py-0">
+                <input readonly [(ngModel)]="email" class="email-inputbox" placeholder="Email Address" type="text"
+                  pInputText />
+                <button id="email-pi" class="email-input-control" pButton (click)="removeEmail(email)" type="button"
+                  icon="pi pi-minus"></button>
+              </div>
+              <!-- <div class="p-col-12 py-0 my-2">
+                <input [(ngModel)]="currentEmailHolder" (keyup.enter)="addEmail()" class="email-inputbox"
+                  placeholder="Email Address" type="text" pInputText />
+                <button id="email-pi" [disabled]="currentEmailHolder.length == 0" class="email-input-control" pButton
+                  type="button" (click)="addEmail()" icon="pi pi-plus"></button>
+              </div> -->
+              <div class="p-col-12 py-0 my-2">
+                <input [title]="contactemail.invalid ? 'Invalid email' : ''" #contactemail="ngModel" pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"
+                  [(ngModel)]="currentEmailHolder" (keyup.enter)="addEmail(contactemail.valid)" class="email-inputbox"
+                  placeholder="Email Address" type="text" pInputText />
+                <button id="email-pi" [disabled]="contactemail.invalid" class="email-input-control" pButton
+                  type="button" (click)="addEmail(contactemail.valid)" icon="pi pi-plus"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <ngx-loading [show]="reportsViewLoading"></ngx-loading>

@@ -1,0 +1,670 @@
+<br />
+<br />
+<ngx-loading [show]="popupLoading"></ngx-loading>
+
+<div style="width: 100%; height: 92%; overflow: auto;">
+  <div class="container-fluid">
+    <div class="p-grid">
+      <div class="p-col-4 p-lg-4 p-md-12 p-sm-12 tab-min-height">
+        <div class="popup-left-panel bg-card device-info">
+          <div class="modal-widgets bg-info0 ">
+            <div class="card bg-card text-white h-100">
+
+              <div class="card-body ai3-crowd-inputs">
+                <div class="p-grid mb-3 ai3-crowd-header">
+                  <div class="p-col pl-0">
+
+                    <div class="p-col-12 text-overflow-fix">
+                      <div class="p-grid p-nogutter">
+                        <div class="p-col-12">
+                          <h4 class="card-title overflow-break">
+                            <div *ngIf="modalDeviceDetailsInfo.host_name; else ipTemplate">
+                              {{ modalDeviceDetailsInfo.host_name }}
+                            </div>
+                            <ng-template #ipTemplate>
+                              {{ modalDeviceDetailsInfo.ip }}
+                            </ng-template>
+                          </h4>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="p-col-12 text-overflow-fix">
+                      <div class="p-grid p-nogutter">
+                        <div class="p-col-4"><span>IP</span></div>
+                        <div class="p-col-8"><span>{{modalDeviceDetailsInfo.ip || '-'}}</span></div>
+                      </div>
+                    </div>
+
+                    <div class="p-col-12 text-overflow-fix">
+                      <div class="p-grid p-nogutter">
+                        <div class="p-col-4"><span>
+                            MAC
+                          </span></div>
+                        <div class="p-col-8"><span>{{modalDeviceDetailsInfo.mac || '-'}}</span></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="p-col-fixed" style="width: 100px">
+                    <img src="{{ ImgPath + deviceImageIs }}{{ '.png' }}" title="{{ modalDeviceDetailsInfo.devtype }}"
+                      class="img-fluid rounded mx-auto img-thumbnail " onError="this.src='/assets/device_type/iot.png';"
+                      alt="..." style="height: 100px;
+                              display: block;
+                              background: #000;
+                              border: 1px solid #30454e;
+                              padding: 1em;
+                              width: 100px" />
+                  </div>
+                </div>
+
+                <div class="ai3-device-detail">
+                  <form [formGroup]="deviceDetailsForm">
+                    <div class="p-grid">
+                      <div class="p-col-12 py-1">
+                        <div class="p-grid p-nogutter">
+                          <div class="p-col-5 text-overflow-fix">
+                            <span>HOST NAME</span>
+                          </div>
+
+                          <div class="p-col-7 overflow-break">
+                            <div class="p-grid">
+                              <div class="p-col-10" *ngIf="!hostNameFieldToggler">
+                                <span (click)="focusElement('hostname')">{{ddControls.hostName.value || '-'}}</span>
+                              </div>
+
+                              <div *ngIf="!hostNameFieldToggler" class="p-col-2">
+                                <button type="button" class="btn btn-sm edit-btn" (click)="focusElement('hostname')">
+                                  <i class="fa fa-edit"></i>
+                                </button>
+                              </div>
+
+                              <div *ngIf="hostNameFieldToggler" class="p-col-8">
+                                <input (keydown.enter)="saveCrowdSourcingData('hostname')" formControlName="hostName"
+                                  type="text" placeholder="Host name" pInputText #hostname />
+                              </div>
+                              <div *ngIf="hostNameFieldToggler" class="p-col-2">
+                                <button [disabled]="ddControls.hostName.errors" class="btn btn-sm save-btn"
+                                  (click)="saveCrowdSourcingData('hostname')">
+                                  <i class="fa fa-check"></i>
+                                </button>
+                              </div>
+                              <div *ngIf="hostNameFieldToggler" class="p-col-2">
+                                <button class="btn btn-sm close-btn" (click)="closeCrowdSourcingData('hostname')">
+                                  <i class="fa fa-close"></i>
+                                </button>
+                              </div>
+                              <div style="padding: 0 0.5em" class="p-col-12"
+                                *ngIf="ddControls.hostName.errors && hostNameFieldToggler">
+                                <div style="text-align: left; padding: 0px; white-space: normal;"
+                                  class="btn dd-validation-error" *ngIf="ddControls.hostName.errors.pattern">
+                                  You can use only alphanumerics and -
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="p-col-12 py-1">
+                        <div class="p-grid p-nogutter">
+                          <div class="p-col-5 text-overflow-fix">
+                            <span>
+                              DEVICE TYPE
+                            </span>
+                          </div>
+                          <div class="p-col-7 overflow-break">
+                            <div class="p-grid">
+                              <div class="p-col-10" *ngIf="!deviceTypeToggler">
+                                <span (click)="focusElement('devtype')">{{ddControls.deviceType.value || '-'}}</span>
+                              </div>
+
+                              <div *ngIf="!deviceTypeToggler" class="p-col-2">
+                                <button type="button" class="btn btn-sm edit-btn" (click)="focusElement('devtype')">
+                                  <i class="fa fa-edit"></i>
+                                </button>
+                              </div>
+
+                              <div *ngIf="deviceTypeToggler" class="p-col-8">
+                                <p-autoComplete formControlName="deviceType" [suggestions]="deviceTypeOptions"
+                                  (completeMethod)="filterDeviceTypes($event)" [size]="30" placeholder="Device type"
+                                  [minLength]="0" autoHighlight="true" inputId="deviceType"
+                                  styleClass="device-detail-autocomplete"></p-autoComplete>
+                              </div>
+                              <div *ngIf="deviceTypeToggler" class="p-col-2">
+                                <button [disabled]="ddControls.deviceType.errors" class="btn btn-sm save-btn"
+                                  (click)="saveCrowdSourcingData('devtype')">
+                                  <i class="fa fa-check"></i>
+                                </button>
+                              </div>
+                              <div *ngIf="deviceTypeToggler" class="p-col-2">
+                                <button class="btn btn-sm close-btn" (click)="closeCrowdSourcingData('devtype')">
+                                  <i class="fa fa-close"></i>
+                                </button>
+                              </div>
+                              <div style="padding: 0 0.5em" class="p-col-12"
+                                *ngIf="ddControls.deviceType.errors && deviceTypeToggler">
+                                <div style="text-align: left; padding: 0px; white-space: normal;"
+                                  class="btn dd-validation-error" *ngIf="ddControls.deviceType.errors.pattern">
+                                  You can only use alphabets and spaces
+                                </div>
+                                <div style="text-align: left; padding: 0px; white-space: normal;"
+                                  class="btn dd-validation-error" *ngIf="showUncategorizedException">
+                                  You can't crowdsource device type as UNCATEGORIZED
+                                </div>
+                              </div>
+                              <div style="padding: 0 0.5em" class="p-col-12" *ngIf="showUncategorizedException">
+                                <div style="text-align: left; padding: 0px; white-space: normal;"
+                                  class="btn dd-validation-error">
+                                  You can't crowdsource device type as UNCATEGORIZED
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="p-col-12 py-1">
+                        <div class="p-grid p-nogutter">
+                          <div class="p-col-5 text-overflow-fix">
+                            <span>MANUFACTURER</span>
+                          </div>
+                          <div class="p-col-7 overflow-break">
+                            <div class="p-grid">
+                              <div class="p-col-10" *ngIf="!manufacturerToggler">
+                                <span
+                                  (click)="focusElement('manufacturer')">{{ddControls.manufacturer.value || '-'}}</span>
+                              </div>
+
+                              <div *ngIf="!manufacturerToggler" class="p-col-2">
+                                <button type="button" class="btn btn-sm edit-btn"
+                                  (click)="focusElement('manufacturer')">
+                                  <i class="fa fa-edit"></i>
+                                </button>
+                              </div>
+
+                              <div *ngIf="manufacturerToggler" class="p-col-8">
+                                <p-autoComplete formControlName="manufacturer" [suggestions]="manufacturerOptions"
+                                  (completeMethod)="filterManufacturerTypes($event)" [size]="30"
+                                  placeholder="Manufacturer" [minLength]="0" autoHighlight="true" inputId="manufacturer"
+                                  styleClass="device-detail-autocomplete"></p-autoComplete>
+                              </div>
+                              <div *ngIf="manufacturerToggler" class="p-col-2">
+                                <button [disabled]="ddControls.manufacturer.errors" class="btn btn-sm save-btn"
+                                  (click)="saveCrowdSourcingData('manufacturer')">
+                                  <i class="fa fa-check"></i>
+                                </button>
+                              </div>
+                              <div *ngIf="manufacturerToggler" class="p-col-2">
+                                <button class="btn btn-sm close-btn" (click)="closeCrowdSourcingData('manufacturer')">
+                                  <i class="fa fa-close"></i>
+                                </button>
+                              </div>
+                              <div style="padding: 0 0.5em" class="p-col-12"
+                                *ngIf="ddControls.manufacturer.errors && manufacturerToggler">
+                                <div style="text-align: left; padding: 0px; white-space: normal;"
+                                  class="btn dd-validation-error" *ngIf="ddControls.manufacturer.errors.pattern">
+                                  You can only use alphabets, numbers, spaces, commas, periods and +
+                                  - * ? & ( )
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="p-col-12 py-1">
+                        <div class="p-grid p-nogutter">
+                          <div class="p-col-5 text-overflow-fix">
+                            <span>MODEL</span>
+                          </div>
+                          <div class="p-col-7 overflow-break">
+                            <div class="p-grid">
+                              <div class="p-col-10" *ngIf="!modelToggler">
+                                <span (click)="focusElement('model')">{{ddControls.model.value || '-'}}</span>
+                              </div>
+
+                              <div *ngIf="!modelToggler" class="p-col-2">
+                                <button type="button" class="btn btn-sm edit-btn" (click)="focusElement('model')">
+                                  <i class="fa fa-edit"></i>
+                                </button>
+                              </div>
+
+                              <div *ngIf="modelToggler" class="p-col-8">
+                                <p-autoComplete formControlName="model" [suggestions]="modelOptions"
+                                  (completeMethod)="filterModelTypes($event)" [size]="30" autoHighlight="true"
+                                  placeholder="Model" [minLength]="0" autoHighlight="true" inputId="model"
+                                  styleClass="device-detail-autocomplete">
+                                </p-autoComplete>
+                              </div>
+                              <div *ngIf="modelToggler" class="p-col-2">
+                                <button [disabled]="ddControls.model.errors" class="btn btn-sm save-btn"
+                                  (click)="saveCrowdSourcingData('model')">
+                                  <i class="fa fa-check"></i>
+                                </button>
+                              </div>
+                              <div *ngIf="modelToggler" class="p-col-2">
+                                <button class="btn btn-sm close-btn" (click)="closeCrowdSourcingData('model')">
+                                  <i class="fa fa-close"></i>
+                                </button>
+                              </div>
+                              <div style="padding: 0 0.5em" class="p-col-12"
+                                *ngIf="ddControls.model.errors && modelToggler">
+                                <div style="text-align: left; padding: 0px; white-space: normal;"
+                                  class="btn dd-validation-error" *ngIf="ddControls.model.errors.pattern">
+                                  You can only use alphabets, numbers, spaces and - ( )
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="p-col-12 py-1">
+                        <div class="p-grid p-nogutter">
+                          <div class="p-col-5 text-overflow-fix">
+                            <span>
+                              OS
+                            </span>
+                          </div>
+                          <div class="p-col-7 overflow-break">
+                            <div class="p-grid">
+                              <div class="p-col-10" *ngIf="!osFieldToggler">
+                                <span (click)="focusElement('os')">{{ddControls.os.value || '-'}}</span>
+                              </div>
+
+                              <div *ngIf="!osFieldToggler" class="p-col-2">
+                                <button type="button" class="btn btn-sm edit-btn" (click)="focusElement('os')">
+                                  <i class="fa fa-edit"></i>
+                                </button>
+                              </div>
+
+                              <div *ngIf="osFieldToggler" class="p-col-8">
+                                <input (keydown.enter)="saveCrowdSourcingData('os')" formControlName="os" type="text"
+                                  placeholder="Os" pInputText #os />
+                              </div>
+                              <div *ngIf="osFieldToggler" class="p-col-2">
+                                <button [disabled]="ddControls.os.errors" class="btn btn-sm save-btn"
+                                  (click)="saveCrowdSourcingData('os')">
+                                  <i class="fa fa-check"></i>
+                                </button>
+                              </div>
+                              <div *ngIf="osFieldToggler" class="p-col-2">
+                                <button class="btn btn-sm close-btn" (click)="closeCrowdSourcingData('os')">
+                                  <i class="fa fa-close"></i>
+                                </button>
+                              </div>
+                              <div style="padding: 0 0.5em" class="p-col-12"
+                                *ngIf="ddControls.os.errors && osFieldToggler">
+                                <div style="text-align: left; padding: 0px; white-space: normal;"
+                                  class="btn dd-validation-error" *ngIf="ddControls.os.errors.pattern">
+                                  You can only use alphabets, numbers and -
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="p-col-12 py-1">
+                        <div class="p-grid p-nogutter">
+                          <div class="p-col-5 text-overflow-fix">
+                            <span>VERSION</span>
+                          </div>
+                          <div class="p-col-7 overflow-break">
+                            <div class="p-grid">
+                              <div class="p-col-10" *ngIf="!versionFieldToggler">
+                                <span (click)="focusElement('version')">{{ddControls.version.value || '-'}}</span>
+                              </div>
+
+                              <div *ngIf="!versionFieldToggler" class="p-col-2">
+                                <button type="button" class="btn btn-sm edit-btn" (click)="focusElement('version')">
+                                  <i class="fa fa-edit"></i>
+                                </button>
+                              </div>
+
+                              <div *ngIf="versionFieldToggler" class="p-col-8">
+                                <input (keydown.enter)="saveCrowdSourcingData('version')" formControlName="version"
+                                  type="text" placeholder="Version" pInputText #version />
+                              </div>
+                              <div *ngIf="versionFieldToggler" class="p-col-2">
+                                <button [disabled]="ddControls.version.errors" class="btn btn-sm save-btn"
+                                  (click)="saveCrowdSourcingData('version')">
+                                  <i class="fa fa-check"></i>
+                                </button>
+                              </div>
+                              <div *ngIf="versionFieldToggler" class="p-col-2">
+                                <button class="btn btn-sm close-btn" (click)="closeCrowdSourcingData('version')">
+                                  <i class="fa fa-close"></i>
+                                </button>
+                              </div>
+                              <div style="padding: 0 0.5em" class="p-col-12"
+                                *ngIf="ddControls.version.errors && versionFieldToggler">
+                                <div style="text-align: left; padding: 0px; white-space: normal;"
+                                  class="btn dd-validation-error" *ngIf="ddControls.version.errors.pattern">
+                                  You can only use alphabets, numbers and periods
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div *ngIf="!ssidInfo.isAP" class="p-col-12 py-1">
+                        <div class="p-grid p-nogutter">
+                          <div class="p-col-5 text-overflow-fix">
+                            <span>
+                              SSID
+                            </span>
+                          </div>
+                          <div class="p-col-7 overflow-break">
+                            {{ssidInfo.ifSingle}}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-col-8 p-lg-8 p-md-12 p-sm-12">
+        <div class="popup-left-panel bg-card">
+          <p-tabView styleClass="tabpanel_style" (onChange)="handleChange($event)">
+
+            <p-tabPanel header="INCIDENT(s)">
+
+              <div class="card bg-card text-white" *ngIf="sliderData.totalIncidentsCount == 0">
+                <div style="height: 300px" class="card-body">
+                  <div class="no-data-avail">
+                    {{ dataAvailStatus }}
+                  </div>
+                </div>
+              </div>
+
+              <!-- <p-carousel (onPage)="getNewPage($event)" [responsive]="true" [numVisible]="1"
+                headerText="{{ slideText }}" [value]="slider" *ngIf="slider.length != 0">
+
+                <ng-template let-item pTemplate="item">
+                  <div style="padding: 65px 20px; color: white; height: 300px;" class="p-grid">
+                    <div class="col-12">
+                      <div class="col-12 ai3-dd-desc">{{ item.cve_desc }}</div>
+                    </div>
+                    <div *ngIf="
+                                      item.cve_id != undefined && item.cve_id != null && item.cve_id.length != 0
+                                    " class="col-12 ai3-dd-cveid">
+                      <div style="padding: 10px;" class="col-12">
+                        <p>
+                          <a title="Click to see detailed information about {{ item.cve_id }}"
+                            href="https://nvd.nist.gov/vuln/detail/{{ item.cve_id }}" target="_blank">More
+                            details...</a>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </ng-template>
+              </p-carousel> -->
+
+              <div class="slider-wrapper" *ngIf="sliderData.totalIncidentsCount != 0">
+                <div class="incident-header">
+                  <span class="float-left my-1">Total Incidents: {{sliderData?.totalIncidentsCount}}</span>
+                  <span class="float-right">Incident based on
+                    <p-selectButton (onChange)="onIncidentTypeChange($event)" styleClass="ai3-incident-select ml-2"
+                      [options]="incidentTypes" [(ngModel)]="sliderData.incidentType"></p-selectButton>
+                  </span>
+                </div>
+                <div class="slider-header">
+                  <span class="slider-text float-left">{{sliderData[sliderData.incidentType].name}} Incidents
+                    {{sliderData[sliderData.incidentType].currentSlideNo + 1}} of
+                    {{sliderData[sliderData.incidentType].count}}</span>
+                  <span class="slider-navs float-right"><i class="fa fa-chevron-left slider-nav-left mr-3"
+                      (click)="onPrevIncident()"></i><i class="fa fa-chevron-right slider-nav-right"
+                      (click)="onNextIncident()"></i></span>
+                </div>
+                <div *ngIf="sliderData[sliderData.incidentType].count != 0" class="slider-body p-grid w-100">
+                  <div class="p-col-12">
+                    <div class="ai3-dd-desc">{{ sliderData[sliderData.incidentType].currentSlide.cve_desc }}</div>
+                  </div>
+                  <div style="height: 220px;" class="p-col-12" *ngIf="sliderData.incidentType == 0">
+                    <app-incident-table [currentIncident]="sliderData[sliderData.incidentType].currentSlide">
+                    </app-incident-table>
+                  </div>
+                  <div
+                    *ngIf="sliderData[sliderData.incidentType].currentSlide.cve_id != undefined && sliderData[sliderData.incidentType].currentSlide.cve_id != null && sliderData[sliderData.incidentType].currentSlide.cve_id.length != 0"
+                    class="p-col-12 ai3-dd-cveid">
+                    <div style="padding: 10px 0px;">
+                      <p>
+                        <a title="Click to see detailed information about {{ sliderData[sliderData.incidentType].currentSlide.cve_id }}"
+                          href="https://nvd.nist.gov/vuln/detail/{{ sliderData[sliderData.incidentType].currentSlide.cve_id }}"
+                          target="_blank">More
+                          details...</a>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="sliderData[sliderData.incidentType].count == 0" style="padding-top: 70px; color: #615f5f;"
+                  class="text-center">
+                  No {{sliderData[sliderData.incidentType].name}} Incidents found
+                </div>
+              </div>
+
+
+            </p-tabPanel>
+
+            <p-tabPanel [selected]="!isIncidentTabFirst" header="DEVICE COMMUNICATION">
+
+              <div class="card bg-card text-white communicated-device">
+                <div class="card-header card-header-warning py-0">
+                  <!-- <h4 class="card-title">Device Communication</h4> -->
+                  <ul class="filter" *ngIf="!isDeviceCommunicationDataAvail">
+                    <li (click)="deviceCommFilterFn('all');" *ngIf="DeviceCommCount.total > 0"
+                      [ngClass]="{'active': isDeviceCommActive }">
+                      <a class="filter-link"> Total </a>
+                      <span class="deviceCommCount">{{ DeviceCommCount.total }}</span>
+                    </li>
+                    <li (click)="deviceCommFilterFn('internalIP') " *ngIf="DeviceCommCount.internalIP > 0"
+                      [ngClass]="{'active': isDeviceCommInternalActive }">
+                      <a class="filter-link">
+                        <span class="node-icon"></span> internal
+                      </a>
+                      <span class="deviceCommCount">{{ DeviceCommCount.internalIP }}</span>
+                    </li>
+                    <li (click)="deviceCommFilterFn('externalIP')  " *ngIf="DeviceCommCount.externalIP > 0"
+                      [ngClass]="{'active': isDeviceCommExternalActive }">
+                      <a class="filter-link">
+                        external </a><span class="deviceCommCount">{{ DeviceCommCount.externalIP }}</span>
+                    </li>
+                    <li (click)="deviceCommFilterFn('blacklistedIP') " *ngIf="DeviceCommCount.blacklistedIP > 0"
+                      [ngClass]="{'active': isDeviceCommBlockedActive }">
+                      <a class="filter-link">
+                        Blocked </a><span class="deviceCommCount">{{ DeviceCommCount.blacklistedIP }}</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="card-body communicated-device-wrapper">
+                  <div class="isDeviceCommunidationLoading" *ngIf="isDeviceCommunidationLoading">
+                    <span class="loadingtxt">
+                      Loading
+                    </span>
+                  </div>
+                  <div style="position: absolute;" class="no-data-avail" *ngIf="isDeviceCommunicationDataAvail">
+                    {{ dataAvailStatus }}
+                  </div>
+                  <canvas (mouseout)="hideTooltip()" id="communicated-device" width="100%" height="100%">
+                    <p>Your browser does not support the canvas tag.</p>
+                  </canvas>
+                  <div class="communicated-device-pi-chart">
+                    <h1 *ngIf="isCommunicatedDeviceChartAvail || communicatedDeviceNoData">{{ cIP }}</h1>
+                    <p-chart *ngIf="isCommunicatedDeviceChartAvail" type="doughnut" [data]="communicatedDeviceChart"
+                      [options]="communicatedDeviceChartOptions" width="22vw" height="22vh">
+                    </p-chart>
+                    <div class="communicatedDeviceNoData" *ngIf="communicatedDeviceNoData">
+                      No Data available
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </p-tabPanel>
+
+            <p-tabPanel header="OPEN PORTS">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="card bg-card text-white">
+                    <div class="card-header pl-0 card-header-warning">
+                      <h4 class="card-title">Port</h4>
+                    </div>
+                    <div style="height: 300px" class="card-body highlight-card">
+                      <div class="no-data-avail" *ngIf="isPortData">
+                        {{ dataAvailStatus }}
+                      </div>
+                      <p-chart type="pie" [data]="PortData" [options]="PortOptions" height="100%">
+                      </p-chart>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="card bg-card text-white">
+                    <div class="card-header pl-0 card-header-warning">
+                      <h4 class="card-title">TUNNEL PROTOCOL</h4>
+                    </div>
+
+                    <div style="height: 300px;overflow: auto" class="card-body highlight-card">
+                      <div class="no-data-avail" *ngIf="DeviceDetailstunnelPortocol.length == 0">
+                        {{ dataAvailStatus }}
+                      </div>
+
+                      <ul id="userlistwrap" *ngIf="DeviceDetailstunnelPortocol.length != 0">
+                        <li *ngFor="let i of DeviceDetailstunnelPortocol">
+                          <span class="col">{{ i }}</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </p-tabPanel>
+
+            <p-tabPanel header="USER INFO">
+              <div class="card bg-card text-white">
+
+
+                <div style="height: 360px;overflow: auto" class="card-body">
+                  <div *ngIf="userNameCollections.length == 0" class="no-data-avail">
+                    {{ dataAvailStatus }}
+                  </div>
+
+                  <p-accordion *ngIf="userNameCollections.length != 0" [multiple]="false">
+                    <div class="mega-list-accordion" styleClass="uList-ui"
+                      *ngFor="let user of userNameCollections; index as i">
+                      <p-accordionTab [transitionOptions]="'200ms'" header="{{ user.username }}"
+                        (click)="getUserDetails($event, user, i)">
+                        <ul id="userlistwrap">
+                          <li>
+                            <span class="col">bad password count :</span>
+                            <span class="colvalue">{{ user.badpasswordcount || '0' }}</span>
+                          </li>
+                          <li>
+                            <span class="col">bad password time :</span>
+                            <span class="colvalue">{{ user.badpasswordtime | epochToDate }}</span>
+                          </li>
+                          <li>
+                            <span class="col">last logoff :</span>
+                            <span class="colvalue">{{ user.lastlogoff | epochToDate }}</span>
+                          </li>
+                          <li>
+                            <span class="col">last logon :</span>
+                            <span class="colvalue">{{ user.lastlogon | epochToDate }}</span>
+                          </li>
+                          <li>
+                            <span class="col">logon count :</span>
+                            <span class="colvalue">{{ user.logoncount || '0' }}</span>
+                          </li>
+                          <li>
+                            <span class="col">password last set :</span>
+                            <span class="colvalue">{{ user.passwordlastset | epochToDate }}</span>
+                          </li>
+                        </ul>
+                      </p-accordionTab>
+                    </div>
+                  </p-accordion>
+                </div>
+              </div>
+            </p-tabPanel>
+
+            <p-tabPanel header="DOMAIN">
+              <div class="card bg-card text-white">
+
+
+                <div style="height: 360px;overflow: auto" class="card-body">
+                  <div class="no-data-avail" *ngIf="domainAccessed.length == 0">
+                    {{ dataAvailStatus }}
+                  </div>
+
+                  <ul id="userlistwrap" *ngIf="domainAccessed.length != 0">
+                    <li *ngFor="let i of domainAccessed">
+                      <span class="col" [ngClass]="{
+                        'color-white': i.status == 0,
+                        'color-red': i.status == 1
+                      }">{{ i.name }}</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </p-tabPanel>
+
+
+            <p-tabPanel header="APPLICATION">
+              <div class="card bg-card text-white">
+
+
+                <div style="height: 360px;overflow: auto" class="card-body">
+                  <div class="no-data-avail" *ngIf="applicationInfoAccessed.length == 0">
+                    {{ dataAvailStatus }}
+                  </div>
+
+                  <ul id="userlistwrap" *ngIf="applicationInfoAccessed.length != 0">
+                    <li *ngFor="let i of applicationInfoAccessed" [ngClass]="{
+                                          'text-danger': i.vulnerabilities == true
+                                        }">
+                      <span class="col" role="col">
+                        {{ i.application | uppercase }} -
+                        {{ i.version | uppercase }}
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </p-tabPanel>
+
+            <p-tabPanel *ngIf="ssidInfo['isAP'] && ssidInfo['apInfo'].length != 0" header="SSID">
+              <div class="card bg-card text-white">
+                <div style="height: 360px;overflow: auto" class="card-body">
+                  <p-accordion [multiple]="false">
+                    <div class="mega-list-accordion" styleClass="uList-ui" *ngFor="let item of ssidInfo['apInfo']">
+                      <p-accordionTab [transitionOptions]="'200ms'" header="{{ item['name'] }}">
+                        <ul id="userlistwrap">
+                          <li *ngFor="let ap of item['childs']">
+                            {{ap}}
+                          </li>
+                        </ul>
+                      </p-accordionTab>
+                    </div>
+                  </p-accordion>
+                </div>
+              </div>
+            </p-tabPanel>
+          </p-tabView>
+        </div>
+      </div>
+
+    </div>
+
+
+  </div>
+</div>

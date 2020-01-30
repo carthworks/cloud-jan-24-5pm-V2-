@@ -1,0 +1,73 @@
+.search-chip-list {
+    width: 100%;
+}
+
+::ng-deep .saved-threats-header .mat-form-field-underline {
+    display: none;
+}
+
+::ng-deep .saved-threats-header .mat-form-field-wrapper {
+    padding-bottom: 0px !important;
+}
+
+::ng-deep .saved-threats-header .mat-form-field-infix {
+    border: 0px !important;
+}
+
+::ng-deep .saved-threats-header .mat-form-field-label {
+    padding: 10px 8px !important;
+    font-weight: 600 !important;
+}
+
+::ng-deep .saved-threats-header .mat-chip-list-wrapper {
+    height: 40px !important;
+    overflow-y: scroll !important;
+    background: grey !important;
+    border-radius: 5px !important;
+}
+
+::ng-deep .saved-threats-header .mat-chip-list-wrapper::-webkit-scrollbar {
+    display: none;
+}
+
+::ng-deep .saved-threats-header .mat-chip-list-wrapper input.mat-input-element {
+    margin: 10px !important;
+}
+
+::ng-deep .saved-threats-header .mat-chip-input {
+    font-size: 14px !important;
+    font-weight: 600 !important;
+}
+
+::ng-deep .saved-threats-header .mat-form-field.mat-focused .mat-form-field-label {
+    color: orange !important;
+}
+
+::ng-deep .saved-threats-header .mat-input-element {
+    caret-color: orange !important;
+    font-family: gilroy-regular, Arial, sans-serif;
+}
+
+::ng-deep .mat-form-field,
+.mat-option {
+    font-family: gilroy-regular, Arial, sans-serif !important;
+    font-size: 14px !important;
+    height: 35px !important;
+}
+
+.threat-control-buttons .ui-button {
+    color: grey;
+    background: #222e3b !important;
+    border: 0px;
+    border-radius: 5px;
+    font-weight: 600;
+    width: 100%;
+    margin-top: 2px;
+    height: 40px;
+    text-transform: inherit !important;
+}
+
+.threat-control-buttons .ui-button:hover {
+    color: #000;
+    background: #fff !important;
+}

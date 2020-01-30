@@ -1,0 +1,380 @@
+.ai3-threats-wrapper {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    height: calc(100% - 65px);
+    margin: 0px 15px;
+    background-color: #141e28 !important;
+}
+
+.ai3-threats {
+    padding: 30px 30px;
+}
+
+.threat-create-wrapper {
+    padding: 20px;
+    background: #10141A;
+    border-radius: 10px;
+}
+
+.threat-create-header h5 {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.threat-create-header hr {
+    margin: 0px;
+    border-bottom: 2px solid rgba(128, 128, 128, 0.22);
+    height: 10px;
+}
+
+.threat-create-export .ui-button {
+    color: #fff;
+    background: #2AABE5 !important;
+    border: 0px;
+    margin-left: 10px;
+    font-weight: 600;
+}
+
+.threat-create-control h6 {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.threat-control-buttons .ui-button {
+    color: grey;
+    background: #222e3b !important;
+    border: 0px;
+    margin-right: 10px;
+    font-weight: 600;
+    text-transform: inherit !important;
+}
+
+.threat-create-control .ui-button.active {
+    color: #000;
+    background: #fff !important;
+}
+
+/* Fix for bootstrap spacing scss and primeng class overlapping */
+.p-lg-4,
+.p-md-3,
+.p-lg-3,
+.p-md-2,
+.p-lg-2,
+.p-xl-2,
+.p-xl-8,
+.p-md-7,
+.p-lg-7,
+.p-xl-8 {
+    padding: 0.5rem !important;
+}
+
+#chartjs-tooltip {
+    position: fixed;
+    pointer-events: none;
+    background: rgba(0, 0, 0, .7);
+    word-break: break-word;
+    white-space: normal;
+    max-width: 400px;
+    border-radius: 3px;
+    -webkit-transition: all .1s ease;
+    transition: all .1s ease;
+    color: #fff;
+}
+
+.bar-value {
+    text-transform: lowercase;
+    display: inline-block;
+    font-size: 14px;
+    color: #dee2e6;
+    cursor: pointer;
+}
+
+.bar-value-os {
+    display: inline-block;
+    font-size: 14px;
+    color: #dee2e6;
+    cursor: pointer;
+}
+
+.bar-name {
+    width: 90%;
+    white-space: inherit;
+    overflow: hidden;
+    text-overflow: ellipsis
+}
+
+.bar-value:first-letter {
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+.text-overflow-fix {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.line_chart_height {
+    height: 27px;
+}
+
+.line_chart_style {
+    border-radius: 1px;
+    margin-right: 1.5px;
+}
+
+#colorBar {
+    /* margin: 5px 0; */
+    width: 100%;
+    height: 6px;
+    border-style: solid;
+    border-color: white;
+    background-color: white;
+}
+
+.saved-threats-wrapper {
+    /* padding: 20px; */
+    background: #10141A;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.saved-threats-header {
+    padding: 28px 28px 20px 28px;
+}
+
+.saved-threats-header h5 {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.saved-threats-body {
+    height: 290px;
+}
+
+.threats-tab-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+ul#threats-tab-head {
+    height: 40px;
+    position: sticky !important;
+    background: #10141A !important;
+    margin: 0;
+    top: 0;
+    z-index: 1;
+    border-bottom: 2px solid rgba(128, 128, 128, 0.4);
+    padding: 8px;
+}
+
+ul#threats-tab-head li {
+    /* width: 10%; */
+    position: relative;
+    display: inline-block;
+    font-weight: bold;
+    font-size: 14px;
+    text-align: left;
+    padding-right: 10px;
+}
+
+li.th-icon,
+li.td-icon {
+    width: 5%;
+    padding-left: 21px !important;
+}
+
+
+li.th-notes,
+li.td-notes {
+    width: 5%;
+}
+
+li.th-name,
+li.th-ts,
+li.th-tdt,
+li.th-status,
+li.th-dm,
+li.th-cve,
+li.td-name,
+li.td-ts,
+li.td-tdt,
+li.td-status,
+li.td-dm,
+li.td-cve {
+    width: 15%;
+}
+
+.scr-based-pad {
+    padding-left: 20px;
+}
+
+@media only screen and (max-width: 991px) {
+    .scr-based-mar {
+        margin-bottom: 20px;
+    }
+
+    .scr-based-pad {
+        padding: 10px;
+    }
+}
+
+@media only screen and (max-width: 1300px) {
+
+    /* ul#reports-tab-body li {
+        width: 100px;
+    }
+
+    ul#threats-tab-head li {
+        width: 100px;
+    } */
+
+    .reports-tab-scroll {
+        width: 1427px;
+    }
+
+    ul#threats-tab-head {
+        width: 1427px;
+    }
+
+    li.th-icon,
+    li.td-icon {
+        width: 100px;
+        padding-left: 21px !important;
+    }
+
+
+    li.th-notes,
+    li.td-notes {
+        width: 100px;
+    }
+
+    li.th-name,
+    li.th-ts,
+    li.th-tdt,
+    li.th-status,
+    li.th-dm,
+    li.th-cve,
+    li.td-name,
+    li.td-ts,
+    li.td-tdt,
+    li.td-status,
+    li.td-dm,
+    li.td-cve {
+        width: 200px;
+    }
+
+}
+
+.rpt-sort-icon {
+    color: rgba(255, 255, 255, 0.4) !important;
+    padding-left: 5px !important;
+    position: relative !important;
+    top: 2px !important;
+    cursor: pointer;
+    user-select: none;
+}
+
+.rpt-order-icon {
+    color: white !important;
+    padding-left: 5px !important;
+    position: relative !important;
+    top: 2px !important;
+    cursor: pointer;
+    user-select: none;
+}
+
+.th-icon .rpt-order-icon,
+.th-icon .rpt-sort-icon {
+    padding-left: 2px !important;
+}
+
+.reports-tab-scroll {
+    height: calc(100% - 40px);
+    overflow-y: auto;
+    overflow-anchor: none;
+    -webkit-overflow-scrolling: touch;
+}
+
+.reports-tab-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+ul#reports-tab-body {
+    font-weight: 700;
+    margin: 0;
+    padding: 8px;
+}
+
+ul#reports-tab-body li {
+    /* width: 10%; */
+    display: inline-block;
+    color: #b3b3b3 !important;
+    font-size: 13px;
+    text-align: left;
+    vertical-align: middle;
+    word-break: break-word;
+    word-wrap: anywhere;
+    white-space: normal;
+    padding: 5px 10px 0px 0px;
+    min-height: 30px;
+}
+
+.record {
+    cursor: pointer;
+}
+
+.record.evenRecord {
+    background-color: #15191F !important;
+    display: table;
+}
+
+.record.oddRecord {
+    background-color: #10141A !important;
+    display: table;
+}
+
+.threats-search-input {
+    width: 100%;
+    height: 35px;
+    background-color: #808080;
+    border: 0px;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.threats-search-input::placeholder {
+    color: black;
+}
+
+.no-data-outer {
+    display: table;
+    width: 100%;
+    text-align: center;
+    height: 100%;
+}
+
+.no-data-inner {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.threat-table-nodata {
+    position: relative;
+    bottom: 50%;
+    text-align: center;
+}
+
+.current-threats-btn {
+    /* margin-left: 10px; */
+}
+
+.block-color {
+    color: #df5b53;
+    font-weight: 700;
+}
+
+.avoid-clicks {
+    pointer-events: none !important;
+}

@@ -1,0 +1,37 @@
+<!-- Footer Starts -->
+<footer class="footer-dark">
+  <nav class="navbar fixed-bottom navbar-expand navbar-dark footer-height">
+    <div class="collapse navbar-collapse height_space" id="navbarCollapse" >
+      <span class="float-left copyright" style="margin-bottom: 15px">
+        <i class="fa fa-copyright"></i> Akitra Inc. All rights reserved.
+      </span>
+
+
+
+      <span class="copyright hide-mobile ">
+        &nbsp;&nbsp; {{consoleversion}} </span>
+
+      <ul style="margin-left: auto" class="navbar-nav flex-row ml-md-auto  d-md-flex">
+        <li class="nav-item d-none">
+          <span class="float-left copyright">
+            <i class="fa fa-copyright"></i> Akitra Inc. All rights reserved.
+          </span>
+        </li>
+        <li style="height: 35px;" class="nav-item">
+          <a [hidden]="!isSettingsIconEnabled" class="nav-link alldevices-nav btn btn-link logout" (click) = "SettingsClicked()"  [class.disabled]="crowdPopupAppeared"  title="Settings">
+            <i class="fa fa-cog" style="font-size: 1.5rem;color: #8c8989;margin-top: 0px;margin-bottom: 10px">
+            </i></a>         
+        </li>
+        <li style="height: 35px;" class="nav-item">
+          <button type="button" class="btn btn-link text-uppercase" (click)="logout()">
+            Logout</button>
+
+        </li>
+      </ul>
+
+    </div>
+  </nav>
+</footer>
+<!-- Footer Ends -->
+
+

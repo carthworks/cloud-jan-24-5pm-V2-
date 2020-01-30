@@ -1,0 +1,234 @@
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="small" color="#fff" type="ball-spin-clockwise">
+  <p style="font-size: 12px; color: white">Loading...</p>
+</ngx-spinner>
+
+<!-- registration -->
+<p-dialog [(visible)]="registration_popup" #regDialog [modal]="true" [responsive]="true"
+  [style]="{ width: '100%', minWidth: '100%' }" [maximizable]="true" [minY]="70" [baseZIndex]="10000"
+  styleClass="reg_popup_style" [contentStyle]="{ 'max-height': '700px', 'height': '700px', 'width': '550px' }">
+  <div class="row">
+    <div class="col-sm-10 col-md-10 col-lg-10"></div>
+    <div class="col-sm-2 col-md-2 col-lg-2">
+      <i style="font-size:30px;color:#dc4646;float: right; cursor: pointer;" (click)="close_reg()"
+        class="fa fa-times"></i>
+    </div>
+  </div>
+
+  <form [formGroup]="registerForm" (ngSubmit)="details_update()">
+    <h6 class="title_setting">REGISTRATION</h6>
+    <div class="row">
+      <div class="col-sm-6 col-md-6 col-lg-6">
+        <label class="name">NAME<span class="matitory_start">*</span></label>
+        <input type="text" formControlName="name" class="form-control change_input"
+          [ngClass]="{ 'is-invalid': registed && e.name.errors }" [(ngModel)]="model.name" />
+        <div *ngIf="registed && e.name.errors" class="errormsg">
+          <div *ngIf="e.name.errors.required">Enter the name</div>
+          <div *ngIf="e.name.errors.pattern">Invalid name</div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-6 col-lg-6">
+        <label class="name">DESCRIPTION</label>
+        <input type="text" formControlName="description" class="form-control change_input"
+          [ngClass]="{ 'is-invalid': registed && e.description.errors }" [(ngModel)]="model.description" />
+        <div *ngIf="registed && e.description.errors" class="errormsg">
+          <div *ngIf="e.description.errors.required">Enter the description</div>
+          <div *ngIf="e.description.errors.pattern">Invalid description</div>
+          <div *ngIf="e.description.errors.maxlength">Description must be at 50 characters</div>
+        </div>
+      </div>
+    </div>
+    <div class="row" style="margin-top:15px">
+      <div class="col-sm-6 col-md-6 col-lg-6">
+        <label class="name">WEBSITE</label>
+        <input type="url" formControlName="website" class="form-control change_input"
+          [ngClass]="{ 'is-invalid': registed && e.website.errors }" [(ngModel)]="model.website" />
+        <div *ngIf="registed && e.website.errors" class="errormsg">
+          <div *ngIf="e.website.errors.required">Enter the website</div>
+          <div *ngIf="e.website.errors.maxlength">Website must be at maximum 50</div>
+          <div *ngIf="e.website.errors.pattern">Enter valid website</div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-6 col-lg-6">
+        <label class="name">STREET ADDRESS<span class="matitory_start">*</span></label>
+        <textarea formControlName="streetaddress" class="form-control change_input" style="resize:none"
+          [(ngModel)]="model.streetaddress" rows="2" class="textarea_style"></textarea>
+        <div *ngIf="registed && e.streetaddress.errors" class="errormsg">
+          <div *ngIf="e.streetaddress.errors.required">Enter the street address</div>
+          <div *ngIf="e.streetaddress.errors.maxlength">
+            Street address must be at 50 characters
+          </div>
+          <div *ngIf="e.streetaddress.errors.pattern">Invalid street address</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" style="margin-top:15px">
+      <div class="col-sm-6 col-md-6 col-lg-6">
+        <label class="name">STATE<span class="matitory_start">*</span></label>
+        <input type="text" formControlName="locality" class="form-control change_input"
+          [ngClass]="{ 'is-invalid': registed && e.locality.errors }" [(ngModel)]="model.locality" />
+        <div *ngIf="registed && e.locality.errors" class="errormsg">
+          <div *ngIf="e.locality.errors.required">Enter the state</div>
+          <div *ngIf="e.locality.errors.pattern">Enter valid state</div>
+          <div *ngIf="e.locality.errors.maxlength">State must be at maximum 50</div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-6 col-lg-6">
+        <label class="name">COUNTRY<span class="matitory_start">*</span></label>
+        <p-dropdown formControlName="country" [options]="country_list" placeholder="Select Country" optionLabel="name"
+          styleClass="multi-tenant-selector country-selector" [(ngModel)]="model.country"
+          [style]="{ width: '100%', 'margin-right': '0px', 'margin-top': '0px' }" [showTransitionOptions]="'100ms'"
+          [hideTransitionOptions]="'200ms'" [filter]="false" [showClear]="false" (onChange)="onChange($event)">
+
+          <ng-template let-item pTemplate="selectedItem">
+            <span style="vertical-align:middle">{{item.label}}</span>
+          </ng-template>
+          <ng-template let-country pTemplate="item">
+            <div class="ui-helper-clearfix" style="position: relative;height:20px;">
+              <div style="font-size:14px;margin-top:4px">{{country.label}}</div>
+            </div>
+          </ng-template>
+
+        </p-dropdown>
+        <div *ngIf="registed && e.country.errors" class="errormsg">
+          <div *ngIf="e.country.errors.required">Enter the country</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" style="margin-top:15px">
+      <div class="col-sm-6 col-md-6 col-lg-6">
+        <label class="name">POSTAL CODE<span class="matitory_start">*</span></label>
+        <input type="text" formControlName="postalcode" class="form-control change_input"
+          [ngClass]="{ 'is-invalid': registed && e.postalcode.errors }" [(ngModel)]="model.postalcode" />
+        <div *ngIf="registed && e.postalcode.errors" class="errormsg">
+          <div *ngIf="e.postalcode.errors.required">Enter the postal code</div>
+          <div *ngIf="e.postalcode.errors.minlength">Postal code must be at minimum 5</div>
+          <div *ngIf="e.postalcode.errors.maxlength">Postal code must be at maximum 50</div>
+          <div *ngIf="e.postalcode.errors.pattern">Please enter number only</div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-6 col-lg-6">
+        <label class="name">EMAIL ADDRESS<span class="matitory_start">*</span></label>
+        <input type="text" formControlName="email" class="form-control change_input"
+          [ngClass]="{ 'is-invalid': registed && e.email.errors }" [(ngModel)]="model.email" />
+        <div *ngIf="registed && e.email.errors" class="errormsg">
+          <div *ngIf="e.email.errors.required">Enter the email id</div>
+          <div *ngIf="e.email.errors.pattern">Enter valid email id</div>
+          <div *ngIf="e.email.errors.maxlength">Email must be at maximum 254</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" style="margin-top:15px">
+      <div class="col-sm-6 col-md-6 col-lg-6">
+        <label class="name">PHONE NUMBER<span class="matitory_start">*</span></label>
+        <input type="text" formControlName="phoneno" class="form-control change_input"
+          [ngClass]="{ 'is-invalid': registed && e.phoneno.errors }" [(ngModel)]="model.phoneno" />
+        <div *ngIf="registed && e.phoneno.errors" class="errormsg">
+          <div *ngIf="e.phoneno.errors.required">Enter the phone number</div>
+          <div *ngIf="e.phoneno.errors.minlength">Phone number must be at minimum 6</div>
+          <div *ngIf="e.phoneno.errors.maxlength">Phone number must be at maximum 20</div>
+          <div *ngIf="e.phoneno.errors.pattern">Please enter number only</div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-6 col-lg-6"></div>
+    </div>
+
+    <!-- <div class="row" style="margin-top:15px">
+              <div class="col-sm-2 col-md-2 col-lg-2"> </div>
+                  <div class="col-sm-8 col-md-8 col-lg-8">
+                      <re-captcha
+                      name="captcha"
+                      required
+                      #captchaRef="reCaptcha"
+                      (resolved)="resolved($event)"
+                      siteKey="6LcOuyYTAAAAAHTjFuqhA52fmfJ_j5iFk5PsfXaU"
+                    ></re-captcha>
+                </div>
+                <div class="col-sm-2 col-md-2 col-lg-2"> </div>
+            </div>   -->
+
+    <div class="row" style="margin-top:25px">
+      <div class="col-sm-6 col-md-6 col-lg-6"></div>
+      <!-- <div class="col-sm-3 col-md-3 col-lg-3">
+                    <span class="change_button" (click)="details_update()" >SAVE</span>
+                 </div> -->
+      <div class="col-sm-6 col-md-6 col-lg-6">
+        <span class="change_button" style="margin-left: 15px; float: right;" (click)="close_reg()">CANCEL</span>
+        <span class="change_button" (click)="details_update()">SAVE</span>
+      </div>
+    </div>
+  </form>
+</p-dialog>
+
+<div class="vertical-center">
+  <div class="container-fluid">
+    <div class="row login-section">
+      <div class="col-6">
+        <img src="/assets/img/ai3_login_logo.png" class="login-logo-ai3" alt="" title="" />
+      </div>
+      <div class="col-6">
+        <form [formGroup]="loginForm" class="form-signin" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label for="username" class="sr-only">Email Address </label>
+            <input style="border: 0px solid #ced4da;" type="email" (keydown)="usernameKeyDown()" #usernameInp
+              class="form-control" placeholder="Email address"
+              [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
+            <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+              <div *ngIf="f.username.errors.required">Email Address is required</div>
+              <div *ngIf="f.username.errors.email">Email must be a valid email address</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div id="input-container_login">
+              <label for="password" class="sr-only">Password</label>
+              <input type="{{type1}}" (keydown)="passwordKeyDown()" #passwordInp class="form-control"
+                style="border: 0px solid #ced4da; border-radius: .25rem 0 0 .25rem !important" placeholder="Password"
+                [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+              <i (click)="toggleShow()" class="fa" [class.fa-eye-slash]="type1 == 'password'"
+                [class.fa-eye]="type1 == 'text'" id="icon_login"></i>
+            </div>
+            <div *ngIf="submitted && f.password.errors" class="invalid-feedback" style="display: block">
+              <div *ngIf="f.password.errors.required">Password is required</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+
+            <button [disabled]="loading" class="btn btn-login btn-block">Login</button>
+
+            <img *ngIf="loading"
+              src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+
+            <div class="mt-4">
+              <span class="text-gray">
+                Don't have an account yet?
+              </span>
+
+              <!-- btn btn-link -->
+              <a (click)="regitration()" class=" text-login">Sign Up</a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!--===========footer start===========-->
+
+<footer class="app-footer footer fixed-bottom footer-dark navbar-border">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12 text-center mx-auto">
+        <div class="justify-content-center align-items-center" style="text-align: center;">
+          <img src="/assets/img/ai3_login_btm_logo.png" class="login-btm-logo-ai3" alt="" title="Akitra" />
+        </div>
+
+        <!-- © Akitra. All right reserved -->
+      </div>
+    </div>
+  </div>
+</footer>
+<!--===========footer end===========-->

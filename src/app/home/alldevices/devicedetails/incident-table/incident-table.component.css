@@ -1,0 +1,81 @@
+.lazy-tab-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+ul#lazy-tab-head {
+    position: sticky !important;
+    background: #071821 !important;
+    text-transform: uppercase;
+    margin: 0;
+    top: 0;
+    z-index: 1;
+    border-radius: 5px 5px 0px 0px;
+}
+
+ul#lazy-tab-head li {
+    width: 10%;
+    position: relative;
+    display: inline-block;
+    font-weight: bold;
+    font-size: 12px;
+    text-align: left;
+    padding-right: 10px;
+}
+
+.record {
+    cursor: pointer;
+}
+
+.record.evenRecord {
+    background-color: #102129 !important;
+    display: table;
+}
+
+.record.oddRecord {
+    background-color: #071821 !important;
+    display: table;
+}
+
+ul#lazy-tab-body {
+    font-weight: 700;
+    margin: 0;
+}
+
+ul#lazy-tab-body li {
+    width: 10%;
+    display: inline-block;
+    color: #b3b3b3 !important;
+    font-size: 0.8rem;
+    text-align: left;
+    vertical-align: middle;
+    word-break: break-word;
+    word-wrap: anywhere;
+    white-space: normal;
+    padding-right: 10px;
+}
+
+.lazy-tab-scroll {
+    height: calc(100% - 35px);
+    overflow-y: auto;
+    overflow-anchor: none;
+    -webkit-overflow-scrolling: touch;
+}
+
+@media only screen and (max-width: 1300px) {
+    ul#lazy-tab-body li {
+        width: 100px;
+    }
+
+    ul#lazy-tab-head li {
+        width: 100px;
+    }
+
+    .lazy-tab-scroll {
+        width: 1027px;
+    }
+
+    ul#lazy-tab-head {
+        width: 1015px;
+    }
+}

@@ -1,0 +1,344 @@
+<div cdkScrollable class="ai3-threats-wrapper">
+  <div class="ai3-threats">
+
+    <div class="p-grid threat-create-wrapper mb-3">
+      <div class="threat-create-header p-col-12">
+
+        <div class="p-grid no-gutter">
+          <div class="p-col-6 mb-3">
+            <h5 class="float-left">
+              ACTIVE INCIDENTS
+            </h5>
+          </div>
+
+          <div class="p-col-6 mb-3">
+            <h5 class="float-right">
+              <span class="block-color">{{ activeIncidents }}</span> ACTIVE INCIDENTS
+            </h5>
+          </div>
+
+          <div class="p-col-12">
+            <div class="p-grid no-gutter">
+              <div class="p-col-12 threat-create-control mb-3">
+                <div class="p-grid no-gutter">
+                  <div class="p-col-12">
+                    <h6 style="white-space: normal;" class="float-left">
+                      DATE RANGE{{currentThreatingPeriod.length != 0 ? currentThreatingPeriod : ''}}
+                    </h6>
+                  </div>
+                  <div class="p-col-12 py-0 threat-control-buttons">
+                    <div class="p-grid no-gutter">
+                      <div class="p-col-fixed" style="width: 60px; padding-top: 10px;">
+                        <span style="font-weight: 600">Previous:</span></div>
+                      <div style="white-space: normal;" class="p-col pb-0">
+                        <button class="mb-2" [ngClass]="{'active': period.active }"
+                          *ngFor="let period of threatPeriods; let i = index"
+                          (click)="onThreatPeriodChange($event, i, true)" pButton type="button"
+                          label="{{period.label}}"></button>
+                        <button [ngClass]="{'active': customThreatPeriod.active }"
+                          (click)="onCustomThreatPeriod($event, true)" pButton type="button" label="Custom"></button>
+                        <span style="margin-right: 15px">|</span>
+                        <button class="mb-2 current-threats-btn" [ngClass]="{'active': currentThreatPeriod.active }"
+                          (click)="onCurrentThreatPeriod($event, true)" pButton type="button" label="Current"></button>
+                        <p-calendar dateFormat="M d yy" placeholder="Select range" styleClass="report-date-picker"
+                          [maxDate]="maxDateValue" (onSelect)="onRangeSelect()" *ngIf="customThreatPeriod.active"
+                          [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2030"
+                          [(ngModel)]="customRangeDates" selectionMode="range" [readonlyInput]="true"></p-calendar>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="p-col-4 p-lg-4 p-md-4 p-sm-12 threat-create-control mb-3">
+                <div class="p-grid no-gutter">
+                  <div class="p-col-12">
+                    <h6 style="white-space: normal;" class="float-left">
+                      EXPORT AS
+                    </h6>
+                  </div>
+                  <div class="p-col-12 py-0 threat-create-export">
+                    <span class="float-left">
+                      <button class="ml-0" [disabled]="!startAndEndTstamps.valid" pButton type="button"
+                        label="PDF"></button>
+                      <button [disabled]="!startAndEndTstamps.valid" pButton type="button" label="CSV"></button>
+                      <button [disabled]="!startAndEndTstamps.valid" pButton type="button" label="XLS"></button>
+                    </span>
+                  </div>
+                </div>
+              </div> -->
+            </div>
+          </div>
+        </div>
+        <hr>
+      </div>
+
+      <div class="p-col-12 threat-body py-4">
+        <div class="p-grid no-gutter">
+          <div style="height: 400px;" class="p-col-4 p-lg-4 p-md-12 p-sm-12 threat-body-chart py-5 scr-based-mar">
+            <div class="p-grid no-gutter">
+              <div class="p-col-12" style="height: 250px; position: relative;">
+                <p-chart [options]="donutChartOptions" height="100%" type="doughnut" [data]="donutChartData"></p-chart>
+                <div style="position: absolute;" (click)="vulnerableSearch('ALL', 'INCIDENT')" class="chart-center"
+                  id="text5"></div>
+              </div>
+              <div class="p-col-12">
+                <div style="height: 30px; width: 220px; margin: 0px auto;" class="p-grid mt-0"
+                  *ngFor="let threat of totalIncidents">
+                  <div class="p-col-7">
+                    <img class="hex-responsive" [src]="hexIcons[threat.color]">
+                    <span title="{{threat.name | uppercase}}" [ngClass]="{ 'avoid-clicks': threat.value == 0 }"
+                      (click)="vulnerableSearch(threat.name, 'INCIDENT')" class="bar-value bar-name pl-4"
+                      [ngStyle]="{'color':threat.color}">{{threat.name}}</span>
+                  </div>
+                  <div title="{{threat.value}}" class="p-col-5 text-overflow-fix text-right">
+                    <span class="text-overflow-fix bar-value" [ngStyle]="{'color':threat.color}">{{threat.value}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="no-data-outer" *ngIf="totalIncidents.length == 0">
+              <div class="no-data-inner">No Threats</div>
+            </div> -->
+          </div>
+
+          <div class="p-col-8 p-lg-8 p-md-12 p-sm-12 threat-body-chart">
+            <div class="p-grid no-gutter">
+              <div style="height: 200px;" class="p-col-6 p-lg-6 p-md-6 p-sm-12 scr-based-pad mb-3">
+                <div [ngClass]="{ 'h-100': vulnerableOs.length == 0 }" class="p-grid no-gutter">
+                  <div class="p-col-12">
+                    <h6 class="mb-0 font-weight-bold"><span (click)="vulnerableSearch('ALL', 'OS')">Incidents by
+                        OS</span>
+                    </h6>
+                  </div>
+                  <div *ngFor="let parent of vulnerableOs" class="p-col-12 px-0">
+                    <div class="p-grid no-gutter" class="line_chart_height">
+                      <div class="p-col-12 line_chart_height">
+                        <div style="width: 70%; text-align: left;" title="{{parent.tooltip | uppercase}}"
+                          class="text-overflow-fix bar-value-os" [ngClass]="{ 'avoid-clicks': parent.value == 0 }" (click)="vulnerableSearch(parent.label, 'OS')">
+                          {{parent.label}}
+                        </div>
+                        <div style="width: 30%; text-align: right;" [title]="parent.value"
+                          class="text-overflow-fix bar-value">
+                          {{parent.value}}
+                        </div>
+                      </div>
+                      <div class="p-col-12" style="display: flex;margin-top: 0px;padding-top: 0px">
+                        <div *ngFor="let child of parent.forChart"
+                          tooltip="{{child.label | uppercase}} : {{child.value}}" [style.border-color]="child.color"
+                          [style.background-color]="child.color" [style.width]="child.width" id="colorBar"
+                          class="line_chart_style"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="no-data-outer" *ngIf="vulnerableOs.length == 0">
+                    <div class="no-data-inner">No Threats</div>
+                  </div>
+                </div>
+              </div>
+
+              <div style="height: 200px;" class="p-col-6 p-lg-6 p-md-6 p-sm-12 scr-based-pad mb-3">
+                <div [ngClass]="{ 'h-100': vulnerableApp.length == 0 }" class="p-grid no-gutter">
+                  <div class="p-col-12">
+                    <h6 class="mb-0 font-weight-bold"><span (click)="vulnerableSearch('ALL', 'APPLICATION')">Incidents
+                        by
+                        Application</span>
+                    </h6>
+                  </div>
+                  <div *ngFor="let parent of vulnerableApp" class="p-col-12 px-0">
+                    <div class="p-grid no-gutter" class="line_chart_height">
+                      <div class="p-col-12 line_chart_height">
+                        <div style="width: 70%; text-align: left;" title="{{parent.tooltip | uppercase}}"
+                          class="text-overflow-fix bar-value" [ngClass]="{ 'avoid-clicks': parent.value == 0 }" (click)="vulnerableSearch(parent.label, 'APPLICATION')">
+                          {{parent.label}}
+                        </div>
+                        <div style="width: 30%; text-align: right;" [title]="parent.value"
+                          class="text-overflow-fix bar-value">
+                          {{parent.value}}
+                        </div>
+                      </div>
+                      <div class="p-col-12" style="display: flex;margin-top: 0px;padding-top: 0px">
+                        <div *ngFor="let child of parent.forChart"
+                          tooltip="{{child.label | uppercase}} : {{child.value}}" [style.border-color]="child.color"
+                          [style.background-color]="child.color" [style.width]="child.width" id="colorBar"
+                          class="line_chart_style"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="no-data-outer" *ngIf="vulnerableApp.length == 0">
+                    <div class="no-data-inner">No Threats</div>
+                  </div>
+                </div>
+              </div>
+
+              <div style="height: 200px;" class="p-col-6 p-lg-6 p-md-6 p-sm-12 scr-based-pad mb-3">
+                <div [ngClass]="{ 'h-100': attackTechniques.length == 0 }" class="p-grid no-gutter">
+                  <div class="p-col-12">
+                    <h6 class="mb-0 font-weight-bold"><span (click)="vulnerableSearch('ALL', 'ATTACK TYPE')">Top Attack
+                        Techniques</span>
+                    </h6>
+                  </div>
+                  <div *ngFor="let parent of attackTechniques" class="p-col-12 px-0">
+                    <div class="p-grid no-gutter" class="line_chart_height">
+                      <div class="p-col-12 line_chart_height">
+                        <div style="width: 70%; text-align: left;" title="{{parent.tooltip | uppercase}}"
+                          class="text-overflow-fix bar-value" [ngClass]="{ 'avoid-clicks': parent.value == 0 }" (click)="vulnerableSearch(parent.label, 'ATTACK TYPE')">
+                          {{parent.label}}
+                        </div>
+                        <div style="width: 30%; text-align: right;" [title]="parent.value"
+                          class="text-overflow-fix bar-value">
+                          {{parent.value}}
+                        </div>
+                      </div>
+                      <div class="p-col-12" style="display: flex;margin-top: 0px;padding-top: 0px">
+                        <div *ngFor="let child of parent.forChart"
+                          tooltip="{{child.label | uppercase}} : {{child.value}}" [style.border-color]="child.color"
+                          [style.background-color]="child.color" [style.width]="child.width" id="colorBar"
+                          class="line_chart_style"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="no-data-outer" *ngIf="attackTechniques.length == 0">
+                    <div class="no-data-inner">No Threats</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="p-grid saved-threats-wrapper">
+      <div class="saved-threats-header p-col-12">
+        <!-- <input placeholder="Search" class="threats-search-input" type="text" /> -->
+        <app-search-input [allChips]='chipOptions' [chips]='searchQueries' (queries)="onQueries($event)">
+        </app-search-input>
+      </div>
+
+      <div class="saved-threats-body p-col-12 p-0">
+        <div class="threats-tab-wrapper w-100 h-100">
+          <ul id="threats-tab-head">
+            <li class="th-icon">
+              <span (click)="sortReports('severity')">
+                <i *ngIf="sortBy.fieldname != 'severity'" class="pi pi-sort rpt-sort-icon"></i>
+                <i *ngIf="sortBy.fieldname == 'severity' && sortBy.order == -1"
+                  class="pi pi-caret-down rpt-order-icon"></i>
+                <i *ngIf="sortBy.fieldname == 'severity' && sortBy.order == 1"
+                  class="pi pi-caret-up rpt-order-icon"></i>
+              </span>
+            </li>
+            <li class="th-name">
+              Threat Name
+              <span (click)="sortReports('threatname')">
+                <i *ngIf="sortBy.fieldname != 'threatname'" class="pi pi-sort rpt-sort-icon"></i>
+                <i *ngIf="sortBy.fieldname == 'threatname' && sortBy.order == -1"
+                  class="pi pi-caret-down rpt-order-icon"></i>
+                <i *ngIf="sortBy.fieldname == 'threatname' && sortBy.order == 1"
+                  class="pi pi-caret-up rpt-order-icon"></i>
+              </span>
+            </li>
+            <li class="th-cve">
+              CVE
+              <span (click)="sortReports('cve_id')">
+                <i *ngIf="sortBy.fieldname != 'cve_id'" class="pi pi-sort rpt-sort-icon"></i>
+                <i *ngIf="sortBy.fieldname == 'cve_id' && sortBy.order == -1"
+                  class="pi pi-caret-down rpt-order-icon"></i>
+                <i *ngIf="sortBy.fieldname == 'cve_id' && sortBy.order == 1" class="pi pi-caret-up rpt-order-icon"></i>
+              </span>
+            </li>
+            <li class="th-ts">
+              Timestamp
+              <span (click)="sortReports('timestamp')">
+                <i *ngIf="sortBy.fieldname != 'timestamp'" class="pi pi-sort rpt-sort-icon"></i>
+                <i *ngIf="sortBy.fieldname == 'timestamp' && sortBy.order == -1"
+                  class="pi pi-caret-down rpt-order-icon"></i>
+                <i *ngIf="sortBy.fieldname == 'timestamp' && sortBy.order == 1"
+                  class="pi pi-caret-up rpt-order-icon"></i>
+              </span>
+            </li>
+            <li class="th-dm">
+              Detection Method
+              <span (click)="sortReports('detection_method')">
+                <i *ngIf="sortBy.fieldname != 'detection_method'" class="pi pi-sort rpt-sort-icon"></i>
+                <i *ngIf="sortBy.fieldname == 'detection_method' && sortBy.order == -1"
+                  class="pi pi-caret-down rpt-order-icon"></i>
+                <i *ngIf="sortBy.fieldname == 'detection_method' && sortBy.order == 1"
+                  class="pi pi-caret-up rpt-order-icon"></i>
+              </span>
+            </li>
+            <li class="th-tdt">
+              Target Device Type
+              <span (click)="sortReports('dev_type')">
+                <i *ngIf="sortBy.fieldname != 'dev_type'" class="pi pi-sort rpt-sort-icon"></i>
+                <i *ngIf="sortBy.fieldname == 'dev_type' && sortBy.order == -1"
+                  class="pi pi-caret-down rpt-order-icon"></i>
+                <i *ngIf="sortBy.fieldname == 'dev_type' && sortBy.order == 1"
+                  class="pi pi-caret-up rpt-order-icon"></i>
+              </span>
+            </li>
+            <li class="th-status">
+              Status
+              <!-- <span (click)="sortReports('status')">
+                <i *ngIf="sortBy.fieldname != 'status'" class="pi pi-sort rpt-sort-icon"></i>
+                <i *ngIf="sortBy.fieldname == 'status' && sortBy.order == -1"
+                  class="pi pi-caret-down rpt-order-icon"></i>
+                <i *ngIf="sortBy.fieldname == 'status' && sortBy.order == 1" class="pi pi-caret-up rpt-order-icon"></i>
+              </span> -->
+            </li>
+            <li class="th-notes">
+              Notes
+            </li>
+          </ul>
+
+          <div id='reports-tab-scroll' class="reports-tab-scroll">
+            <div *uiScroll="let record of threatSource; let i = index; let evenRecord = even">
+              <ul id="reports-tab-body" class="record w-100 m-0" [class.evenRecord]="evenRecord"
+                [class.oddRecord]="!evenRecord">
+                <li class="td-icon">
+                  <img height="20px" [src]="record.icon" alt="severity-icon">
+                </li>
+                <li (click)="goToAsset(record)" class="td-name">
+                  {{record.threatname || '-' | uppercase}}
+                </li>
+                <li (click)="goToAsset(record)" class="td-cve">
+                  {{record.cve_id || '-'}}
+                </li>
+                <li (click)="goToAsset(record)" class="td-ts">
+                  {{record.timestamp || '-'}}
+                </li>
+                <li (click)="goToAsset(record)" class="td-dm">
+                  {{record.detection_method || '-'}}
+                </li>
+                <li (click)="goToAsset(record)" class="td-tdt">
+                  {{record.dev_type || '-'}}
+                </li>
+                <li (click)="goToAsset(record)" class="td-status">
+                  <!-- <p-dropdown [options]="statusOptions" [disabled]="true" [(ngModel)]="selectedStatus"
+                    styleClass='statusDropdown' [style]="{'width':'100px'}">
+                  </p-dropdown> -->
+                  Open
+                </li>
+                <li (click)="goToAsset(record)" class="td-notes">
+                  {{record.notes || '-'}}
+                </li>
+              </ul>
+            </div>
+            <div class="threat-table-nodata" *ngIf="threatDataNotAvail">No Data Available</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chartjs tooltip container -->
+  <div id="chartjs-tooltip">
+    <table></table>
+  </div>
+</div>
+
+
+<ngx-loading [show]="threatsLoading || threatTableLoading"></ngx-loading>

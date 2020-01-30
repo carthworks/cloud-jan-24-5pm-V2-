@@ -1,0 +1,74 @@
+<ngx-loading [show]="lazyLoading"></ngx-loading>
+
+<div class="lazy-tab-wrapper w-100 h-100">
+  <ul id="lazy-tab-head" [ngStyle]="{'margin-right': isScrollable && !isTablet ? '13px' : '0px'}" class="p-2">
+    <li>
+      TIME
+    </li>
+    <li>
+      SRC IP
+    </li>
+    <li>
+      SRC PORT
+    </li>
+    <li>
+      DST IP
+    </li>
+    <li>
+      DST PORT
+    </li>
+    <li>
+      PROTOCOL
+    </li>
+    <li>
+      LENGTH
+    </li>
+    <li>
+      SRC MAC
+    </li>
+    <li>
+      DST MAC
+    </li>
+    <li>
+      FLAG
+    </li>
+  </ul>
+
+  <div id='lazy-tab-scroll' class="lazy-tab-scroll">
+    <div *uiScroll="let record of lazySource; let i = index; let evenRecord = even">
+      <ul id="lazy-tab-body" class="record p-2 w-100 m-0" [class.evenRecord]="evenRecord"
+        [class.oddRecord]="!evenRecord">
+        <li>
+          {{ record.time || "-" }}
+        </li>
+        <li>
+          {{ record.source_ip || "-" }}
+        </li>
+        <li>
+          {{ record.source_port || "-" }}
+        </li>
+        <li>
+          {{ record.destination_ip || "-" }}
+        </li>
+        <li>
+          {{ record.destination_port || "-" }}
+        </li>
+        <li>
+          {{ record.protocol || "-" }}
+        </li>
+        <li>
+          {{ record.ip_protocol_len || "-" }}
+        </li>
+        <li>
+          {{ record.source_mac || "-" }}
+        </li>
+        <li>
+          {{ record.destination_mac || "-" }}
+        </li>
+        <li>
+          {{ record.flag || "-" }}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

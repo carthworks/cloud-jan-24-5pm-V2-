@@ -1,0 +1,364 @@
+<div class="ai3-reports-wrapper">
+  <div class="ai3-reports">
+    <div class="p-grid report-create-wrapper mb-3">
+      <div class="report-create-header p-col-12">
+
+        <div class="p-grid no-gutter">
+          <div style="width: 150px;" class="p-col-fixed">
+            <h5 class="float-left my-1">
+              CREATE NEW REPORT
+            </h5>
+          </div>
+          <div class="p-col">
+            <span class="view-float">
+              <p-selectButton (onChange)="onReportTypeChange($event)" styleClass="report-type-button ml-5"
+                [options]="reportTypes" [(ngModel)]="currentReportType"></p-selectButton>
+            </span>
+          </div>
+          <div class="p-col">
+            <span class="float-right">
+              <button (click)="saveReport(true, false)"
+                [disabled]="(currentReportType==1) ? !(startAndEndTstamps.valid) : !(recurringDataValid && startAndEndTstamps.valid)"
+                pButton type="button" label="VIEW REPORT"></button>
+              <button (click)="saveReport(false, true)"
+                [disabled]="(currentReportType==1) ? !(startAndEndTstamps.valid) : !(recurringDataValid && startAndEndTstamps.valid)"
+                pButton type="button" label="SAVE & SEND REPORT"></button>
+              <button (click)="saveReport(false, false)"
+                [disabled]="(currentReportType==1) ? !(startAndEndTstamps.valid) : !(recurringDataValid && startAndEndTstamps.valid)"
+                pButton type="button" label="SAVE REPORT"></button>
+            </span>
+          </div>
+        </div>
+        <hr>
+      </div>
+
+      <div class="report-create-body p-col-12">
+        <div class="p-grid no-gutter">
+          <div class="p-col-5 line-right">
+            <div class="p-grid no-gutter">
+              <div class="p-col-12 my-4">
+                <div class="p-grid no-gutter">
+                  <div class="p-col-12 py-0 mb-2">
+                    <h6 class="float-left">
+                      STANDARD REPORT TYPES
+                    </h6>
+                  </div>
+                  <div class="p-col-12 py-0">
+                    <!-- <p-dropdown (keydown)="onKeydown($event, false)" [style]="{'max-width':'230px', 'width':'100%'}" styleClass="ai3-report-dropdown"
+                      placeholder="Select a standard report type" (onChange)="onStdRptChange()"
+                      [options]="standardReportTypes" [(ngModel)]="selectedStdRptType">
+                    </p-dropdown> -->
+
+                    <p-dropdown [style]="{'max-width':'230px', 'width':'100%'}" styleClass="ai3-report-dropdown"
+                      [options]="standardReportTypes" [(ngModel)]="selectedStdRptType" (onChange)="onStdRptChange()"
+                      placeholder="Select a standard report type" [group]="true">
+                    </p-dropdown>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="selectedStdRptType != 4 && selectedStdRptType != 3" class="p-col-12 my-4">
+                <div class="p-grid no-gutter">
+                  <div class="p-col-12 py-0 mb-2">
+                    <h6 style="white-space: normal;" class="float-left">
+                      REPORTING PERIOD{{currentReportingPeriod.length != 0 ? currentReportingPeriod : ''}}
+                    </h6>
+                  </div>
+                  <div class="p-col-12 py-0">
+                    <div class="p-grid no-gutter">
+                      <div class="p-col-fixed" style="width: 60px;">
+                        <span style="font-weight: 600">Previous :</span></div>
+                      <div style="white-space: normal;" class="p-col pb-0">
+                        <button class="mb-2" [ngClass]="{'active': period.active }"
+                          *ngFor="let period of reportPeriods; let i = index" (click)="onReportPeriodChange($event, i)"
+                          pButton type="button" label="{{period.label}}"></button>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div *ngIf="currentReportType == 1" class="p-col-12">
+                    <button [ngClass]="{'active': customReportPeriod.active }" class="customPeriodButton"
+                      (click)="onCustomReportPeriod($event)" pButton type="button" label="Custom"></button>
+                    <p-calendar dateFormat="M d yy" placeholder="Select range" styleClass="report-date-picker"
+                      [maxDate]="maxDateValue" (onSelect)="onRangeSelect()" *ngIf="customReportPeriod.active"
+                      [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2030"
+                      (onMonthChange)="onMonthChange($event)" (onYearChange)="onYearChange($event)"
+                      [(ngModel)]="customRangeDates" selectionMode="range" [readonlyInput]="true"></p-calendar>
+                  </div>
+                </div>
+              </div>
+
+              <div *ngIf="selectedStdRptType == 4 || selectedStdRptType == 3" class="p-col-12 my-4">
+                <div class="p-grid no-gutter">
+                  <div class="p-col-12 py-0 mb-2">
+                    <h6 style="white-space: normal;" class="float-left">
+                      REPORTING PERIOD{{staticVsDynamicRptPrd.length != 0 ? staticVsDynamicRptPrd : ''}}
+                    </h6>
+                  </div>
+                  <div *ngIf="currentReportType == 1" class="p-col-12 py-0">
+                    <div class="p-grid no-gutter">
+                      <div class="p-col pb-0">
+                        <p-calendar dateFormat="M d yy" placeholder="Select date" styleClass="report-date-picker"
+                          [maxDate]="maxDateValue" [readonlyInput]="true" (onSelect)="onDateSelect()"
+                          [(ngModel)]="staticVsDynamicDate">
+                        </p-calendar>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <div class="p-col-7 pl-4">
+            <div class="p-grid no-gutter">
+              <div *ngIf="currentReportType == 2" class="p-col-12 mt-4">
+                <div class="p-grid no-gutter">
+                  <div class="p-lg-2 mb-3">
+                    <div class="p-grid no-gutter">
+                      <div class="p-col-12 py-0 mb-2">
+                        <h6 class="float-left">
+                          FREQUENCY
+                        </h6>
+                      </div>
+                      <div class="p-col-12 py-0">
+                        <p-dropdown [style]="{'width':'100%'}" styleClass="ai3-report-dropdown"
+                          placeholder="Select frequency" (onChange)="onFreqChange()" [options]="frequencyOptions"
+                          [(ngModel)]="selectedFrequency">
+                        </p-dropdown>
+                      </div>
+                    </div>
+                  </div>
+                  <div *ngIf="selectedFrequency == 'custom'" class="p-lg-3 mb-3">
+                    <div class="p-grid no-gutter">
+                      <div class="p-col-12 py-0 mb-2">
+                        <h6 class="float-left">
+                          REPEAT EVERY
+                        </h6>
+                      </div>
+                      <div class="p-col-12 py-0">
+                        <div class="p-grid no-gutter">
+                          <div class="p-col-5">
+                            <p-dropdown [style]="{'width':'100%'}" styleClass="ai3-report-dropdown"
+                              [options]="repeatCounts" [(ngModel)]="selectedRepeatCount">
+                            </p-dropdown>
+                          </div>
+                          <div class="p-col-7">
+                            <p-dropdown [style]="{'width':'100%'}" styleClass="ai3-report-dropdown"
+                              placeholder="Select frequency" (onChange)="onRepeatOptChange()" [options]="repeatOptions"
+                              [(ngModel)]="selectedRepeatOption">
+                            </p-dropdown>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div *ngIf="selectedFrequency == 'weekly' || selectedFrequency == 'monthly'" class="p-lg-10 mb-3">
+                    <div class="p-grid no-gutter">
+                      <div class="p-col-12 py-0 mb-2">
+                        <h6 class="float-left">
+                          REPEAT EVERY
+                        </h6>
+                      </div>
+                      <div class="p-col-12 py-0">
+                        <div class="p-grid no-gutter">
+                          <div *ngIf="selectedFrequency == 'weekly'" style="white-space: normal;" class="p-col-12">
+                            <button [ngClass]="{'active': day.active }" class="report-time-buttons mb-2"
+                              *ngFor="let day of repeatDays; let i = index" (click)="onRepeatDayChange($event, i)"
+                              pButton type="button" label="{{day.label}}"></button>
+                            <p-calendar styleClass="report-time-picker" [(ngModel)]="repeatTime" hourFormat="12"
+                              [timeOnly]="true"></p-calendar>
+                          </div>
+                          <div *ngIf="selectedFrequency == 'monthly'" class="p-col-3">
+                            <p-dropdown [style]="{'width':'100%'}" styleClass="ai3-report-dropdown"
+                              placeholder="Select frequency" (onChange)="onRepeatOptChange()" [options]="repeatOptions"
+                              [(ngModel)]="selectedRepeatOption">
+                            </p-dropdown>
+                          </div>
+                          <div *ngIf="selectedFrequency == 'monthly'" class="p-col-3">
+                            <p-calendar styleClass="report-time-picker" [(ngModel)]="repeatTime" hourFormat="12"
+                              [timeOnly]="true"></p-calendar>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div *ngIf="selectedFrequency == 'custom' || selectedFrequency == 'daily'"
+                    style="white-space: normal;" class="p-lg-7 mb-3">
+                    <div class="p-grid no-gutter">
+                      <div class="p-col-12 py-0 mb-2">
+                        <h6 class="float-left">
+                          REPEAT AT
+                        </h6>
+                      </div>
+                      <div class="p-col-12 py-0">
+                        <button [hidden]="!(selectedFrequency == 'custom' && selectedRepeatOption == 'daily')"
+                          [ngClass]="{'active': day.active }" class="report-time-buttons mb-2"
+                          *ngFor="let day of repeatDays; let i = index" (click)="onRepeatDayChange($event, i)" pButton
+                          type="button" label="{{day.label}}"></button>
+                        <p-calendar styleClass="report-time-picker" [(ngModel)]="repeatTime" hourFormat="12"
+                          [timeOnly]="true"></p-calendar>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="p-col-12 my-4">
+                <div class="p-grid no-gutter">
+                  <div class="p-col-12 py-0 mb-2">
+                    <h6 class="float-left">
+                      SPECIFY RECIPIENT EMAIL
+                    </h6>
+                  </div>
+                  <div class="p-col-12 py-0">
+                    <div class="p-grid no-gutter">
+                      <div *ngFor="let email of recipientEmails" class="p-col-6 py-0 my-2">
+                        <input readonly [(ngModel)]="email" class="email-inputbox" placeholder="Email Address"
+                          type="text" pInputText />
+                        <button class="email-input-control" pButton (click)="removeEmail(email)" type="button"
+                          icon="pi pi-minus"></button>
+                      </div>
+                      <!-- <div class="p-col-6 py-0 my-2">
+                        <input [(ngModel)]="currentEmailHolder" (keyup.enter)="addEmail()" class="email-inputbox"
+                          placeholder="Email Address" type="text" pInputText />
+                        <button [disabled]="currentEmailHolder.length == 0" class="email-input-control" pButton
+                          type="button" (click)="addEmail()" icon="pi pi-plus"></button>
+                      </div> -->
+
+                      <div class="p-col-6 py-0 my-2">
+                        <input [title]="contactemail.invalid ? 'Invalid email' : ''" #contactemail="ngModel"
+                          pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"
+                          [(ngModel)]="currentEmailHolder" (keyup.enter)="addEmail(contactemail.valid)"
+                          class="email-inputbox" placeholder="Email Address" type="text" pInputText />
+                        <button [disabled]="contactemail.invalid" class="email-input-control" pButton type="button"
+                          (click)="addEmail(contactemail.valid)" icon="pi pi-plus"></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="p-grid saved-reports-wrapper">
+      <div class="saved-reports-header p-col-12">
+        <h5 class="float-left my-1">
+          SAVED REPORTS
+        </h5>
+        <span class="float-left">
+          <p-selectButton (onChange)="onReportTypeChange($event)" styleClass="report-type-button ml-5"
+            [options]="reportTypes" [(ngModel)]="currentReportType"></p-selectButton>
+        </span>
+        <hr>
+      </div>
+
+      <div class="saved-reports-body p-col-12 p-0">
+        <div [ngClass]="currentReportType == 2 ? 'tab-recur' : 'tab-onetime'" class="reports-tab-wrapper w-100 h-100">
+          <ul id="reports-tab-head" [ngStyle]="{'margin-right': isScrollable && !isTablet ? '13px' : '0px'}">
+            <li *ngIf="currentReportType == 2" class="th-toggle"></li>
+            <li class="th-name">
+              Name
+              <span (click)="sortReports('report_name')">
+                <i *ngIf="sortBy.fieldname != 'report_name'" class="pi pi-sort rpt-sort-icon"></i>
+                <i *ngIf="sortBy.fieldname == 'report_name' && sortBy.order == -1"
+                  class="pi pi-caret-down rpt-order-icon"></i>
+                <i *ngIf="sortBy.fieldname == 'report_name' && sortBy.order == 1"
+                  class="pi pi-caret-up rpt-order-icon"></i>
+              </span>
+            </li>
+            <li class="th-type">
+              Type
+              <span (click)="sortReports('report_type')">
+                <i *ngIf="sortBy.fieldname != 'report_type'" class="pi pi-sort rpt-sort-icon"></i>
+                <i *ngIf="sortBy.fieldname == 'report_type' && sortBy.order == -1"
+                  class="pi pi-caret-down rpt-order-icon"></i>
+                <i *ngIf="sortBy.fieldname == 'report_type' && sortBy.order == 1"
+                  class="pi pi-caret-up rpt-order-icon"></i>
+              </span>
+            </li>
+            <li class="th-period">
+              Period
+              <span (click)="sortReports('period')">
+                <i *ngIf="sortBy.fieldname != 'period'" class="pi pi-sort rpt-sort-icon"></i>
+                <i *ngIf="sortBy.fieldname == 'period' && sortBy.order == -1"
+                  class="pi pi-caret-down rpt-order-icon"></i>
+                <i *ngIf="sortBy.fieldname == 'period' && sortBy.order == 1" class="pi pi-caret-up rpt-order-icon"></i>
+              </span>
+            </li>
+            <li *ngIf="currentReportType == 2" class="th-freq">
+              <!-- Frequency -->
+            </li>
+            <li class="th-mod">
+              Modified
+              <span (click)="sortReports('updatedAt')">
+                <i *ngIf="sortBy.fieldname != 'updatedAt'" class="pi pi-sort rpt-sort-icon"></i>
+                <i *ngIf="sortBy.fieldname == 'updatedAt' && sortBy.order == -1"
+                  class="pi pi-caret-down rpt-order-icon"></i>
+                <i *ngIf="sortBy.fieldname == 'updatedAt' && sortBy.order == 1"
+                  class="pi pi-caret-up rpt-order-icon"></i>
+              </span>
+            </li>
+            <li style="padding-left: 5px;" class="th-down">
+              Download Report
+            </li>
+            <li class="th-action text-center"></li>
+            <li class="th-remove text-center"></li>
+          </ul>
+
+          <div id='reports-tab-scroll' class="reports-tab-scroll">
+            <div *uiScroll="let record of reportsSource; let i = index; let evenRecord = even">
+              <ul id="reports-tab-body" class="record w-100 m-0" [class.evenRecord]="evenRecord"
+                [class.oddRecord]="!evenRecord">
+                <li *ngIf="currentReportType == 2" class="td-toggle text-center">
+                  <p-inputSwitch styleClass="reports-toggle"
+                    (onChange)="onReportToggle(record.report_id, record.isEnabled)" [(ngModel)]="record.isEnabled">
+                  </p-inputSwitch>
+                </li>
+                <li class="td-name">
+                  {{ record.report_name || "-" }}
+                </li>
+                <li class="td-type">
+                  {{ record.mapped_type || "-" }}
+                </li>
+                <li class="td-period">
+                  {{ record.period || "-" }}
+                </li>
+                <li *ngIf="currentReportType == 2" class="td-freq">
+                  <!-- {{ record.freq || "-" }} -->
+                </li>
+                <li class="td-mod">
+                  {{ record.modified || "-" }}
+                </li>
+                <li class="td-down">
+                  <div class="down-buttons">
+                    <span (click)="downloadReport(record.report_id)">PDF</span>
+                    <!-- <span>XLSX</span>
+                    <span>CSV</span> -->
+                  </div>
+                </li>
+                <li class="td-action text-center">
+                  <div class="down-buttons">
+                    <span (click)="shareReportData(record)"
+                      [routerLink]="['/alldevices/view-report', {id: record.report_id, viewOnly: false}]">View</span>
+                  </div>
+                </li>
+                <li class="td-remove text-center">
+                  <div class="down-buttons">
+                    <span (click)="removeReport(record.report_id)" style="color: #B34F56;">Remove</span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="reports-table-nodata" *ngIf="reportsDataNotAvail">No Data Available</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ngx-loading [show]="reportsLoading"></ngx-loading>

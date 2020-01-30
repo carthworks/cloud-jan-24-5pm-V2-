@@ -1,0 +1,87 @@
+<div class="col-md-12 forceGraph-2D w-100 h-100" >
+  <div id="forceGraph-2D" class="w-100 h-100"></div>
+  <div id="overlay" (click)="DeselectNode($event)" *ngIf="overlay"></div>
+</div>
+
+
+<div class="col-md-4  col-sm-4 p-0  h-75 children-components " *ngIf="overlay">
+  <div class="tiles-wrap">
+
+    <p-scrollPanel [style]="{width: '100%', height: ThreeDinfoPaneHeight}" styleClass="topology-info-panel">
+
+      <div style="padding: 0 2.7em;;line-height:1.5;">
+        <div class="row">
+          <div class="col-sm-12 col-xs-12 col-md-12 p-0 m-0" *ngFor="let anomaly of foundAnomalies">
+            <!-- <div class="" [ngClass]="{'card bg-bot-threat': anomaly.threatType === 3, 'card bg-threat': anomaly.threatType === 0 , 'card bg-offline': anomaly.threatType === 4 }">
+                       -->
+            <div [ngClass]="{'card bg-bot-threat': anomaly.threatType === 3, 'card bg-threat': anomaly.threatType === 0 , 'card bg-offline': anomaly.threatType === 4 , 'card bg-online': anomaly.threatType === 5 }">
+
+              <div class="card-body row">
+                <div class="col-sm-12 col-xs-12 col-md-12">
+                  <table class="table deviceinfo">
+                    <tbody>
+                
+                      <tr>
+                        <td>Host IP
+                          <span class="broken-txt">
+                            {{anomaly.ipaddress}}</span>
+                        </td>
+                        <td>MAC Address
+                          <span class="broken-txt text-uppercase">{{anomaly.macaddress}}</span>
+                        </td>
+
+                      </tr>
+                      <tr *ngIf="anomaly.threatType != 0">
+                        <td>Manufacturer
+                          <br />
+                          <span class="broken-txt">
+                            {{anomaly.manufacturer}}</span>
+                        </td>
+
+                        <td>Last Seen
+                          <span class="broken-txt" style="display: flex;width: 90px;word-break: break-word;">{{anomaly.lastUpdated
+                                    | epochToDate}}</span>
+                        </td>
+                      </tr>
+
+                    </tbody>
+                  </table>
+
+                </div>
+                <!-- <div class="col-md-2">
+                          <span class="tile-icon" [ngClass]="(step==1)?'attacker-icon':'victim-icon'"></span>
+    
+                        </div> -->
+
+              </div>
+            </div>
+          </div>
+          <!-- {{foundAnomalies | json}} -->
+        </div>
+      </div>
+      <br /><br />
+    </p-scrollPanel>
+  </div>
+</div>
+   <div class="row bg-info0 timemachine-bar" [ngClass]="(searchpanel)?'invisibleAndHeightZero h-0':'visible'">
+    <div id="UnityTimeLine" class="w-100 h-100" >
+    </div>
+    </div>
+<div class="livemap-footer alone ">
+
+       <ul class="legend-points">
+      <li>
+        <span class="pnormalOnline ">
+          <span></span>Online Device </span>
+      </li>
+      <li>
+        <span class="pnormalOffline">
+          <span></span>Offline Device</span>
+      </li>
+         <li class="d-none">
+        <span class="pnormalOffline vulnerabledevice">
+          <span></span>Vulnerable Device</span>
+      </li>
+  
+    </ul>
+  </div>

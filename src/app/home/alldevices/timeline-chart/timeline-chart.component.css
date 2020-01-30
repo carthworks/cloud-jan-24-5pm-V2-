@@ -1,0 +1,22 @@
+.device-chart-container {
+    /* position: relative;
+    margin: auto;
+    height: 60px !important; */
+    /* width: 80vw; */
+
+    width: Auto;
+    /* height:600px */
+}
+
+canvas#devicechart {
+
+  
+}
+
+span.gloading{
+    position: absolute;
+    top: 4rem;
+    margin: 0 auto;
+    left: 49%;
+    text-transform: uppercase;
+}

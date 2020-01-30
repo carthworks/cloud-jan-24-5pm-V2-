@@ -1,0 +1,456 @@
+<ngx-loading [show]="dashboardLoading" [config]="{ primaryColour: primaryColour, backdropBorderRadius: '3px' }"
+  [template]="loadingTemplate"></ngx-loading>
+
+<div class="ai3-dashboard-wrapper">
+  <div class="ai3-dashboard">
+
+    <div class="p-grid p-align-stretch">
+
+      <div class="prime-pad-override p-col-12 p-sm-12 p-md-12 p-lg-4 d-flex">
+        <div class="ai3-card">
+
+          <div class="p-grid p-nogutter">
+            <div class="p-col-9">
+              <h4 class="mb-3">
+                ASSETS
+              </h4>
+            </div>
+            <div class="p-col-3">
+              <h4 class="mb-3" class="block-title">
+                {{totalOnlineCnt || 0 }} ONLINE
+              </h4>
+            </div>
+          </div>
+          <hr class="hr-style">
+
+          <div class="p-grid">
+            <div class="p-col-12 p-lg-12 p-md-6 p-sm-12 mb-4" style="height: 210px">
+              <div class="p-grid">
+                <div class="p-col-6 py-3">
+                  <div class="p-grid">
+                    <div class="p-col-12">
+                      <h6 class="head-button">
+                        <span (click)="device_type_details('ALL', 'DISCOVERED', [])">Top Device Types</span>
+                      </h6>
+                    </div>
+                  </div>
+                  <div style="margin-top: 0px;height: 35px;" *ngFor="let dd of dount_data" class="p-grid">
+                    <div style="padding: 0.4em 0.5em" class="p-col-9">
+                      <img class="hex-responsive" [src]="hexIcons[dd.color]">
+                      <span title="{{ (dd.name.includes('All Others (') ? dd.tooltip : dd.name) | uppercase }}"
+                        (click)="device_type_details(dd.name, 'DISCOVERED', dd.forSearch)"
+                        class="text-overflow-fix_title bar-value"
+                        style="width: 90%;white-space: inherit;overflow: hidden;text-overflow: ellipsis"
+                        [ngStyle]="{'color':dd.color}">{{ dd.name }}</span>
+                    </div>
+                    <div style="text-align: left; padding: 0.4em 0.5em" title="{{ dd.count }}"
+                      class="p-col-3 text-overflow-fix">
+                      <span class="text-overflow-fix bar-value-fix" [ngStyle]="{'color':dd.color}">{{ dd.count }}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="p-col-6" style="height: 200px; position: relative;">
+                  <p-chart *ngIf="dnout_chart_no == 1" [options]="options" height="100%" type="doughnut"
+                    [data]="data_dount"></p-chart>
+                  <div style="position: absolute;" class="chart-center" id="text1"></div>
+                </div>
+
+                <div class="no_data_dev_chart" *ngIf="dnout_chart_no == 0">
+                  <span class="bar-value">NO DATA AVAILABLE</span>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="p-col-12 p-lg-12 p-md-6 p-sm-12 mb-4" style="height: 220px">
+              <div class="p-grid">
+                <div class="p-col-6 py-3">
+
+                  <div class="p-grid">
+                    <div class="p-col-12">
+                      <h6 class="head-button">
+                        <span (click)="device_type_details('ALL', 'OPERATINGSYSTEM', [])">Top OS</span>
+                      </h6>
+                    </div>
+                  </div>
+
+                  <div>
+                    <div style="margin-top: 0px;height: 35px;" *ngFor="let dd of dount_data_vul" class="p-grid">
+                      <div style="padding: 0.4em 0.5em" class="p-col-9">
+                        <img class="hex-responsive" [src]="hexIcons[dd.color_vul]">
+                        <span
+                          title="{{ (dd.name_vul.includes('All Others (') ? dd.tooltip : dd.name_vul) | uppercase }}"
+                          (click)="device_type_details(dd.name_vul, 'OPERATINGSYSTEM', dd.forSearch)"
+                          class="text-overflow-fix_title bar-value-os" [ngStyle]="{'color':dd.color_vul}"
+                          style="width: 90%;white-space: inherit;overflow: hidden;text-overflow: ellipsis">{{ dd.name_vul }}</span>
+                      </div>
+                      <div style="text-align: left; padding: 0.4em 0.5em" title="{{ dd.count_vul }}"
+                        class="p-col-3 text-overflow-fix">
+                        <span class="text-overflow-fix bar-value-fix"
+                          [ngStyle]="{'color':dd.color_vul}">{{ dd.count_vul }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div style="height: 200px; position: relative;" class="p-col-6">
+                  <p-chart *ngIf="vul_chart_no == 1" [options]="options_vul" height="100%" type="doughnut"
+                    [data]="data_dount_vul"></p-chart>
+                  <div style="position: absolute;" class="chart-center" id="text2"></div>
+                </div>
+
+                <div class="no_data_dev_chart" *ngIf="vul_chart_no == 0">
+                  <span class="bar-value">NO DATA AVAILABLE</span>
+                </div>
+
+              </div>
+            </div>
+
+
+            <div class="p-col-12 p-lg-12 p-md-6 p-sm-12 mb-4" style="height: 210px">
+              <div class="p-grid">
+                <div class="p-col-6 py-3">
+
+                  <div class="p-grid">
+                    <div class="p-col-12">
+                      <h6 class="head-button">
+                        <span (click)="device_type_details('ALL', 'ONLINE', [])">Top Online Devices</span>
+                      </h6>
+                    </div>
+                  </div>
+
+                  <div style="margin-top: 0px;height: 35px;" *ngFor="let dd of dount_data_online" class="p-grid">
+                    <div style="padding: 0.4em 0.5em" class="p-col-9">
+                      <img class="hex-responsive" [src]="hexIcons[dd.color_online]">
+                      <span
+                        title="{{ (dd.name_online.includes('All Others (') ? dd.tooltip : dd.name_online) | uppercase }}"
+                        (click)="device_type_details(dd.name_online, 'ONLINE', dd.forSearch)"
+                        class="text-overflow-fix_title bar-value" [ngStyle]="{'color':dd.color_online}"
+                        style="width: 90%;white-space: inherit;overflow: hidden;text-overflow: ellipsis">{{ dd.name_online }}</span>
+                    </div>
+                    <div style="text-align: left; padding: 0.4em 0.5em" title="{{ dd.count_online }}"
+                      class="p-col-3 text-overflow-fix">
+                      <span class="text-overflow-fix bar-value-fix"
+                        [ngStyle]="{'color':dd.color_online}">{{ dd.count_online }}</span>
+                    </div>
+                  </div>
+                </div>
+                <div style="height: 200px; position: relative;" class="p-col-6">
+                  <p-chart *ngIf="online_chart_no == 1" [options]="options_online" height="100%" type="doughnut"
+                    [data]="data_dount_online"></p-chart>
+                  <div style="position: absolute;" class="chart-center" id="text3"></div>
+                </div>
+
+                <div class="no_data_dev_chart" *ngIf="online_chart_no == 0">
+                  <span class="bar-value">NO DATA AVAILABLE</span>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="prime-pad-override p-col-12 p-sm-12 p-md-12 p-lg-8 d-flex">
+        <div class="ai3-card">
+
+          <div class="p-grid p-nogutter">
+            <div class="p-col-12">
+              <h4 class="mb-3">
+                THREATS
+
+                <span class="block-title ml-3">
+                  <span class="block-color">{{ totalVulnerabilityCnt || 0 }}</span> ACTIVE INCIDENTS
+                </span>
+
+                <span class="block-title">
+                  <span class="block-color">{{ totAbnorDevCnt || 0 }}</span> VULNERABLE ASSETS
+                </span>
+              </h4>
+            </div>
+          </div>
+
+          <hr class="hr-style">
+
+          <div class="p-grid mb-4">
+            <div class="p-col-12 p-lg-6 p-md-12 p-sm-12 ai3-line-right">
+              <div class="p-grid">
+                <div class="p-col-12 p-lg-12 p-md-6 p-sm-12 mb-4" style="height: 210px">
+                  <div class="p-grid">
+                    <div class="p-col-6 py-3">
+                      <div class="p-grid">
+                        <div class="p-col-12">
+                          <h6 class="head-button">
+                            <span (click)="vulnerableSearch('ALL', 'INCIDENT')">Incidents</span>
+                          </h6>
+                        </div>
+                      </div>
+                      <div style="margin-top: 0px" *ngFor="let dd of dount_data_inc" class="p-grid">
+                        <div style="padding: 0.4em 0.5em" class="p-col-8">
+                          <img class="hex-responsive" [src]="hexIcons[dd.color_inc]">
+                          <span title="{{ (dd.name_inc == 'others' ? dd.tooltip : dd.name_inc) | uppercase }}"
+                            (click)="vulnerableSearch(dd.name_inc, 'INCIDENT')" class="text-overflow-fix_title bar-value"
+                            [ngStyle]="{'color':dd.color_inc}"
+                            style="width: 90%;white-space: inherit;overflow: hidden;text-overflow: ellipsis">{{ dd.name_inc }}</span>
+                        </div>
+                        <div style="text-align: left; padding: 0.4em 0.5em" title="{{ dd.count_inc }}"
+                          class="p-col-4 text-overflow-fix">
+                          <span class="text-overflow-fix bar-value-fix"
+                            [ngStyle]="{'color':dd.color_inc}">{{ dd.count_inc }}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="p-col-6" style="height: 200px; position: relative;">
+                      <p-chart *ngIf="inc_chart_no == 1" [options]="options_inc" height="100%" type="doughnut"
+                        [data]="data_dount_inc"></p-chart>
+                      <div style="position: absolute;" class="chart-center" id="text4"></div>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="p-col-12 p-lg-12 p-md-6 p-sm-12 pt-0" style="height: 220px">
+
+                  <div class="p-grid">
+                    <div class="p-col-12 pt-3">
+                      <h6 class="mb-0 head-button"><span (click)="vulnerableSearch('ALL', 'OS')">Incidents by OS</span>
+                      </h6>
+                    </div>
+                    <div *ngFor="let element of total_Vulneerable_Os_Info" class="p-col-12 px-0">
+                      <div class="p-grid" class="line_chart_height" *ngIf="vulOsInfo_no == 1">
+                        <div class="p-col-12 line_chart_height">
+                          <div style="width: 70%; text-align: left;" title="{{element.tooltip | uppercase}}"
+                            (click)="vulnerableSearch(element.label, 'OS')"
+                            class="text-overflow-fix_title text-overflow-fix bar-value-os">
+                            {{ element.label }}
+                          </div>
+                          <div style="width: 30%; text-align: right;" title="{{ element.value }}"
+                            class="text-overflow-fix bar-value">
+                            {{ element.value }}
+                          </div>
+                        </div>
+                        <div class="p-col-12" style="display: flex;margin-top: 0px;padding-top: 0px">
+                          <div tooltip="{{ child.label | uppercase }} : {{ child.value }}"
+                            *ngFor="let child of element.forChart" [style.border-color]="child.color"
+                            [style.background-color]="child.color" [style.width]="child.width" id="colorBar"
+                            class="line_chart_style"></div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div *ngIf="vulOsInfo_no == 0" class="p-col-12">
+                      <div style="text-align: center;margin-top: 50px">
+                        <span class="no_data bar-value">NO DATA AVAILABLE</span>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="p-col-12 p-lg-6 p-md-12 p-sm-12">
+              <div class="p-grid">
+                <div class="p-col-12 p-lg-12 p-md-12 p-sm-12 pt-3 mb-4 padding-based-on-screen" style="height: 210px">
+                  <div class="p-grid">
+                    <div class="p-col-12">
+                      <h6 class="mb-0 head-button"><span (click)="vulnerableSearch('ALL', 'DEVICE TYPE')">Top Device
+                          Types</span></h6>
+                    </div>
+                    <div *ngFor="let element of total_DEVICE_type.elements" class="p-col-12 px-0">
+                      <div class="p-grid" class="line_chart_height">
+                        <div class="p-col-12 line_chart_height">
+                          <div style="width: 70%; text-align: left;"
+                            (click)="vulnerableSearch(element.label, 'DEVICE TYPE')"
+                            class="text-overflow-fix_title text-overflow-fix bar-value">
+                            {{ element.label | uppercase }}
+                          </div>
+                          <div style="width: 30%; text-align: right;" title="{{ element.value }}"
+                            class="text-overflow-fix bar-value">
+                            {{ element.value }}
+                          </div>
+                        </div>
+                        <div class="p-col-12" style="display: flex;margin-top: 0px;padding-top: 0px">
+                          <div tooltip="{{ child.label | uppercase }} : {{ child.value }}"
+                            *ngFor="let child of element.childs" [style.border-color]="child.color"
+                            [style.background-color]="child.color" [style.width]="child.width" id="colorBar"
+                            class="line_chart_style"></div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div *ngIf="vulDevTypeInfo == 0" class="p-col-12">
+                      <div style="text-align: center;margin-top: 50px">
+                        <span class="no_data bar-value">NO DATA AVAILABLE</span>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                <!-- <div class="p-col-12 p-lg-6 p-md-6 p-sm-12 pt-3 mb-4 padding-based-on-screen">
+                  <div class="p-grid" >
+                    <div class="p-col-12">
+                      <h6 class="mb-0">MITRE Types</h6>
+                    </div>
+                    <div *ngFor="let element of total_MITRE_type.elements" class="p-col-12 px-0">
+                      <div class="p-grid" class="line_chart_height" *ngIf="mitretype_no == 1">
+                        <div class="p-col-12 line_chart_height">
+                          <div style="width: 70%; text-align: left;" (click)="vulnerableSearch(element.label, 'MITRE TYPE',newothers)"
+                            class="text-overflow-fix_title text-overflow-fix bar-value1" title="{{ (element.label.includes('all others') ? newothers.toString() : element.label ) | uppercase }}" >
+                            {{ element.label }}
+                          </div>
+                          <div style="width: 30%; text-align: right;" title="{{ element.value }}" class="text-overflow-fix bar-value">
+                            {{ element.value }}
+                          </div>
+                        </div>
+                        <div class="p-col-12" style="display: flex;margin-top: 0px;padding-top: 0px">
+                          <div tooltip="{{ child.label | uppercase }} : {{ child.value }}"
+                            *ngFor="let child of element.childs" [style.border-color]="child.color"
+                            [style.background-color]="child.color" [style.width]="child.width" id="colorBar"
+                            class="line_chart_style"></div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div *ngIf="mitretype_no == 0" class="p-col-12">
+                      <div style="text-align: center;margin-top: 50px">
+                        <span class="no_data bar-value">NO DATA AVAILABLE</span>
+                      </div>
+                    </div>
+
+                  </div>
+                </div> -->
+
+                <div class="p-col-12 p-lg-6 p-md-6 p-sm-12 margin-based-on-screen padding-based-on-screen"
+                  style="height: 220px">
+
+                  <div class="p-grid">
+                    <div class="p-col-12">
+                      <div class="p-grid" style="height: 27px">
+                        <div class="p-col-12">
+                          <h6 class="head-button">
+                            <span (click)="vulnerableSearch('ALL', 'APPLICATION')">
+                              Incidents by Applications
+                            </span>
+                          </h6>
+                        </div>
+                      </div>
+                      <div *ngFor="let element of total_Vulneerable_Application_Info" class="p-col-12 px-0">
+                        <div class="p-grid" class="line_chart_height" *ngIf="vulAppInfo_no == 1">
+                          <div class="p-col-12 px-0">
+                            <div style="float: left" title="{{element.tooltip | uppercase}}"
+                              (click)="vulnerableSearch(element.label, 'APPLICATION')"
+                              class="text-overflow-fix_title text-overflow-fix bar-value">
+                              {{ element.label | uppercase }}
+                            </div>
+                            <div style="float: right" title="{{ element.value }}" class="text-overflow-fix bar-value">
+                              {{ element.value }}
+                            </div>
+                          </div>
+                          <div class="p-col-12 px-0" style="display: flex;margin-top: 0px;padding-top: 0px">
+                            <div tooltip="{{ child.label | uppercase }} : {{ child.value }}"
+                              *ngFor="let child of element.forChart" [style.border-color]="child.color"
+                              [style.background-color]="child.color" [style.width]="child.width" id="colorBar"
+                              class="line_chart_style"></div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div style="position: relative; top: 70px; text-align: center;" *ngIf="vulAppInfo_no == 0">
+                        <span class="no_data bar-value">NO DATA AVAILABLE</span>
+                      </div>
+
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="p-col-12 p-lg-6 p-md-6 p-sm-12 padding-based-on-screen" style="height: 220px">
+                  <div class="p-grid">
+                    <div class="p-col-12">
+                      <h6 class="mb-0 head-button"><span (click)="vulnerableSearch('ALL', 'ATTACK TYPE')">Top Attack
+                          Techniques</span></h6>
+                    </div>
+
+                    <div *ngFor="let element of total_ATTACK_type" class="p-col-12 px-0">
+                      <div class="p-grid" class="line_chart_height" *ngIf="attacktechniques_no == 1">
+                        <div class="p-col-12 line_chart_height">
+                          <div style="width: 70%; text-align: left" title="{{element.tooltip | uppercase}}"
+                            (click)="vulnerableSearch(element.label, 'ATTACK TYPE')"
+                            class="text-overflow-fix_title text-overflow-fix bar-value">
+                            {{ element.label | uppercase }}
+                          </div>
+                          <div style="width: 30%; text-align: right;" title="{{ element.value }}"
+                            class="text-overflow-fix bar-value">
+                            {{ element.value }}
+                          </div>
+                        </div>
+                        <div class="p-col-12" style="display: flex;margin-top: 0px;padding-top: 0px">
+                          <div tooltip="{{ child.label | uppercase }} : {{ child.value }}"
+                            *ngFor="let child of element.forChart" [style.border-color]="child.color"
+                            [style.background-color]="child.color" [style.width]="child.width" id="colorBar"
+                            class="line_chart_style"></div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div *ngIf="attacktechniques_no == 0" class="p-col-12">
+                      <div style="text-align: center;margin-top: 64px">
+                        <span class="no_data bar-value">NO DATA AVAILABLE</span>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="p-grid mt-1" style="height: 210px">
+            <div class="p-col-6">
+              <h6 style="float: left;" class="text-overflow-fix_title text-overflow-fix">
+                Total Incidents
+              </h6>
+              <div class="bar-value" [hidden]="line_chart_no != 1" id="lineChartLegend"></div>
+            </div>
+
+            <div class="p-col-6">
+              <ul class="activity-timeline-filter-list">
+                <li style="background: inherit; font-size: 14px; user-select: none;">Previous</li>
+                <li *ngFor="let item of ActivityListItem; let i = index" title="{{ item.desc }}"
+                  (click)="FnActivityDeviceTLine(item.hour); activateClass(item)" [ngClass]="{ active: item.active }">
+                  <a class="activity-item name">
+                    <span class="txt bar-value1">{{ item.menu_name }}</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <div class="p-col-12">
+              <div [hidden]="line_chart_no != 1" style="position: relative; height: 150px" class="chart-container">
+                <canvas #lineChart>{{ lineChart }}</canvas>
+                <div class="IsActivityTimelineLoading" *ngIf="IsActivityTimelineLoading">
+                  <span class="loadingtxt">
+                    Loading
+                  </span>
+                </div>
+              </div>
+
+              <div *ngIf="line_chart_no == 0" style="margin:70px;text-align: center">
+                <span class="no_data bar-value">NO DATA AVAILABLE</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chartjs tooltip container -->
+  <div id="chartjs-tooltip">
+    <table></table>
+  </div>
+</div>

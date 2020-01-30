@@ -1,0 +1,368 @@
+<div cdkScrollable class="ai3-assets-wrapper">
+  <div class="ai3-assets">
+    <div class="p-grid asset-create-wrapper mb-3">
+      <div class="asset-create-header p-col-12">
+        <div class="p-grid no-gutter">
+          <div class="p-col-6 mb-3">
+            <h5 class="float-left">
+              <span *ngFor="let item of breadCrumbs; let i = index"><span class="breadcrumb-divider"
+                  *ngIf="i !=0">/</span><span (click)="onBreadCrumbNav(i)"
+                  class="breadcrumb-link">{{item.name}}</span></span>
+            </h5>
+          </div>
+
+          <div *ngIf="totDevBool && osInfoBool && onlineDevBool" class="p-col-6 mb-3">
+            <h5 class="float-right">
+              <span>{{ onlineCount }}</span> ONLINE &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <span>{{ totalCount }}</span>
+              TOTAL
+            </h5>
+          </div>
+
+          <div class="p-col-12">
+            <div class="p-grid no-gutter">
+              <div class="p-col-12 asset-create-control mb-3">
+                <div class="p-grid no-gutter">
+                  <div class="p-col-12">
+                    <h6 style="white-space: normal;" class="float-left">
+                      DATE RANGE{{
+                        currentAssetingPeriod.length != 0
+                          ? currentAssetingPeriod
+                          : ""
+                      }}
+                    </h6>
+                  </div>
+                  <div class="p-lg-10 p-md-9 p-sm-8 py-0 asset-control-buttons">
+                    <div class="p-grid no-gutter">
+                      <div class="p-col-fixed" style="width: 60px; padding-top: 10px;">
+                        <span style="font-weight: 600">Previous:</span>
+                      </div>
+                      <div style="white-space: normal;" class="p-col pb-0">
+                        <button class="mb-2" [ngClass]="{ active: period.active }"
+                          *ngFor="let period of assetPeriods; let i = index"
+                          (click)="onAssetPeriodChange($event, i, true)" pButton type="button"
+                          label="{{ period.label }}"></button>
+                        <button [ngClass]="{ active: customAssetPeriod.active }"
+                          (click)="onCustomAssetPeriod($event, true)" pButton type="button" label="Custom"></button>
+                        <span style="margin-right: 15px">|</span>
+                        <button class="mb-2 current-assets-btn" [ngClass]="{ active: currentAssetPeriod.active }"
+                          (click)="onCurrentAssetPeriod($event, true)" pButton type="button" label="Current"></button>
+                        <p-calendar dateFormat="M d yy" placeholder="Select range" styleClass="report-date-picker"
+                          [maxDate]="maxDateValue" (onSelect)="onRangeSelect()" *ngIf="customAssetPeriod.active"
+                          [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2030"
+                          [(ngModel)]="customRangeDates" selectionMode="range" [readonlyInput]="true"></p-calendar>
+                      </div>
+                    </div>
+                  </div>
+                  <div *ngIf="(totDevBool || osInfoBool) && !onlineDevBool && showSort"
+                    class="p-lg-2 p-md-3 p-sm-4 d-flex remove-y-padding">
+                    <span class="w-50 p-2 text-right">SORT BY</span>
+                    <p-dropdown [style]="{'max-width':'150px', 'width':'100px', 'float': 'right'}"
+                      styleClass="ai3-report-dropdown" [options]="sortOptions" [(ngModel)]="selectedSortOption"
+                      (onChange)="onSortOptionChange()" placeholder="Select sort order">
+                    </p-dropdown>
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="p-col-4 p-lg-4 p-md-4 p-sm-12 asset-create-control mb-3">
+                <div class="p-grid no-gutter">
+                  <div class="p-col-12">
+                    <h6 style="white-space: normal;" class="float-left">
+                      EXPORT AS
+                    </h6>
+                  </div>
+                  <div class="p-col-12 py-0 asset-create-export">
+                    <span class="float-left">
+                      <button class="ml-0" [disabled]="!startAndEndTstamps.valid" pButton type="button"
+                        label="PDF"></button>
+                      <button [disabled]="!startAndEndTstamps.valid" pButton type="button" label="CSV"></button>
+                      <button [disabled]="!startAndEndTstamps.valid" pButton type="button" label="XLS"></button>
+                    </span>
+                  </div>
+                </div>
+              </div> -->
+            </div>
+          </div>
+        </div>
+        <hr *ngIf="totDevBool && osInfoBool && onlineDevBool" />
+      </div>
+
+      <div class="p-col-12 asset-body py-4" *ngIf="totDevBool && osInfoBool && onlineDevBool">
+        <div class="p-grid no-gutter">
+          <div class="p-sm-12 p-md-6 p-lg-4 mb-3 scr-based-pad-left" style="height: 200px">
+            <div class="p-grid">
+              <div class="p-col-6 py-3">
+                <div class="p-grid">
+                  <div class="p-col-12">
+                    <h6 class="head-button">
+                      <span (click)="reqLevelTwoInfo()" class="cursor-poiner">Top Device Types</span>
+                    </h6>
+                  </div>
+                </div>
+                <div style="margin-top: 0px;height: 35px;" *ngFor="let device of topDevice" class="p-grid">
+                  <div style="padding: 0.4em 0.5em" class="p-col-9">
+                    <img class="hex-responsive" [src]="hexIcons[device.color]">
+                    <span
+                      title="{{ (device.name.includes('All Others (') ? device.tooltip : device.name) | uppercase }}"
+                      (click)="reqLevelThreeInfo(device)" class="chart-value-styles bar-label cursor-poiner"
+                      [ngStyle]="{'color':device.color}">{{ device.name }}</span>
+                  </div>
+                  <div style="text-align: left; padding: 0.4em 0.5em" title="{{ device.count }}"
+                    class="p-col-3 text-overflow-fix">
+                    <span class="text-overflow-fix bar-value"
+                      [ngStyle]="{'color':device.color}">{{ device.count }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="p-col-6" style="height: 200px; position: relative;">
+                <p-chart *ngIf="topDevice.length != 0" [options]="topDeviceChartOptions" height="100%" type="doughnut"
+                  [data]="topDeviceChart">
+                </p-chart>
+                <div style="position: absolute;" class="chart-center" id="text6"></div>
+              </div>
+
+              <div class="top-device-nodata" *ngIf="topDevice.length == 0">
+                <span class="bar-value">No Devices</span>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="p-sm-12 p-md-6 p-lg-4 mb-3 scr-based-pad-center" style="height: 200px">
+            <div class="p-grid">
+              <div class="p-col-6 py-3">
+                <div class="p-grid">
+                  <div class="p-col-12">
+                    <h6 class="head-button">
+                      <span>Top Operating Systems</span>
+                    </h6>
+                  </div>
+                </div>
+                <div style="margin-top: 0px;height: 35px;" *ngFor="let os of topOS" class="p-grid">
+                  <div style="padding: 0.4em 0.5em" class="p-col-9">
+                    <img class="hex-responsive" [src]="hexIcons[os.color]">
+                    <span title="{{ (os.name.includes('All Others (') ? os.tooltip : os.name) | uppercase }}"
+                      class="chart-value-styles bar-label-os" [ngStyle]="{'color':os.color}">{{ os.name }}</span>
+                  </div>
+                  <div style="text-align: left; padding: 0.4em 0.5em" title="{{ os.count }}"
+                    class="p-col-3 text-overflow-fix">
+                    <span class="text-overflow-fix bar-value" [ngStyle]="{'color':os.color}">{{ os.count }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="p-col-6" style="height: 200px; position: relative;">
+                <p-chart *ngIf="topOS.length != 0" [options]="topOSChartOptions" height="100%" type="doughnut"
+                  [data]="topOSChart">
+                </p-chart>
+                <div style="position: absolute;" class="chart-center" id="text7"></div>
+              </div>
+
+              <div class="top-device-nodata" *ngIf="topOS.length == 0">
+                <span class="bar-value">No Devices</span>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="p-sm-12 p-md-6 p-lg-4 mb-3 scr-based-pad-right" style="height: 200px">
+            <div class="p-grid">
+              <div class="p-col-6 py-3">
+                <div class="p-grid">
+                  <div class="p-col-12">
+                    <h6 class="head-button">
+                      <span>Top Online Devices</span>
+                    </h6>
+                  </div>
+                </div>
+                <div style="margin-top: 0px;height: 35px;" *ngFor="let online of topOnline" class="p-grid">
+                  <div style="padding: 0.4em 0.5em" class="p-col-9">
+                    <img class="hex-responsive" [src]="hexIcons[online.color]">
+                    <span
+                      title="{{ (online.name.includes('All Others (') ? online.tooltip : online.name) | uppercase }}"
+                      class="chart-value-styles bar-label" [ngStyle]="{'color':online.color}">{{ online.name }}</span>
+                  </div>
+                  <div style="text-align: left; padding: 0.4em 0.5em" title="{{ online.count }}"
+                    class="p-col-3 text-overflow-fix">
+                    <span class="text-overflow-fix bar-value"
+                      [ngStyle]="{'color':online.color}">{{ online.count }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="p-col-6" style="height: 200px; position: relative;">
+                <p-chart *ngIf="topOnline.length != 0" [options]="topOnlineChartOptions" height="100%" type="doughnut"
+                  [data]="topOnlineChart">
+                </p-chart>
+                <div style="position: absolute;" class="chart-center" id="text8"></div>
+              </div>
+
+              <div class="top-device-nodata" *ngIf="topOnline.length == 0">
+                <span class="bar-value">No Devices</span>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="overflow: hidden;" class="p-col-12" *ngIf="totDevBool && !osInfoBool && !onlineDevBool">
+        <div class="statistic-tile-wrapper no-gutter">
+          <div class="statistic-tile-container cursor-poiner" (click)="reqLevelThreeInfo(tile)"
+            *ngFor="let tile of levelTwoTiles">
+            <div class="statistic-tile-count">{{tile.count}}</div>
+            <div class="statistic-tile-value">{{tile.name | uppercase}}</div>
+          </div>
+          <div *ngIf="levelTwoTiles.length == 0" class="level-two-nodata">No Data Available</div>
+        </div>
+      </div>
+
+      <div style="overflow: hidden;" class="p-col-12" *ngIf="!totDevBool && osInfoBool && !onlineDevBool">
+        <div class="statistic-tile-wrapper no-gutter">
+          <div class="statistic-tile-container cursor-poiner" *ngFor="let tile of levelThreeTiles">
+            <div class="statistic-tile-count">{{tile.count}}</div>
+            <div class="statistic-tile-value">{{tile.name | uppercase}}</div>
+          </div>
+          <div *ngIf="levelThreeTiles.length == 0" class="level-two-nodata">No Data Available</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="p-grid saved-assets-wrapper">
+      <div class="saved-threats-header p-col-12">
+        <app-search-input [allChips]="chipOptions" [chips]="searchQueries" (queries)="onQueries($event)">
+        </app-search-input>
+      </div>
+
+      <div class="saved-assets-body p-col-12 p-0">
+        <div class="assets-tab-wrapper w-100 h-100">
+          <ul id="assets-tab-head">
+            <li class="th-icon">
+              <!-- <span (click)="sortReports('isVulnerable')">
+                <i *ngIf="sortBy.fieldname != 'isVulnerable'" class="pi pi-sort rpt-sort-icon"></i>
+                <i *ngIf="sortBy.fieldname == 'isVulnerable' && sortBy.order == -1"
+                  class="pi pi-caret-down rpt-order-icon"></i>
+                <i *ngIf="sortBy.fieldname == 'isVulnerable' && sortBy.order == 1"
+                  class="pi pi-caret-up rpt-order-icon"></i>
+              </span> -->
+            </li>
+            <li class="th-hostname">
+              Host Name
+              <span (click)="sortReports('host_name')">
+                <i *ngIf="sortBy.fieldname != 'host_name'" class="pi pi-sort rpt-sort-icon"></i>
+                <i *ngIf="sortBy.fieldname == 'host_name' && sortBy.order == -1"
+                  class="pi pi-caret-down rpt-order-icon"></i>
+                <i *ngIf="sortBy.fieldname == 'host_name' && sortBy.order == 1"
+                  class="pi pi-caret-up rpt-order-icon"></i>
+              </span>
+            </li>
+            <li class="th-ip">
+              Device IP
+              <span (click)="sortReports('ipaddress')">
+                <i *ngIf="sortBy.fieldname != 'ipaddress'" class="pi pi-sort rpt-sort-icon"></i>
+                <i *ngIf="sortBy.fieldname == 'ipaddress' && sortBy.order == -1"
+                  class="pi pi-caret-down rpt-order-icon"></i>
+                <i *ngIf="sortBy.fieldname == 'ipaddress' && sortBy.order == 1"
+                  class="pi pi-caret-up rpt-order-icon"></i>
+              </span>
+            </li>
+            <li class="th-devtype">
+              Device Type
+              <span (click)="sortReports('dev_type')">
+                <i *ngIf="sortBy.fieldname != 'dev_type'" class="pi pi-sort rpt-sort-icon"></i>
+                <i *ngIf="sortBy.fieldname == 'dev_type' && sortBy.order == -1"
+                  class="pi pi-caret-down rpt-order-icon"></i>
+                <i *ngIf="sortBy.fieldname == 'dev_type' && sortBy.order == 1"
+                  class="pi pi-caret-up rpt-order-icon"></i>
+              </span>
+            </li>
+            <li class="th-os">
+              OS
+              <span (click)="sortReports('os_name')">
+                <i *ngIf="sortBy.fieldname != 'os_name'" class="pi pi-sort rpt-sort-icon"></i>
+                <i *ngIf="sortBy.fieldname == 'os_name' && sortBy.order == -1"
+                  class="pi pi-caret-down rpt-order-icon"></i>
+                <i *ngIf="sortBy.fieldname == 'os_name' && sortBy.order == 1" class="pi pi-caret-up rpt-order-icon"></i>
+              </span>
+            </li>
+            <li class="th-manufacturer">
+              Vendor
+              <span (click)="sortReports('m_name')">
+                <i *ngIf="sortBy.fieldname != 'm_name'" class="pi pi-sort rpt-sort-icon"></i>
+                <i *ngIf="sortBy.fieldname == 'm_name' && sortBy.order == -1"
+                  class="pi pi-caret-down rpt-order-icon"></i>
+                <i *ngIf="sortBy.fieldname == 'm_name' && sortBy.order == 1" class="pi pi-caret-up rpt-order-icon"></i>
+              </span>
+            </li>
+            <li class="th-model">
+              Model
+              <span (click)="sortReports('m_model')">
+                <i *ngIf="sortBy.fieldname != 'm_model'" class="pi pi-sort rpt-sort-icon"></i>
+                <i *ngIf="sortBy.fieldname == 'm_model' && sortBy.order == -1"
+                  class="pi pi-caret-down rpt-order-icon"></i>
+                <i *ngIf="sortBy.fieldname == 'm_model' && sortBy.order == 1" class="pi pi-caret-up rpt-order-icon"></i>
+              </span>
+            </li>
+            <li class="th-asset">
+              Asset Type
+              <span (click)="sortReports('asset_type')">
+                <i *ngIf="sortBy.fieldname != 'asset_type'" class="pi pi-sort rpt-sort-icon"></i>
+                <i *ngIf="sortBy.fieldname == 'asset_type' && sortBy.order == -1"
+                  class="pi pi-caret-down rpt-order-icon"></i>
+                <i *ngIf="sortBy.fieldname == 'asset_type' && sortBy.order == 1"
+                  class="pi pi-caret-up rpt-order-icon"></i>
+              </span>
+            </li>
+          </ul>
+
+          <div id="reports-tab-scroll" class="reports-tab-scroll">
+            <div *uiScroll="
+                let record of assetSource;
+                let i = index;
+                let evenRecord = even
+              ">
+              <ul id="reports-tab-body" class="record w-100 m-0" [class.evenRecord]="evenRecord"
+                [class.oddRecord]="!evenRecord">
+                <li (click)="openDevicePopup(record)" class="td-icon">
+                  <img height="20px" [src]="record.icon" alt="severity-icon" />
+                </li>
+                <li (click)="openDevicePopup(record)" class="td-hostname">
+                  {{ record.host_name || "-" }}
+                </li>
+                <li (click)="openDevicePopup(record)" class="td-ip">
+                  {{ record.ipaddress || "-" }}
+                </li>
+                <li (click)="openDevicePopup(record)" class="td-devtype">
+                  {{ record.dev_type || "-" }}
+                </li>
+                <li (click)="openDevicePopup(record)" class="td-os">
+                  {{ record.os_name || "-" }}
+                </li>
+                <li (click)="openDevicePopup(record)" class="td-manufacturer">
+                  {{ record.m_name || "-" }}
+                </li>
+                <li (click)="openDevicePopup(record)" class="td-model">
+                  {{ record.m_model || "-" }}
+                </li>
+                <li (click)="openDevicePopup(record)" class="td-asset">
+                  {{record.asset_type || "-"}}
+                </li>
+              </ul>
+            </div>
+            <div class="asset-table-nodata" *ngIf="assetDataNotAvail">
+              No Data Available
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chartjs tooltip container -->
+  <div id="chartjs-tooltip">
+    <table></table>
+  </div>
+</div>
+
+<ngx-loading [show]="assetsLoading || assetTableLoading"></ngx-loading>

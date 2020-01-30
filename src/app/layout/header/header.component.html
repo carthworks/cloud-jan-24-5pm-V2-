@@ -1,0 +1,94 @@
+<!-- new header options 12.12.2019  -->
+
+<header>
+  <nav class="navbar navbar-expand navbar-light">
+    <a class="navbar-brand" (click)="Home('home')">
+      <img src="/assets/img/ai3_logo_combined.svg" class="header-logo-1" alt="Ai3">
+      <img src="/assets/img/ai3_logo.png" height="25px" class="header-logo-2" alt="Ai3">
+    </a>
+    <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+      <ul class="navbar-nav mr-auto ai3-tab-nav">
+        <li class="nav-item ml-2">
+          <a class="nav-link" [ngClass]="{active: router.url == '/alldevices/dashboard'}" (click)="Home('home')">HOME
+          </a>
+        </li>
+        <li class="nav-item ml-2">
+          <a class="nav-link" [ngClass]="{active: router.url == '/alldevices/threats'}"
+            (click)="Threats('threats')">THREATS</a>
+        </li>
+        <li class="nav-item ml-2">
+          <a class="nav-link" [ngClass]="{active: router.url == '/alldevices/assets'}"
+            (click)="Assets('assets')">ASSETS</a>
+        </li>
+        <li class="nav-item ml-2">
+          <a class="nav-link" [ngClass]="{active: router.url == '/alldevices/reports'}"
+            (click)="Reports('reports')">REPORTS</a>
+        </li>
+        <li class="nav-item ml-2">
+          <a class="nav-link" [ngClass]="{active: router.url == '/alldevices/remediation'}"
+            (click)="Remediation('remediation')">REMEDIATION</a>
+        </li>
+      </ul>
+    </div>
+    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+      <ul class="nav navbar-nav ml-auto mr-2">
+        <p-dropdown *ngIf="!isCustomer" [options]="array" (keyup)="onCustomerKeyUp($event)"
+          [disabled]="customerSelectBool" [(ngModel)]="selectedCustomer" optionLabel="name" styleClass='header_dropdown'
+          [style]="{'width':'auto', 'max-width':'300px'}" [showTransitionOptions]="'100ms'"
+          [hideTransitionOptions]="'200ms'" [filter]="false" [showClear]="false"
+          (onChange)='onCustomerDropdownClick($event)'>
+        </p-dropdown>
+        <div class="selected-customer" *ngIf="isCustomer">{{selectedCustomer.name}}</div>
+      </ul>
+      <ul class="nav navbar-nav mx-2">
+        <p-dropdown [options]="collecters" (keyup)="onCollectorKeyUp($event)" [disabled]="collectorSelectBool"
+          [(ngModel)]="selectedCollector" styleClass='header_dropdown' [style]="{'width':'auto', 'max-width':'300px'}"
+          [showTransitionOptions]="'100ms'" [hideTransitionOptions]="'200ms'" [filter]="false" [showClear]="false"
+          (onChange)='onCollectorDropdownClick($event)'>
+        </p-dropdown>
+      </ul>
+      <ul class="navbar-nav" (click)="visibleSidebar()">
+        <li class="nav-item">
+          <i class="fa fa-bars" style="color: black;font-size:20px;cursor: pointer;"></i>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<p-sidebar [(visible)]="visibleSidebar_popup" [showCloseIcon]="false" styleClass="header_sidebar" position="right"
+  [baseZIndex]="10000">
+  <div class="sidebar-item">
+    <a (click)="visibleSidebar_popup = false"><img width="16px" height="16px" src="/assets/img/sidebar-close.png"></a>
+  </div>
+
+  <div [ngClass]="{active: router.url == '/alldevices/dashboard'}" (click)="Home('home')"
+    class="sidebar-item ai3-tab-sidebar">
+    <span>Home</span></div>
+
+  <div [ngClass]="{active: router.url == '/alldevices/threats'}" (click)="Threats('threats')"
+    class="sidebar-item ai3-tab-sidebar">
+    <span>Threats</span></div>
+
+  <div [ngClass]="{active: router.url == '/alldevices/assets'}" (click)="Assets('assets')"
+    class="sidebar-item ai3-tab-sidebar">
+    <span>Assets</span></div>
+
+  <div [ngClass]="{active: router.url == '/alldevices/reports'}" (click)="Reports('reports')"
+    class="sidebar-item ai3-tab-sidebar">
+    <span>Reports</span></div>
+
+  <div [ngClass]="{active: router.url == '/alldevices/remediation'}" (click)="Remediation('remediation')"
+    class="sidebar-item ai3-tab-sidebar">
+    <span>Remediation</span></div>
+
+  <div [hidden]="!isSettingsIconEnabled" [ngClass]="router.url == '/alldevices/settings' ? 'active' : ''"
+    class="sidebar-item"><span (click)="Setting()">Settings</span></div>
+
+  <div class="sidebar-item"><span>Help</span></div>
+  <hr class="sidebar-line">
+  <div class="sidebar-item"><span (click)="Logout()">Logout</span></div>
+  <div class="sidebar-footer">© 2020 Akitra. All rights reserved.</div>
+</p-sidebar>
+
+<app-anomplycount class="d-none"></app-anomplycount>

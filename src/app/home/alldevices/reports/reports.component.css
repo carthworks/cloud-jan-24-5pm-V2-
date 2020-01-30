@@ -1,0 +1,371 @@
+.ai3-reports-wrapper {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    height: calc(100% - 65px);
+    margin: 0px 15px;
+    background-color: #141e28 !important;
+}
+
+.ai3-reports {
+    padding: 30px 30px;
+}
+
+.report-create-wrapper {
+    padding: 20px;
+    background: #10141A;
+    border-radius: 10px;
+}
+
+.report-create-header h5 {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.report-create-header hr {
+    margin: 0px;
+    border-bottom: 2px solid rgba(128, 128, 128, 0.22);
+    height: 10px;
+}
+
+.report-create-header .ui-button {
+    color: #fff;
+    background: #2AABE5 !important;
+    border: 0px;
+    margin-left: 10px;
+    font-weight: 600;
+}
+
+.report-create-body {
+    padding: 25px 0.5em;
+}
+
+.report-create-body h6 {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.report-create-body .ui-button {
+    color: grey;
+    background: #222e3b !important;
+    border: 0px;
+    margin-right: 10px;
+    font-weight: 600;
+    text-transform: inherit !important;
+}
+
+.report-create-body .ui-button.active {
+    color: #000;
+    background: #fff !important;
+}
+
+.report-create-body .line-right {
+    border-right: 2px solid rgba(128, 128, 128, 0.15);
+}
+
+.customPeriodButton {
+    margin-left: 60px !important;
+}
+
+/* Fix for bootstrap spacing scss and primeng class overlapping */
+.p-lg-4,
+.p-md-3,
+.p-lg-3,
+.p-md-2,
+.p-lg-2,
+.p-xl-2,
+.p-xl-8,
+.p-md-7,
+.p-lg-7,
+.p-xl-8 {
+    padding: 0.5rem !important;
+}
+
+.email-inputbox {
+    width: 80% !important;
+    background: transparent;
+    border: inherit;
+    border-bottom: 1px solid grey;
+    color: #fff;
+    padding-left: 0px;
+    font-weight: 600;
+}
+
+.email-inputbox:focus {
+    border-bottom: 1px solid #fff !important;
+}
+
+.email-input-control {
+    border-radius: 25px;
+    width: 23px !important;
+    height: 23px !important;
+}
+
+.saved-reports-wrapper {
+    /* padding: 20px; */
+    background: #10141A;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.saved-reports-header {
+    padding: 28px 28px 20px 28px;
+}
+
+.saved-reports-header h5 {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.saved-reports-body {
+    height: 290px;
+}
+
+.reports-tab-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+ul#reports-tab-head {
+    height: 40px;
+    position: sticky !important;
+    background: #10141A !important;
+    margin: 0;
+    top: 0;
+    z-index: 1;
+    border-bottom: 2px solid rgba(128, 128, 128, 0.4);
+    padding: 8px;
+}
+
+ul#reports-tab-head li {
+    /* width: 10%; */
+    position: relative;
+    display: inline-block;
+    font-weight: bold;
+    font-size: 14px;
+    text-align: left;
+    padding-right: 10px;
+}
+
+
+
+.tab-onetime li.th-type,
+.tab-onetime li.th-period,
+.tab-onetime li.th-mod,
+.tab-onetime li.th-down,
+.tab-onetime li.td-type,
+.tab-onetime li.td-period,
+.tab-onetime li.td-mod,
+.tab-onetime li.td-down {
+    width: 15%;
+}
+
+.tab-onetime li.td-name,
+.tab-onetime li.th-name {
+    width: 20%;
+    padding-left: 21px !important;
+}
+
+.tab-onetime li.th-remove,
+.tab-onetime li.td-remove,
+.tab-onetime li.th-action,
+.tab-onetime li.td-action {
+    width: 10%;
+}
+
+.tab-recur li.th-toggle,
+.tab-recur li.th-remove,
+.tab-recur li.td-toggle,
+.tab-recur li.td-remove {
+    width: 7%;
+}
+
+.tab-recur li.th-period,
+.tab-recur li.th-freq,
+.tab-recur li.th-action,
+.tab-recur li.td-period,
+.tab-recur li.td-freq,
+.tab-recur li.td-action {
+    width: 10%;
+}
+
+
+.tab-recur li.th-mod,
+.tab-recur li.th-name,
+.tab-recur li.td-mod,
+.tab-recur li.td-name {
+    width: 15%;
+}
+
+.tab-recur li.th-type,
+.tab-recur li.th-down,
+.tab-recur li.td-type,
+.tab-recur li.td-down {
+    width: 13%;
+}
+
+.record {
+    cursor: pointer;
+}
+
+.record.evenRecord {
+    background-color: #15191F !important;
+    display: table;
+}
+
+.record.oddRecord {
+    background-color: #10141A !important;
+    display: table;
+}
+
+ul#reports-tab-body {
+    font-weight: 700;
+    margin: 0;
+    padding: 8px;
+}
+
+ul#reports-tab-body li {
+    /* width: 10%; */
+    display: inline-block;
+    color: #b3b3b3 !important;
+    font-size: 13px;
+    text-align: left;
+    vertical-align: middle;
+    word-break: break-word;
+    word-wrap: anywhere;
+    white-space: normal;
+    padding: 5px 10px 0px 0px;
+    min-height: 30px;
+}
+
+.reports-tab-scroll {
+    height: calc(100% - 40px);
+    overflow-y: auto;
+    overflow-anchor: none;
+    -webkit-overflow-scrolling: touch;
+}
+
+.reports-tab-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.view-float {
+    float: left;
+}
+
+@media only screen and (max-width: 850px) {
+    .view-float {
+        float: right;
+    }
+}
+
+@media only screen and (max-width: 991px) {
+
+    /* ul#reports-tab-body li {
+        width: 100px;
+    }
+
+    ul#reports-tab-head li {
+        width: 100px;
+    } */
+
+    .reports-tab-scroll {
+        width: 1027px;
+    }
+
+    ul#reports-tab-head {
+        width: 1027px;
+    }
+
+    .tab-recur li.th-toggle,
+    .tab-recur li.th-remove,
+    .tab-recur li.td-toggle,
+    .tab-recur li.td-remove {
+        width: 70px;
+    }
+
+    .tab-recur li.th-period,
+    .tab-recur li.th-freq,
+    .tab-recur li.th-action,
+    .tab-recur li.td-period,
+    .tab-recur li.td-freq,
+    .tab-recur li.td-action {
+        width: 100px;
+    }
+
+    .tab-recur li.th-mod,
+    .tab-recur li.th-name,
+    .tab-recur li.td-mod,
+    .tab-recur li.td-name {
+        width: 130px;
+    }
+
+    .tab-recur li.th-type,
+    .tab-recur li.th-down,
+    .tab-recur li.td-type,
+    .tab-recur li.td-down {
+        width: 150px;
+    }
+
+    .tab-onetime li.th-type,
+    .tab-onetime li.th-period,
+    .tab-onetime li.th-mod,
+    .tab-onetime li.th-down,
+    .tab-onetime li.td-type,
+    .tab-onetime li.td-period,
+    .tab-onetime li.td-mod,
+    .tab-onetime li.td-down {
+        width: 150px;
+    }
+
+    .tab-onetime li.td-name,
+    .tab-onetime li.th-name {
+        width: 200px;
+        padding-left: 21px !important;
+    }
+
+    .tab-onetime li.th-remove,
+    .tab-onetime li.td-remove,
+    .tab-onetime li.th-action,
+    .tab-onetime li.td-action {
+        width: 100px;
+    }
+}
+
+.down-buttons span {
+    padding: 5px;
+    user-select: none;
+}
+
+.down-buttons span:hover {
+    border-radius: 5px;
+    background-color: rgba(128, 128, 128, 0.25);
+}
+
+.ui-inputtext.ng-dirty.ng-invalid {
+    border: 0px !important;
+    border-bottom: 1px solid #B34F56 !important;
+}
+
+.rpt-sort-icon {
+    color: rgba(255, 255, 255, 0.4) !important;
+    padding-left: 5px !important;
+    position: relative !important;
+    top: 2px !important;
+    cursor: pointer;
+    user-select: none;
+}
+
+.rpt-order-icon {
+    color: white !important;
+    padding-left: 5px !important;
+    position: relative !important;
+    top: 2px !important;
+    cursor: pointer;
+    user-select: none;
+}
+
+.reports-table-nodata {
+    position: relative;
+    bottom: 50%;
+    text-align: center;
+}

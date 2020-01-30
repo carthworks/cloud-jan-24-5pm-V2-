@@ -1,0 +1,18 @@
+<div [ngStyle]="{'display': isVerify ? 'block' : ''}" class="ai3-verify-wrapper">
+  <div class="ai3-verify-logo">
+    <img src="/assets/img/ai3_login_logo.png" class="login-logo-ai3" alt="" title="" />
+  </div>
+  <div class="ai3-verify-body">
+    <div [ngStyle]="{'display': isVerify ? 'block' : 'none'}" class="ai3-verify-text">
+      Your account has been verified,
+      Please <a href="/login">login</a>.
+    </div>
+
+    <div [ngStyle]="{'display': isVerify ? 'none' : 'block'}" class="ai3-mask-text">
+      We support only Desktop, Laptop and Tablet views for now.
+    </div>
+  </div>
+  <div class="ai3-verify-footer">
+    <img src="/assets/img/ai3_login_btm_logo.png" />
+  </div>
+</div>

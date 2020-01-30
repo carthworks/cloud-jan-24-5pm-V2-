@@ -1,0 +1,10 @@
+p.internet-status {
+    text-align: center;
+    padding: 0.2rem 0;
+    background: rgba(0, 128, 0, 0.4);
+    position: absolute;
+    top: 0px;
+    z-index: 100000000;
+    margin: 0 auto;
+    width: 100%;
+}

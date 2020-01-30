@@ -1,0 +1,14 @@
+{
+"companyName": "Akitra",
+"productName": "TimeLine",
+"dataUrl": "DevTimeLine.data.unityweb",
+"asmCodeUrl": "DevTimeLine.asm.code.unityweb",
+"asmMemoryUrl": "DevTimeLine.asm.memory.unityweb",
+"asmFrameworkUrl": "DevTimeLine.asm.framework.unityweb",
+"TOTAL_MEMORY": 268435456,
+"graphicsAPI": ["WebGL 2.0", "WebGL 1.0"],
+"webglContextAttributes": {"preserveDrawingBuffer": false},
+"splashScreenStyle": "Dark",
+"backgroundColor": "#231F20",
+"build" : "Unstable-NetFlow"
+}

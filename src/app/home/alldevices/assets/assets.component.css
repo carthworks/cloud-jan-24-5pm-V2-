@@ -1,0 +1,471 @@
+.ai3-assets-wrapper {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    height: calc(100% - 65px);
+    margin: 0px 15px;
+    background-color: #141e28 !important;
+}
+
+.ai3-assets {
+    padding: 30px 30px;
+}
+
+.asset-body {
+    padding: 20px;
+}
+
+.asset-create-header {
+    padding: 20px 20px 0px 20px;
+}
+
+.asset-create-wrapper {
+    background: #10141A;
+    border-radius: 10px;
+}
+
+.saved-threats-header {
+    padding: 28px 28px 20px 28px;
+}
+
+.saved-threats-header h5 {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.asset-create-header h5 {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.asset-create-header hr {
+    margin: 0px 0px 20px 0px;
+    border-bottom: 2px solid rgba(128, 128, 128, 0.22);
+}
+
+.asset-create-export .ui-button {
+    color: #fff;
+    background: #2AABE5 !important;
+    border: 0px;
+    margin-left: 10px;
+    font-weight: 600;
+}
+
+.asset-create-control h6 {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.asset-control-buttons .ui-button {
+    color: grey;
+    background: #222e3b !important;
+    border: 0px;
+    margin-right: 10px;
+    font-weight: 600;
+    text-transform: inherit !important;
+}
+
+.asset-create-control .ui-button.active {
+    color: #000;
+    background: #fff !important;
+}
+
+/* Fix for bootstrap spacing scss and primeng class overlapping */
+.p-lg-4,
+.p-md-3,
+.p-lg-3,
+.p-md-2,
+.p-lg-2,
+.p-xl-2,
+.p-xl-8,
+.p-md-7,
+.p-lg-7,
+.p-xl-8 {
+    padding: 0.5rem !important;
+}
+
+#chartjs-tooltip {
+    position: fixed;
+    pointer-events: none;
+    background: rgba(0, 0, 0, .7);
+    word-break: break-word;
+    white-space: normal;
+    max-width: 400px;
+    border-radius: 3px;
+    -webkit-transition: all .1s ease;
+    transition: all .1s ease;
+    color: #fff;
+}
+
+.saved-assets-wrapper {
+    /* padding: 20px; */
+    background: #10141A;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.saved-assets-body {
+    height: 400px;
+}
+
+.assets-tab-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+ul#assets-tab-head {
+    height: 40px;
+    position: sticky !important;
+    background: #10141A !important;
+    margin: 0;
+    top: 0;
+    z-index: 1;
+    border-bottom: 2px solid rgba(128, 128, 128, 0.4);
+    padding: 8px;
+}
+
+ul#assets-tab-head li {
+    /* width: 10%; */
+    position: relative;
+    display: inline-block;
+    font-weight: bold;
+    font-size: 14px;
+    text-align: left;
+    padding-right: 10px;
+}
+
+li.td-icon,
+li.th-icon {
+    padding-left: 21px !important;
+    width: 5%;
+}
+
+li.th-hostname,
+li.td-hostname {
+    width: 20%;
+}
+
+li.th-devtype,
+li.td-devtype,
+li.th-manufacturer,
+li.td-manufacturer,
+li.th-model,
+li.td-model {
+    width: 15%;
+}
+
+
+li.th-ip,
+li.th-os,
+li.th-asset,
+li.td-ip,
+li.td-os,
+li.td-asset {
+    width: 10%;
+}
+
+@media only screen and (max-width: 1000px) {
+
+    .reports-tab-scroll {
+        width: 1027px;
+    }
+
+    ul#assets-tab-head {
+        width: 1027px;
+    }
+
+    li.td-icon,
+    li.th-icon {
+        padding-left: 21px !important;
+        width: 50px;
+    }
+
+    li.th-hostname,
+    li.td-hostname {
+        width: 200px;
+    }
+
+    li.th-devtype,
+    li.td-devtype,
+    li.th-manufacturer,
+    li.td-manufacturer,
+    li.th-model,
+    li.td-model {
+        width: 150px;
+    }
+
+
+    li.th-ip,
+    li.th-os,
+    li.th-asset,
+    li.td-ip,
+    li.td-os,
+    li.td-asset {
+        width: 100px;
+    }
+}
+
+.rpt-sort-icon {
+    color: rgba(255, 255, 255, 0.4) !important;
+    padding-left: 5px !important;
+    position: relative !important;
+    top: 2px !important;
+    cursor: pointer;
+    user-select: none;
+}
+
+.rpt-order-icon {
+    color: white !important;
+    padding-left: 5px !important;
+    position: relative !important;
+    top: 2px !important;
+    cursor: pointer;
+    user-select: none;
+}
+
+.th-icon .rpt-order-icon,
+.th-icon .rpt-sort-icon {
+    padding-left: 2px !important;
+}
+
+.reports-tab-scroll {
+    height: calc(100% - 40px);
+    overflow-y: auto;
+    overflow-anchor: none;
+    -webkit-overflow-scrolling: touch;
+}
+
+.reports-tab-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+ul#reports-tab-body {
+    font-weight: 700;
+    margin: 0;
+    padding: 8px;
+}
+
+ul#reports-tab-body li {
+    /* width: 10%; */
+    display: inline-block;
+    color: #b3b3b3 !important;
+    font-size: 13px;
+    text-align: left;
+    vertical-align: middle;
+    word-break: break-word;
+    word-wrap: anywhere;
+    white-space: normal;
+    padding: 5px 10px 0px 0px;
+    min-height: 30px;
+}
+
+.record {
+    cursor: pointer;
+}
+
+.record.evenRecord {
+    background-color: #15191F !important;
+    display: table;
+}
+
+.record.oddRecord {
+    background-color: #10141A !important;
+    display: table;
+}
+
+.assets-search-input {
+    width: 100%;
+    height: 35px;
+    background-color: #808080;
+    border: 0px;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.assets-search-input::placeholder {
+    color: black;
+}
+
+.asset-table-nodata {
+    position: relative;
+    bottom: 50%;
+    text-align: center;
+}
+
+.current-assets-btn {
+    /* margin-left: 10px; */
+}
+
+.head-button span {
+    user-select: none;
+}
+
+.bar-label {
+    text-transform: lowercase;
+    display: inline-block;
+    font-size: 14px;
+    color: #dee2e6;
+}
+
+.bar-label-os {
+    display: inline-block;
+    font-size: 14px;
+    color: #dee2e6;
+}
+
+.bar-value {
+    text-transform: lowercase;
+    font-size: 14px;
+    color: #dee2e6;
+}
+
+.bar-value-os {
+    font-size: 14px;
+    color: #dee2e6;
+}
+
+.bar-label:first-letter {
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+.chart-value-styles {
+    width: 90%;
+    white-space: inherit;
+    overflow: hidden;
+    text-overflow: ellipsis
+}
+
+.text-overflow-fix {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.top-device-nodata {
+    position: relative;
+    margin: auto;
+    bottom: 100px;
+}
+
+@media (min-width: 991px) {
+    .scr-based-pad-left {
+        padding-right: 20px !important;
+        border-right: 2px solid rgba(128, 128, 128, 0.22);
+    }
+
+    .scr-based-pad-center {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+    }
+
+    .scr-based-pad-right {
+        padding-left: 20px !important;
+        border-left: 2px solid rgba(128, 128, 128, 0.22);
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .statistic-tile-container {
+        padding-top: 33.3333% !important;
+        width: 33.3333%;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .statistic-tile-container {
+        padding-top: 25% !important;
+        width: 25%;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .statistic-tile-container {
+        padding-top: 16.6667% !important;
+        width: 16.6667%;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .statistic-tile-container {
+        padding-top: 14.2857142857% !important;
+        width: 14.2857142857%;
+    }
+}
+
+@media only screen and (min-width: 1400px) {
+    .statistic-tile-container {
+        padding-top: 12.5% !important;
+        width: 12.5%;
+    }
+}
+
+.statistic-tile-container {
+    position: relative;
+    border: 1px solid rgba(128, 128, 128, 0.22);
+    text-align: center;
+}
+
+/* .statistic-tile-container:hover {
+    transform: scale(1.05);
+    transition-duration: 500ms;
+    background-color: #10141A;
+    box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.8);
+    z-index: 1;
+} */
+
+.statistic-tile-wrapper {
+    margin-left: -7px;
+    margin-right: -7px;
+    margin-bottom: -7px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.statistic-tile-count {
+    position: absolute;
+    top: 30%;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    font-size: 32px;
+    color: #82D250;
+}
+
+.statistic-tile-value {
+    position: absolute;
+    top: 55%;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    font-size: 14px;
+    width: 80%;
+    margin: 0px 10%;
+    word-break: break-word;
+    white-space: normal;
+}
+
+.breadcrumb-divider {
+    margin: 0px 10px;
+}
+
+.breadcrumb-link {
+    cursor: pointer;
+}
+
+.remove-y-padding {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+.cursor-poiner {
+    cursor: pointer;
+}
+
+.level-two-nodata {
+    width: 100%;
+    padding: 30px;
+    height: 120px;
+    text-align: center;
+}

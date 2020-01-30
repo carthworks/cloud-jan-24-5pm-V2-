@@ -1,0 +1,66 @@
+
+
+@charset "utf-8";
+input[type="submit"], input[type="button"], input[type="text"], input[type="password"], textarea, select{-webkit-border-radius:0;-webkit-appearance:none;}
+a[href^=tel]{text-decoration:inherit;color:inherit;}
+
+/* MORE THAN 75 */
+
+.vp-footer {
+  position: absolute;
+  width: 100%;
+  min-height: 55px;
+  bottom: 8%;
+  height: auto;
+  float: left;
+  left: 32%;
+  z-index: 500 !important;
+}
+
+
+ /* // Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 575.98px) {
+  /* body {background-color: red;} */
+}
+
+/* // Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) { 
+  /* body {background-color: green;} */
+
+  .vp-footer {
+    bottom: 20% ;
+  }
+}
+/* 
+// Medium devices (tablets, 768px and up)   laptop */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  /* body {background-color: blue;} */
+  .vp-footer {
+    bottom: 30%;
+  }
+  ul.legend-points li {
+    margin: 3px 0;
+    list-style: none;
+    font-size: 0.7rem !important;
+    color: #909090;
+}
+ }
+
+/* // Large devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  /* body {background-color: pink;} */
+  .vp-footer {
+    bottom: 7%
+  }
+
+}
+/* 
+// Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) { 
+  /* body { background-color: skyBlue; } */
+  body { background-color: black; }
+
+  .vp-footer {
+    bottom: 9%;
+  }
+}

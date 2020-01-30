@@ -1,0 +1,1478 @@
+<!-- reset licence -->
+<p-dialog [(visible)]="reset_popup" #resetDialog [modal]="true" [responsive]="true"
+  [style]="{width: '300px', minWidth: '200px'}" [maximizable]="true" [baseZIndex]="10000"
+  [contentStyle]="{'max-height':'200px','height':'100px'}">
+  <h6 class="title_setting"> RESET LICENSE </h6>
+  <p class="subnet_content">Please contact the Ai3 administrator to reset the license.</p>
+  <div class="center_btn">
+    <button type="button" class="btn btn-sm" (click)="close_reset()" class="reset_ok">OK</button>
+  </div>
+</p-dialog>
+
+<!-- upgrade -->
+<p-dialog [(visible)]="upgrade_popup" #upgardeDialog [modal]="true" [responsive]="true"
+  [style]="{width: '300px', minWidth: '200px'}" [maximizable]="true" [baseZIndex]="10000"
+  [contentStyle]="{'max-height':'200px','height':'100px'}">
+  <h6 class="title_setting"> UPGRADE </h6>
+  <p class="subnet_content">An email has been sent to our customer support team regarding your plan upgradation request
+    .
+    Please wait.
+    You will receive an email from our customer support team within 24 hours.</p>
+  <div class="center_btn">
+    <button type="button" class="btn btn-sm" (click)="close_upgrade()" class="reset_ok">OK</button>
+  </div>
+</p-dialog>
+
+<!-- license ddescription -->
+<p-dialog [(visible)]="desc_popup" #descDialog [modal]="true" [responsive]="true"
+  [style]="{width: '300px', minWidth: '200px'}" [maximizable]="true" [baseZIndex]="10000"
+  [contentStyle]="{'max-height':'300px','height':'200px','margin':'0 auto'}">
+  <h6 class="title_setting"> LICENSE DESCRIPTION </h6>
+  <p class="subnet_content" style="margin-bottom:25px">{{license_desc_value}}</p>
+  <p class="subnet_content" style="margin-bottom:25px" *ngIf="licence_location == '-'">Hiii</p>
+  <div class="center_btn">
+    <button type="button" class="btn btn-sm" (click)="close_desc()" class="reset_ok">OK</button>
+  </div>
+</p-dialog>
+
+<!-- subnet -->
+<p-dialog [(visible)]="ipaddress_popup" #ipaddressDialog [modal]="true" [responsive]="true" [baseZIndex]="10000"
+  [contentStyle]="{'max-height':'400px','height':'400px','margin':'0 auto','width':'400px'}">
+  <div class="row">
+    <div class="col-sm-10 col-md-10 col-lg-10">
+    </div>
+    <div class="col-sm-2 col-md-2 col-lg-2">
+      <i style="font-size:30px;color:#dc4646;margin-left: 15px;cursor: pointer;" (click)="subnet_close()"
+        class="fa fa-times"></i>
+    </div>
+  </div>
+  <form name="form" class="box_title" novalidate>
+    <h6 class="title_setting" *ngIf="subnet_status == 'create'"> ADD SUBNET </h6>
+    <h6 class="title_setting" *ngIf="subnet_status == 'edit'"> EDIT SUBNET </h6>
+
+    <ul id="list" class="list-group" style="border: 1px solid grey;border-radius: 3px;width: 100%">
+      <li style="width:100%">
+
+        <input class="input-sm" style="width: 15%;text-align:center;display: inline-block;background-color: black;
+                  border: 1px solid black;color: white;padding: 0;" placeholder='' maxlength=3 max=255
+          name="SubnetVal1" [(ngModel)]="SubnetVal1" (blur)="isNumber(subnetvalue1.value,1)" class="form-control"
+          required #subnetvalue1 />
+
+        .
+
+        <input class="input-sm" style="width:15%;text-align:center;display: inline;padding: 0;background-color: black;
+                border: 1px solid black;color: white;" placeholder='' maxlength=3 [(ngModel)]="SubnetVal2"
+          name="SubnetVal2" (blur)="isNumber(subnetvalue2.value,2)" class="form-control" required #subnetvalue2 />
+
+        .
+
+        <input class="input-sm" style="width: 15%;text-align:center;display: inline;padding: 0;background-color: black;
+                border: 1px solid black;color: white;" placeholder='' maxlength=3 [(ngModel)]="SubnetVal3"
+          name="SubnetVal3" (blur)="isNumber(subnetvalue3.value,3)" class="form-control" required #subnetvalue3 />
+
+        .
+
+        <input class="input-sm" style="width: 15%;text-align:center;display: inline;padding: 0;background-color: black;
+                border: 1px solid black;color: white;" placeholder='' maxlength=3 [(ngModel)]="SubnetVal4"
+          name="SubnetVal4" (blur)="isNumber(subnetvalue4.value,4)" class="form-control" required #subnetvalue4 />
+        /
+
+        <input class="input-sm" style="width:11%;text-align:center;display: inline;padding: 0;background-color: black;
+                  border: 1px solid black;color: white;padding: 0;" placeholder='' maxlength=2 max=32
+          [(ngModel)]="SubnetVal5" name="SubnetVal5" (blur)="isMask(subnetvalue5.value)" class="form-control" required
+          #subnetvalue5 />
+      </li>
+    </ul>
+    <span class="errormsg">{{errormsg}}</span>
+  </form>
+  <div class="box_subnet">
+    <h6 class="title_setting">SUBNET DESCRIPTION</h6>
+    <textarea class="form-control" [(ngModel)]="model.subnet_desc" rows="2" (keyup)="isValiddesc()"
+      class="textarea_style"></textarea>
+    <span class="errormsg">{{errormsg_desc}}</span>
+  </div>
+  <div class="btn-wrap">
+    <button type="button" (click)="subnet_close()" style="margin-left: 15px; float: right;"
+      class="change_button box_title">CANCEL</button>
+    <button type="button" (click)="adding_ipaddress()" style="margin-left: 15px; float: right;"
+      class="change_button box_title">SAVE</button>
+  </div>
+</p-dialog>
+
+
+
+<!-- user management -->
+
+<p-dialog [(visible)]="user_management_popup" #userManagementDialog [modal]="true" [responsive]="true"
+  [baseZIndex]="10000" [contentStyle]="{'max-height':'400px','height':'400px','margin':'0 auto','width':'400px'}">
+
+  <div class="row header">
+    <div class="col-sm-10 col-md-10 col-lg-10">
+    </div>
+    <div class="col-sm-2 col-md-2 col-lg-2">
+      <i style="font-size:30px;color:#dc4646;margin-left: 15px;cursor: pointer;" (click)="userMgtClose()"
+        class="fa fa-times"></i>
+    </div>
+  </div>
+
+  <form class="box-title user_management_form " novalidate>
+    <h6 class="title_setting d-none" *ngIf="user_mgt_status == 'create'"> ADD USER </h6>
+    <h6 class="title_setting d-none" *ngIf="user_mgt_status == 'edit'"> EDIT USER </h6>
+    <ul id="list" class="list-group">
+      <li>
+        <h6 class="title_setting text-uppercase"> Email address </h6>
+        <input type="email" class="form-control subnet_input" name="email" [email]="email!==''" value="" placeholder=""
+          [(ngModel)]="model.email" #email="ngModel" autocomplete="off" (keyup)="keyup($event.target.value)" />
+        <span class="errormsg">{{usernameerrormsg}}</span>
+      </li>
+
+      <li>
+        <div class="form-group">
+          <h6 class="title_setting text-uppercase"> role</h6>
+
+          <p-dropdown [options]="userRoleList" #userdropDown [autoDisplayFirst]='true' [(ngModel)]="selectedRole"
+            [ngModelOptions]="{standalone: true}" optionLabel="role" styleClass='usermgt-role-selector'
+            [style]="{'width':'100%','margin-right':'0px'}" [showTransitionOptions]="'100ms'"
+            [hideTransitionOptions]="'200ms'" [resetFilterOnHide]="true" [filter]="false" [showClear]="false"
+            (onChange)='change_userRole($event)' [disabled]="edit_dropdown" [autoDisplayFirst]="true">
+          </p-dropdown>
+        </div>
+        <div class="form-group"> <br /> <br /></div>
+      </li>
+
+      <li>
+        <h6 class="title_setting text-uppercase"> Username </h6>
+        <input type="name" class="form-control subnet_input" name="user_name" value="" placeholder=""
+          [(ngModel)]="model.user_name" #name="ngModel" autocomplete="off"
+          (keyup)="isValidusername($event.target.value)" />
+        <span class="errormsg">{{usernamemsg}}</span>
+      </li>
+
+    </ul>
+  </form>
+
+  <div class="btn-wrap footer">
+    <button type="button" (click)="userMgtClose()" style="margin-left: 15px; float: right;"
+      class="change_button box_title">CANCEL</button>
+    <button type="button" (click)="userUpdateAndSave()" style="margin-left: 15px; float: right;"
+      class="change_button box_title">SAVE</button>
+  </div>
+</p-dialog>
+
+
+<!-- email -->
+
+<p-dialog [(visible)]="email_popup" #emailDialog [modal]="true" [responsive]="true" [maximizable]="true"
+  [baseZIndex]="10000" [contentStyle]="{'max-height':'400px','height':'400px','margin':'0 auto','width':'400px'}">
+  <div class="row">
+    <div class="col-sm-10 col-md-10 col-lg-10">
+    </div>
+    <div class="col-sm-2 col-md-2 col-lg-2">
+      <i style="font-size:30px;color:#dc4646;margin-left: 15px;cursor: pointer;" (click)="email_close()"
+        class="fa fa-times"></i>
+    </div>
+  </div>
+
+
+  <form class="box_title">
+    <h6 class="title_setting"> ADD EMAIL ADDRESS</h6>
+
+    <input type="email" class="form-control subnet_input" name="email" [email]="email!==''" value="" placeholder=""
+      [(ngModel)]="model.email" #email="ngModel" autocomplete="off" />
+    <span class="errormsg">{{emailerrormsg}}</span>
+
+
+    <div class="btn-wrap">
+      <button type="button" (click)="email_close()" style="margin-left: 15px; float: right;"
+        class="change_button box_title">CANCEL</button>
+      <button type="button" (click)="adding_email(2)" style="margin-left: 15px; float: right;"
+        class="change_button box_title">SAVE</button>
+    </div>
+  </form>
+
+</p-dialog>
+
+<!-- ad-->
+<p-dialog [(visible)]="ad_popup" #adDialog [modal]="true" [responsive]="true" [maximizable]="true" [baseZIndex]="10000"
+  [contentStyle]="{'max-height':'700px','height':'700px','width':'100%'}">
+  <div class="row">
+    <div class="col-sm-10 col-md-10 col-lg-10">
+    </div>
+    <div class="col-sm-2 col-md-2 col-lg-2">
+      <i style="font-size:30px;color:#dc4646;margin-left: 0px;cursor: pointer;" (click)="ad_close()"
+        class="fa fa-times"></i>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="box_title">
+        <form [formGroup]="enableForm" (ngSubmit)="ADenable_details()">
+          <div>
+            <div class="form-group">
+              <label class="name">DOMAIN NAME</label>
+              <input type="text" formControlName="username" class="form-control change_input"
+                [ngClass]="{ 'is-invalid': submit && s.username.errors }" [(ngModel)]="model.username" />
+
+
+
+              <div *ngIf="submit && s.username.errors" class="errormsg1">
+                <div *ngIf="s.username.errors.required">Enter the domain name</div>
+                <div *ngIf="s.username.errors.pattern">Enter the valid domain name</div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="name">PASSWORD</label>
+              <div id="input-container">
+                <input id="input-field" type="{{type}}" formControlName="enablepassword"
+                  class="form-control change_input" [ngClass]="{ 'is-invalid': submit && s.enablepassword.errors }"
+                  [(ngModel)]="model.enablepassword">
+                <i (click)="toggleShow(0)" class="fa" [class.fa-eye-slash]="type == 'password'"
+                  [class.fa-eye]="type == 'text'" id="icon"></i>
+              </div>
+              <div *ngIf="submit && s.enablepassword.errors" class="errormsg1">
+                <div *ngIf="s.enablepassword.errors.required">Enter the password</div>
+                <div *ngIf="s.enablepassword.errors.pattern">Enter the valid password</div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="name">IP ADDRESS</label>
+              <input type="text" formControlName="ipaddress" class="form-control change_input"
+                [ngClass]="{ 'is-invalid': submit && s.ipaddress.errors }" [(ngModel)]="model.ipaddress" />
+              <div *ngIf="submit && s.ipaddress.errors" class="errormsg1">
+                <div *ngIf="s.ipaddress.errors.required">Enter the IP address</div>
+                <div *ngIf="s.ipaddress.errors.pattern">Valid IP address</div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="name desc_text1">DISTINGUISHED NAME OF THE ADMIN ACCOUNT</label>
+              <input type="text" formControlName="adminaccount" class="form-control change_input"
+                [ngClass]="{ 'is-invalid': submit && s.adminaccount.errors }" [(ngModel)]="model.adminaccount" />
+              <div *ngIf="submit && s.adminaccount.errors" class="errormsg1">
+                <div *ngIf="s.adminaccount.errors.required">Enter the distinguished name of the admin account</div>
+                <div *ngIf="s.adminaccount.errors.pattern">Enter the valid distinguished name of the admin account</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group  btn-wrap">
+            <button class="change_button">SAVE</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</p-dialog>
+
+
+<!-- wlc -->
+
+<p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
+
+<p-dialog [(visible)]="wlc_popup" #wlcDialog [modal]="true" [responsive]="true" [maximizable]="true"
+  [baseZIndex]="10000" [contentStyle]="{'max-height':'700px','height':'700px','width':'400px'}">
+  <div class="row">
+    <div class="col-sm-10 col-md-10 col-lg-10">
+    </div>
+    <div class="col-sm-2 col-md-2 col-lg-2">
+      <i style="font-size:30px;color:#dc4646;margin-left: 15px;cursor: pointer;" (click)="wlc_close()"
+        class="fa fa-times"></i>
+    </div>
+  </div>
+  <div class="wlc-form-wrapper">
+    <div class="form-group">
+      <label class="name">VENDOR</label>
+      <p-dropdown [options]="venderlist" #dd [autoDisplayFirst]='true' [(ngModel)]="selectedVender"
+        [ngModelOptions]="{standalone: true}" optionLabel="name" [panelStyle]="{'text-transform': 'uppercase'}" styleClass='multi-tenant-selector'
+        [style]="{'width':'100%','margin-right':'0px', 'text-transform': 'uppercase'}" [showTransitionOptions]="'100ms'"
+        [hideTransitionOptions]="'200ms'" [resetFilterOnHide]="true" [filter]="false" [showClear]="false"
+        (onChange)='change_venderlist($event)' [readonly]="isWlcEditEnabled" [disabled]="edit_dropdown" [autoDisplayFirst]="true">
+      </p-dropdown>
+    </div>
+    <div class="juniper" *ngIf="isJuniperSelected">
+      <form class="form-horizontal" [formGroup]="vendorTwo" (ngSubmit)="vendorTwoCreate($event)">
+        <div class="form-group">
+          <label for="wlcaccessid" class="name" class="align_ip">Access key </label>
+          <input type="text" id="wlcaccessid" formControlName="wlcaccessid" class="form-control change_input"
+            [ngClass]="{ 'is-invalid': vendorTwoSubmitted && fc.wlcaccessid.errors }" [(ngModel)]="model.wlcaccessid"
+            autocomplete="off" />
+          <div class="errormsg1" *ngIf="isAccesskeyErDuplicated">
+            <div> {{errorMsgAccessKeyDuplicate}}</div>
+          </div>
+          <div *ngIf="vendorTwoSubmitted && fc.wlcaccessid.errors" class="errormsg1">
+            <div *ngIf="fc.wlcaccessid.errors.required">Enter an Access key</div>
+            <div *ngIf="fc.wlcaccessid.errors.pattern">Enter a valid Access key</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="wlcpath" class="name" class="align_ip">Path </label>
+          <input type="text" id="wlcpath" formControlName="wlcpath" class="form-control change_input"
+            [ngClass]="{ 'is-invalid': vendorTwoSubmitted && fc.wlcpath.errors }" [(ngModel)]="model.wlcpath"
+            autocomplete="off" />
+        </div>
+        <div class="form-group"></div>
+        <div class="form-group  btn-wrap">
+          <button class="change_button">SAVE</button>
+        </div>
+      </form>
+    </div>
+    <div class="cisco" *ngIf="isCiscoSelected">
+      <form class="form-horizontal" [formGroup]="vendorOne" (ngSubmit)="WLC_enable_details($event)">
+        <div class="form-group">
+          <label for="wlcipaddress" class="name" class="align_ip">IP ADDRESS</label>
+          <input type="text" id="wlcipaddress" formControlName="wlcipaddress" class="form-control change_input"
+            [ngClass]="{ 'is-invalid': vendorOneSubmitted && fone.wlcipaddress.errors }"
+            [(ngModel)]="model.wlcipaddress" autocomplete="off" />
+          <div class="errormsg1" *ngIf="isIPAddressErDuplicated">
+            <div> {{errorMsgIPAddressDuplicate}}</div>
+          </div>
+          <div *ngIf="vendorOneSubmitted && fone.wlcipaddress.errors" class="errormsg1">
+            <div *ngIf="fone.wlcipaddress.errors.required">Enter an IP address</div>
+            <div *ngIf="fone.wlcipaddress.errors.pattern">Enter a valid IP address</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="wlcusername" class="name">USERNAME</label>
+          <input type="text" id="wlcusername" formControlName="wlcusername" class="form-control change_input"
+            [ngClass]="{ 'is-invalid': vendorOneSubmitted && fone.wlcusername.errors }" [(ngModel)]="model.wlcusername"
+            autocomplete="off" />
+          <div *ngIf="vendorOneSubmitted && fone.wlcusername.errors" class="errormsg1">
+            <div *ngIf="fone.wlcusername.errors.required">Enter the username</div>
+            <div *ngIf="fone.wlcusername.errors.pattern">Enter the valid username</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="wlcpassword" class="name">PASSWORD</label>
+          <div id="input-container">
+            <input id="input-field" id="wlcpassword" type="{{type}}" formControlName="wlcpassword"
+              class="form-control change_input change_input_revamped"
+              [ngClass]="{ 'is-invalid': vendorOneSubmitted && fone.wlcpassword.errors }"
+              [(ngModel)]="model.wlcpassword" autocomplete="off">
+            <i (click)="toggleShow(0)" class="fa" [class.fa-eye-slash]="type == 'password'"
+              [class.fa-eye]="type == 'text'" id="icon"></i>
+          </div>
+          <div *ngIf="vendorOneSubmitted && fone.wlcpassword.errors" class="errormsg1">
+            <div *ngIf="fone.wlcpassword.errors.required">Enter the password</div>
+            <div *ngIf="fone.wlcpassword.errors.pattern">Enter the valid password</div>
+          </div>
+        </div>
+        <div class="form-group  btn-wrap">
+          <div class="wlc_instruction" *ngIf="sshNote"><b>Note: </b>Please ensure that SSH is enabled.</div>
+          <button class="change_button" style="margin-top: 0em;">SAVE</button>
+        </div>
+      </form>
+    </div>
+    <div class="solar" *ngIf="isSolarSelected">
+      <form class="form-horizontal" [formGroup]="vendorThree" (ngSubmit)="vendorThreeCreate($event)">
+        <div class="form-group">
+          <label for="wlcurl" class="name" class="align_ip">URL</label>
+          <input type="text" id="wlcurl" formControlName="wlcurl" class="form-control change_input"
+            [ngClass]="{ 'is-invalid': vendorThreeSubmitted && fthree.wlcurl.errors }" [(ngModel)]="model.wlcurl"
+            autocomplete="off" />
+          <div *ngIf="vendorThreeSubmitted && fthree.wlcurl.errors" class="errormsg1">
+            <div *ngIf="fthree.wlcurl.errors.required">Enter URL</div>
+            <div *ngIf="fthree.wlcurl.errors.pattern">Enter the valid URL</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="wlcusername" class="name">USERNAME</label>
+          <input type="text" id="wlcusername" formControlName="wlcusername" class="form-control change_input"
+            [ngClass]="{ 'is-invalid': vendorThreeSubmitted && fthree.wlcusername.errors }"
+            [(ngModel)]="model.wlcusername" autocomplete="off" />
+          <div *ngIf="vendorThreeSubmitted && fthree.wlcusername.errors" class="errormsg1">
+            <div *ngIf="fthree.wlcusername.errors.required">Enter the username</div>
+            <div *ngIf="fthree.wlcusername.errors.pattern">Enter the valid username</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="wlcpassword" class="name">PASSWORD</label>
+          <div id="input-container">
+            <input id="input-field" id="wlcpassword" type="{{type3}}" formControlName="wlcpassword"
+              class="form-control change_input change_input_revamped"
+              [ngClass]="{ 'is-invalid': vendorThreeSubmitted && fthree.wlcpassword.errors }"
+              [(ngModel)]="model.wlcpassword" autocomplete="off">
+            <i (click)="toggleShow(3)" class="fa" [class.fa-eye-slash]="type3 == 'password'"
+              [class.fa-eye]="type3 == 'text'" id="icon"></i>
+          </div>
+          <div *ngIf="vendorThreeSubmitted && fthree.wlcpassword.errors" class="errormsg1">
+            <div *ngIf="fthree.wlcpassword.errors.required">Enter the password</div>
+            <div *ngIf="fthree.wlcpassword.errors.pattern">Enter the valid password</div>
+          </div>
+        </div>
+        <div class="form-group  btn-wrap">
+          <button class="change_button" style="margin-top: 0em;">SAVE</button>
+        </div>
+      </form>
+    </div>
+  </div><!-- wlc-formwrapper-->
+</p-dialog>
+
+
+<!-- awc -->
+<p-dialog [(visible)]="aws_popup" #awsDialog [modal]="true" [responsive]="true" [maximizable]="true"
+  [baseZIndex]="10000" [contentStyle]="{'max-height':'700px','height':'700px','width':'100%'}">
+  <div class="row">
+    <div class="col-sm-10 col-md-10 col-lg-10">
+
+    </div>
+    <div class="col-sm-2 col-md-2 col-lg-2">
+      <i style="font-size:30px;color:#dc4646;margin-left: 10px;cursor: pointer;" (click)="aws_close()"
+        class="fa fa-times float-right"></i>
+    </div>
+  </div>
+  <div class="box_title">
+    <form [formGroup]="enableFormAWS" (ngSubmit)="AWSenable_details()">
+
+      <div style="min-width: 400px;">
+        <div class="form-group">
+          <label class="name">AWS ACCESS KEY ID</label>
+          <input type="text" formControlName="accesskey" class="form-control change_input"
+            [ngClass]="{ 'is-invalid': awssubmit && a.accesskey.errors }" [(ngModel)]="model.accesskey"
+            (keyup)="valid_key()" />
+          <div *ngIf="awssubmit && a.accesskey.errors" class="errormsg1">
+            <div *ngIf="a.accesskey.errors.required">Enter the aws access key id</div>
+            <div *ngIf="a.accesskey.errors.minlength">Number of aws access key id must be at minimum 16</div>
+            <div *ngIf="a.accesskey.errors.maxlength">Number of aws access key id must be at maximum 128</div>
+            <div *ngIf="a.accesskey.errors.pattern">Enter the valid aws access key id</div>
+          </div>
+          <div class="errormsg1">
+            <div *ngIf="assetStatus">{{asseterrormsg}}</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="name">AWS SECRET ACCESS KEY</label>
+          <input type="text" formControlName="secretaccesskey" class="form-control change_input"
+            [ngClass]="{ 'is-invalid': awssubmit && a.secretaccesskey.errors }" [(ngModel)]="model.secretaccesskey" />
+          <div *ngIf="awssubmit && a.secretaccesskey.errors" class="errormsg1">
+            <div *ngIf="a.secretaccesskey.errors.required">Enter the aws secret access key</div>
+            <div *ngIf="a.secretaccesskey.errors.pattern">Enter the valid aws secret access key</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="name">AWS REGION</label>
+          <input type="text" formControlName="region" class="form-control change_input"
+            [ngClass]="{ 'is-invalid': awssubmit && a.region.errors }" [(ngModel)]="model.region" />
+          <div *ngIf="awssubmit && a.region.errors" class="errormsg1">
+            <div *ngIf="a.region.errors.required">Enter the aws region</div>
+            <div *ngIf="a.region.errors.pattern">Enter the valid aws region</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group  btn-wrap">
+        <button class="change_button" style="margin-bottom:15px">SAVE</button>
+      </div>
+    </form>
+  </div>
+</p-dialog>
+
+<!-- location -->
+<p-dialog [(visible)]="location_popup" #locationDialog [modal]="true" [responsive]="true"
+  [style]="{width: '300px', minWidth: '200px'}" [maximizable]="true" [baseZIndex]="10000"
+  [contentStyle]="{'max-height':'500px','height':'500px'}">
+  <h6 class="title_setting" style="text-align:center"> LOCATION INFORMATION </h6>
+  <p id="location" *ngIf="licence_location == ''" class="subnet_content" style="margin-bottom:25px"> NO DATA AVAILABLE
+  </p>
+  <table id="location" *ngFor="let l of licence_location">
+    <tr>
+      <td>Country</td>
+      <td>{{l.country}}</td>
+    </tr>
+    <tr>
+      <td>Region</td>
+      <td>{{l.region}}</td>
+    </tr>
+    <tr>
+      <td>Timezone</td>
+      <td>{{l.timezone}}</td>
+    </tr>
+    <tr>
+      <td>City</td>
+      <td>{{l.city}}</td>
+    </tr>
+    <tr>
+      <td>Latitude</td>
+      <td>{{l.ll[0]}}</td>
+    </tr>
+    <tr>
+      <td>Longitude</td>
+      <td>{{l.ll[1]}}</td>
+    </tr>
+  </table>
+  <div class="center_btn">
+    <button type="button" class="btn btn-sm" (click)="close_location()" class="reset_ok">OK</button>
+  </div>
+</p-dialog>
+
+
+
+<!-- edit details -->
+<p-dialog [(visible)]="edit_popup" [modal]="true" #editDialog [responsive]="true" [maximizable]="true"
+  [baseZIndex]="10000" [contentStyle]="{'height':'700px','max-height':'700px','width':'100%'}">
+
+  <div class="row">
+    <div class="col-sm-10 col-md-10 col-lg-10">
+    </div>
+    <div class="col-sm-2 col-md-2 col-lg-2">
+      <i style="font-size:30px;color:#dc4646;margin-left: 25px; cursor: pointer;" (click)="close_edit()"
+        class="fa fa-times"></i>
+    </div>
+  </div>
+
+
+  <form [formGroup]="editForm" (ngSubmit)="edit_update()">
+    <h6 class="title_setting"> LICENSE INFORMATION</h6>
+    <div class="row">
+      <div class="col-sm-12 col-md-12 col-lg-12">
+        <label class="name">DESCRIPTION<span class="matitory_start">*</span></label>
+        <textarea class="form-control change_input" formControlName="ldesce"
+          [ngClass]="{ 'is-invalid': edited && e.ldesce.errors }" [(ngModel)]="model.licence_desc" rows="2"
+          class="textarea_style"></textarea>
+        <div *ngIf="edited && e.ldesce.errors" class="errormsg">
+          <div *ngIf="e.ldesce.errors.required">Enter a license description</div>
+          <div *ngIf="e.ldesce.errors.maxlength">License description must be at maximum 100</div>
+          <div *ngIf="e.ldesce.errors.pattern">Enter the valid license description</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- version - 2 -->
+    <!-- <div class="row d-none">
+                  <div class="col-sm-6 col-md-6 col-lg-6">
+                      <h6 class="title_setting"> LICENSE INFORMATION</h6>
+                  </div>
+                  <div class="col-sm-6 col-md-6 col-lg-6">
+                      <h6 class="title_setting"> STREAMING FLOW CONFIG</h6>
+                  </div>
+              </div> -->
+
+    <!-- version - 2 -->
+    <!-- <div class="row d-none">
+                  <div class="col-sm-6 col-md-6 col-lg-6">
+                      <div class="form-group">
+                          <label class="name">License key description</label>
+                            <textarea class="form-control change_input" formControlName="ldesce"
+                              [ngClass]="{ 'is-invalid': edited && e.ldesce.errors }" [(ngModel)]="model.licence_desc" rows="2"
+                              class="textarea_style"></textarea>
+                            <div *ngIf="edited && e.ldesce.errors" class="errormsg">
+                              <div *ngIf="e.ldesce.errors.required">Enter a license description</div>
+                               <div *ngIf="e.ldesce.errors.pattern">Enter the valid license description</div>
+                            </div>
+                        </div>
+                  </div>
+                  <div class="col-sm-6 col-md-6 col-lg-6">
+                      <div class="form-group">
+                          <label class="name">Number of module<span class="matitory_start">*</span></label>
+                          <input type="text" formControlName="streaming" class="form-control change_input"
+                            [ngClass]="{ 'is-invalid': edited && e.streaming.errors }" [(ngModel)]="model.streaming" />
+                          <div *ngIf="edited && e.streaming.errors" class="errormsg">
+                            <div *ngIf="e.streaming.errors.required">Enter the number of streaming flow module</div>
+                            <div *ngIf="e.streaming.errors.min">Number of streaming flow module must be at minimum 1</div>
+                            <div *ngIf="e.streaming.errors.max">Number of streaming flow module must be at maximum 99</div>
+                            <div *ngIf="e.streaming.errors.pattern">please enter number only</div>
+                          </div>
+                        </div>
+                  </div>
+                </div> -->
+
+    <h6 class="title_setting" style="margin-top:15px"> LOCATION</h6>
+
+    <div class="row">
+      <div class="col-sm-6 col-md-6 col-lg-6">
+        <div class="form-group">
+          <label class="name">COUNTRY<span class="matitory_start">*</span></label>
+          <input type="text" formControlName="country" class="form-control change_input"
+            [ngClass]="{ 'is-invalid': edited && e.country.errors }" [(ngModel)]="model.country" />
+          <div *ngIf="edited && e.country.errors" class="errormsg">
+            <div *ngIf="e.country.errors.required">Enter the country</div>
+            <div *ngIf="e.country.errors.pattern">Enter the valid country</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-6 col-lg-6">
+        <div class="form-group">
+          <label class="name">REGION</label>
+          <input type="text" formControlName="region" class="form-control change_input"
+            [ngClass]="{ 'is-invalid': edited && e.region.errors }" [(ngModel)]="model.region" />
+          <div *ngIf="edited && e.region.errors" class="errormsg">
+            <div *ngIf="e.region.errors.required">Enter the region</div>
+            <div *ngIf="e.region.errors.pattern">Enter the valid region</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-6 col-md-6 col-lg-6">
+        <div class="form-group">
+          <label class="name">TIMEZONE</label>
+          <input type="text" formControlName="timezone" class="form-control change_input"
+            [ngClass]="{ 'is-invalid': edited && e.timezone.errors }" [(ngModel)]="model.timezone" />
+          <div *ngIf="edited && e.timezone.errors" class="errormsg">
+            <div *ngIf="e.timezone.errors.required">Enter the timezone</div>
+            <div *ngIf="e.timezone.errors.pattern">Enter the valid timezone</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-6 col-lg-6">
+        <div class="form-group">
+          <label class="name">CITY <span class="matitory_start">*</span></label>
+          <input type="text" formControlName="city" class="form-control change_input"
+            [ngClass]="{ 'is-invalid': edited && e.city.errors }" [(ngModel)]="model.city" />
+          <div *ngIf="edited && e.city.errors" class="errormsg">
+            <div *ngIf="e.city.errors.required">Enter the city</div>
+            <div *ngIf="e.city.errors.pattern">Enter the valid city</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-6 col-md-6 col-lg-6">
+        <div class="form-group">
+          <label class="name">LATITUDE</label>
+          <input type="text" formControlName="latitude" class="form-control change_input"
+            [ngClass]="{ 'is-invalid': edited && e.latitude.errors }" [(ngModel)]="model.latitude" />
+          <div *ngIf="edited && e.latitude.errors" class="errormsg">
+            <div *ngIf="e.latitude.errors.required">Enter the latitude</div>
+            <div *ngIf="e.latitude.errors.pattern">Enter the valid latitude</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-6 col-lg-6">
+        <div class="form-group">
+          <label class="name">LONGITUDE</label>
+          <input type="text" formControlName="longitude" class="form-control change_input"
+            [ngClass]="{ 'is-invalid': edited && e.longitude.errors }" [(ngModel)]="model.longitude" />
+          <div *ngIf="edited && e.longitude.errors" class="errormsg">
+            <div *ngIf="e.longitude.errors.required">Enter the longitude</div>
+            <div *ngIf="e.longitude.errors.pattern">Enter the valid longitude</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <button class="change_button">UPDATE</button>
+    </div>
+
+  </form>
+
+
+</p-dialog>
+
+
+<section class="container-fluid home-wrap h-100">
+  <div class="w-100 h-100" id="all-device-page">
+
+    <div id="ai3-sidenav" class="sidenav">
+      <a class="closebtn" (click)="closeNav()">&times;</a>
+      <div id="accordion" class="acordion">
+
+        <div style="border-radius: inherit;" class="card-header" data-toggle="collapse" data-target="#collapseFive"
+          aria-expanded="false" id="headingFive" (click)="collape('licence')"
+          [ngClass]="{'card-header-active':active_list == 'licence'}">
+          <h5 class="mb-0">
+            <button class="btn btn-link collapsed" (click)="license = 1" aria-controls="collapseFive">
+              LICENSE MANAGEMENT
+            </button>
+          </h5>
+        </div>
+        <div id="collapseFive" class="collapse d-none" aria-labelledby="headingFive" data-parent="#accordion"></div>
+
+        <div class="card-header" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" id="headingTwo"
+          (click)="collape('setting')" [ngClass]="{'card-header-active':active_list == 'setting'}">
+          <h5 class="mb-0">
+            <button class="btn btn-link collapsed" aria-controls="collapseTwo" (click)="setting=1">
+              SETTING - SUBNET CONFIG
+            </button>
+          </h5>
+        </div>
+        <div id="collapseTwo" class="collapse d-none" aria-labelledby="headingTwo" data-parent="#accordion"></div>
+
+        <div class="card-header" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false"
+          id="headingThree" (click)="collape('email')" [ngClass]="{'card-header-active':active_list == 'email'}">
+          <h5 class="mb-0">
+            <button class="btn btn-link collapsed" aria-controls="collapseThree">
+              REPORT - NOTIFICATIONS
+            </button>
+          </h5>
+        </div>
+        <div id="collapseThree" class="collapse d-none" aria-labelledby="headingThree" data-parent="#accordion"></div>
+
+        <div class="card-header" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false"
+          id="headingSeven" (click)="collape('ad')" [ngClass]="{'card-header-active':active_list == 'ad'}">
+          <h5 class="mb-0">
+            <button class="btn btn-link collapsed" aria-controls="collapseSeven" title="ACTIVE DIRECTORY CONFIG">
+              AD CONFIG
+            </button>
+          </h5>
+        </div>
+        <div id="collapseSeven" class="collapse d-none" aria-labelledby="headingSeven" data-parent="#accordion"></div>
+
+        <div class="card-header" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false"
+          id="headingEight" (click)="collape('aws')" [ngClass]="{'card-header-active':active_list == 'aws'}">
+          <h5 class="mb-0">
+            <button class="btn btn-link collapsed" aria-controls="collapseEight">
+              ASSET MANAGEMENT CONFIG
+            </button>
+          </h5>
+        </div>
+        <div id="collapseEight" class="collapse d-none" aria-labelledby="headingEight" data-parent="#accordion"></div>
+
+        <div class="card-header" data-toggle="collapse" data-target="#collapseNine" aria-expanded="false"
+          id="headingNine" (click)="collape('wlc')" [ngClass]="{'card-header-active':active_list == 'wlc'}">
+          <h5 class="mb-0">
+            <button class="btn btn-link collapsed" aria-controls="collapseNine" title="WIRELESS LAN CONTROLLER">
+              THIRD - PARTY
+            </button>
+          </h5>
+        </div>
+        <div id="collapseNine" class="collapse d-none" aria-labelledby="headingNine" data-parent="#accordion"> </div>
+
+        <div class="card-header" data-toggle="collapse" data-target="#collapseEleven" aria-expanded="true"
+          id="headingTen" (click)="collape('user')" [ngClass]="{'card-header-active':active_list == 'user'}">
+          <h5 class="mb-0">
+            <button class="btn btn-link desc_text1 text-uppercase" aria-controls="collapseTen">
+              User management
+            </button>
+          </h5>
+        </div>
+        <div id="collapseEleven" class="collapse d-none" aria-labelledby="headingTen" data-parent="#accordion"></div>
+
+        <div class="card-header" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" id="headingSix"
+          (click)="collape('changepassword')" [ngClass]="{'card-header-active':active_list == 'changepassword'}">
+          <h5 class="mb-0">
+            <button class="btn btn-link collapsed" aria-controls="collapseSix">
+              CHANGE PASSWORD
+            </button>
+          </h5>
+        </div>
+        <div id="collapseSix" class="collapse d-none" aria-labelledby="headingSix" data-parent="#accordion"> </div>
+
+        <!-- <div *ngIf='user_id == 0' class="card-header" data-toggle="collapse" data-target="#collapseOne"
+          aria-expanded="true" id="headingOne" (click)="collape('log')"
+          [ngClass]="{'card-header-active':active_list == 'log'}">
+          <h5 class="mb-0">
+            <button class="btn btn-link" aria-controls="collapseOne">
+              LOG - IAE (DISCOVERY)
+            </button>
+          </h5>
+        </div>
+        <div id="collapseOne" class="collapse d-none" aria-labelledby="headingOne" data-parent="#accordion"></div> -->
+
+        <!-- <div *ngIf='user_id == 0' class="card-header" data-toggle="collapse" data-target="#collapseTen"
+          aria-expanded="true" id="headingTen" (click)="collape('tie')"
+          [ngClass]="{'card-header-active':active_list == 'tie'}">
+          <h5 class="mb-0">
+            <button class="btn btn-link desc_text1" aria-controls="collapseTen">
+              VULNERABILITY LOG (TIE)
+            </button>
+          </h5>
+        </div>
+        <div id="collapseTen" class="collapse d-none" aria-labelledby="headingTen" data-parent="#accordion"></div> -->
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-pixel-width-235">
+
+        <p class="title_text" *ngIf='user_id != 0'>
+          <span class="ham-icon d-lg-none" (click)="openNav()">☰</span>
+          ADMIN
+        </p>
+
+        <p class="title_text" *ngIf='user_id == 0'>
+          <span class="ham-icon d-lg-none" (click)="openNav()">☰</span>
+          SUPER ADMIN
+        </p>
+
+      </div>
+      <div class="col ai3-fade-in" *ngIf='active_list == "log"'>
+        <div style="display: flex; justify-content: flex-end;">
+          <div class="title_refresh">
+            <p-checkbox class="title_refresh" styleClass="checkbox_style" name="group2" value="Autorefresh_log"
+              label="AUTO REFRESH" [(ngModel)]="selectedCategories_log" inputId="autorefreshlog"
+              (onChange)="autoRefreshlog($event)">
+            </p-checkbox>
+          </div>
+          <div class="ui-select title_lines">NO OF LINES
+            <select type="number" [(ngModel)]="FilterSelect" (ngModelChange)="applyFilter_log()">
+              <option *ngFor="let filter of filters" [ngValue]="filter.id">{{ filter.name }}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="col ai3-fade-in" *ngIf='active_list == "tie"'>
+        <div style="display: flex; justify-content: flex-end;">
+          <div class="title_refresh">
+            <p-checkbox class="title_refresh" styleClass="checkbox_style" name="group2" value="Autorefresh_tie"
+              label="AUTO REFRESH" [(ngModel)]="selectedCategories_tie" inputId="autorefreshtie"
+              (onChange)="autoRefreshtie($event)">
+            </p-checkbox>
+          </div>
+          <div class="ui-select title_lines">NO OF LINES
+            <select type="number" [(ngModel)]="FilterSelect" (ngModelChange)="applyFilter_tie()">
+              <option *ngFor="let filter of filters" [ngValue]="filter.id">{{ filter.name }}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+    <div class="row h-100">
+      <div class="d-none d-lg-block col-pixel-width-235 left-control-pane ai3-fade-in">
+        <div id="accordion" class="acordion">
+
+          <div class="card-header" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false"
+            id="headingFive" (click)="collape('licence')" [ngClass]="{'card-header-active':active_list == 'licence'}">
+            <h5 class="mb-0">
+              <button class="btn btn-link collapsed desc_text1" (click)="license = 1" aria-controls="collapseFive">
+                LICENSE MANAGEMENT
+              </button>
+            </h5>
+          </div>
+          <div id="collapseFive" class="collapse d-none" aria-labelledby="headingFive" data-parent="#accordion"></div>
+
+          <div class="card-header" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false"
+            id="headingTwo" (click)="collape('setting')" [ngClass]="{'card-header-active':active_list == 'setting'}">
+            <h5 class="mb-0">
+              <button class="btn btn-link collapsed desc_text1" aria-controls="collapseTwo" (click)="setting=1">
+                SETTING - SUBNET CONFIG
+              </button>
+            </h5>
+          </div>
+          <div id="collapseTwo" class="collapse d-none" aria-labelledby="headingTwo" data-parent="#accordion"></div>
+
+          <div class="card-header" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false"
+            id="headingThree" (click)="collape('email')" [ngClass]="{'card-header-active':active_list == 'email'}">
+            <h5 class="mb-0">
+              <button class="btn btn-link collapsed desc_text1" aria-controls="collapseThree">
+                REPORT - NOTIFICATIONS
+              </button>
+            </h5>
+          </div>
+          <div id="collapseThree" class="collapse d-none" aria-labelledby="headingThree" data-parent="#accordion"></div>
+
+          <div class="card-header" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false"
+            id="headingSeven" (click)="collape('ad')" [ngClass]="{'card-header-active':active_list == 'ad'}">
+            <h5 class="mb-0">
+              <button class="btn btn-link collapsed desc_text1" aria-controls="collapseSeven"
+                title="ACTIVE DIRECTORY CONFIG">
+                AD CONFIG
+              </button>
+            </h5>
+          </div>
+          <div id="collapseSeven" class="collapse d-none" aria-labelledby="headingSeven" data-parent="#accordion"></div>
+
+          <div class="card-header" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false"
+            id="headingEight" (click)="collape('aws')" [ngClass]="{'card-header-active':active_list == 'aws'}">
+            <h5 class="mb-0">
+              <button class="btn btn-link collapsed desc_text1" aria-controls="collapseEight">
+                ASSET MANAGEMENT CONFIG
+              </button>
+            </h5>
+          </div>
+          <div id="collapseEight" class="collapse d-none" aria-labelledby="headingEight" data-parent="#accordion"></div>
+
+          <div class="card-header" data-toggle="collapse" data-target="#collapseNine" aria-expanded="false"
+            id="headingNine" (click)="collape('wlc')" [ngClass]="{'card-header-active':active_list == 'wlc'}">
+            <h5 class="mb-0">
+              <button class="btn btn-link collapsed desc_text1" aria-controls="collapseNine"
+                title="WIRELESS LAN CONTROLLER">
+                THIRD - PARTY
+              </button>
+            </h5>
+          </div>
+          <div id="collapseNine" class="collapse d-none" aria-labelledby="headingNine" data-parent="#accordion"> </div>
+
+          <div class="card-header" data-toggle="collapse" data-target="#collapseEleven" aria-expanded="true"
+            id="headingTen" (click)="collape('user')" [ngClass]="{'card-header-active':active_list == 'user'}">
+            <h5 class="mb-0">
+              <button class="btn btn-link desc_text1 text-uppercase" aria-controls="collapseEleven">
+                USER Management
+              </button>
+            </h5>
+          </div>
+          <div id="collapseEleven" class="collapse d-none" aria-labelledby="headingTen" data-parent="#accordion"></div>
+
+          <div class="card-header" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false"
+            id="headingSix" (click)="collape('changepassword')"
+            [ngClass]="{'card-header-active':active_list == 'changepassword'}">
+            <h5 class="mb-0">
+              <button class="btn btn-link collapsed desc_text1" aria-controls="collapseSix">
+                CHANGE PASSWORD
+              </button>
+            </h5>
+          </div>
+          <div id="collapseSix" class="collapse d-none" aria-labelledby="headingSix" data-parent="#accordion"> </div>
+
+          <!-- <div *ngIf='user_id == 0' class="card-header" data-toggle="collapse" data-target="#collapseOne"
+            aria-expanded="true" id="headingOne" (click)="collape('log')"
+            [ngClass]="{'card-header-active':active_list == 'log'}">
+            <h5 class="mb-0">
+              <button class="btn btn-link desc_text1" aria-controls="collapseOne">
+                LOG - IAE (DISCOVERY)
+              </button>
+            </h5>
+          </div>
+          <div id="collapseOne" class="collapse d-none" aria-labelledby="headingOne" data-parent="#accordion"></div> -->
+
+          <!-- <div *ngIf='user_id == 0' class="card-header" data-toggle="collapse" data-target="#collapseTen"
+            aria-expanded="true" id="headingTen" (click)="collape('tie')"
+            [ngClass]="{'card-header-active':active_list == 'tie'}">
+            <h5 class="mb-0">
+              <button class="btn btn-link desc_text1" aria-controls="collapseTen">
+                VULNERABILITY LOG (TIE)
+              </button>
+            </h5>
+          </div>
+          <div id="collapseTen" class="collapse d-none" aria-labelledby="headingTen" data-parent="#accordion"></div> -->
+
+        </div>
+      </div>
+
+      <ngx-loading [show]="SettingsLoading" [config]="{ primaryColour: primaryColour, backdropBorderRadius: '3px'}"
+        [template]="loadingTemplate"> loading...</ngx-loading>
+
+      <!-- log -->
+
+      <div style="overflow-x: hidden" class="col ai3-fade-in" *ngIf='active_list == "log"'>
+        <div *ngIf='user_id == 0' id="scrollMelog" [style.height]="innerHeight" #scrollMelog class="loggertxt" readonly>
+          {{ logger_log || 'loading log...'}}
+        </div>
+      </div>
+
+
+
+      <!-- tie  -->
+
+      <div style="overflow-x: hidden" class="col ai3-fade-in" *ngIf='active_list == "tie"'>
+        <div *ngIf='user_id == 0' id="scrollMetie" [style.height]="innerHeight" #scrollMetie class="loggertxt" readonly>
+          {{ logger_tie || 'loading tie...'}}
+        </div>
+      </div>
+
+      <!--  setting -->
+
+      <div class="col ai3-fade-in" *ngIf='active_list == "setting"'>
+
+        <p-table [value]="subnet" [scrollable]="true" tableStyleClass="ktable" scrollHeight="{{table_height}}"
+          styleClass="license_style">
+          <ng-template pTemplate="caption">
+            <div class="row">
+              <div style="text-align: left" class="col-sm-2 col-md-2 col-lg-2 pl-0">
+                <button type="button" (click)="subnet_create('create')" style="float: left" class="change_button m-0">
+                  ADD
+                </button>
+              </div>
+
+              <div class="col-sm-10 col-md-10 col-lg-10 pr-0">
+                <p-dropdown [options]="license" [autoDisplayFirst]="true" optionLabel="desc"
+                  styleClass="multi-tenant-selector" [style]="{
+                        width: '25%',
+                        'margin-right': '0px',
+                        'margin-bottom': '10px',
+                        'margin-top': '0px'
+                      }" [showTransitionOptions]="'100ms'" [hideTransitionOptions]="'200ms'" [filter]="false"
+                  [showClear]="false" (onChange)="onChange_license($event)">
+                </p-dropdown>
+              </div>
+            </div>
+          </ng-template>
+
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="width: 10%" class="title_setting table-text-left">NO</th>
+              <th style="width: 25%" class="title_setting table-text-left">SUBNET</th>
+              <th style="width: 40%" class="title_setting table-text-left">DESCRIPTION</th>
+              <th style="width: 25%" class="title_setting table-text-center">ACTION</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-s let-rowIndex="rowIndex">
+            <tr>
+              <td style="width: 10%">
+                {{rowIndex + 1}}</td>
+              <td style="width: 25%">
+                {{s.subnet}}</td>
+              <td style="width: 40%" class="desc_text">
+                {{s.desc}}</td>
+              <td class="table-text-center" style="width: 25%">
+                <span class="cancel_button" (click)="ipaddress_edit(s,'edit')">
+                  <i style="font-size:18px" class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                </span>&nbsp;&nbsp;&nbsp;
+                <span class="cancel_button" (click)="ipaddress_remove(s)">
+                  <i style="font-size:18px" class="fa fa-times" aria-hidden="true"></i>
+                </span>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+        <div class="ai3-table-no-data" *ngIf="subnet.length ==  0">
+          NO DATA AVAILABLE
+        </div>
+
+
+      </div>
+
+
+      <!--- user management karthk --->
+      <div class="col ai3-fade-in user_management" *ngIf='active_list == "user"'>
+
+        <p-table [value]="userMgtList" [scrollable]="true" tableStyleClass="ktable" scrollHeight="{{table_height}}"
+          styleClass="license_style">
+          <ng-template pTemplate="caption">
+            <div class="row">
+              <div style="text-align: left" class="col-sm-2 col-md-2 col-lg-2 pl-0">
+                <button type="button" (click)="createNewUser('create')" style="float: left" class="change_button m-0">
+                  ADD
+                </button>
+              </div>
+
+              <div class="col-sm-10 col-md-10 col-lg-10 pr-0">
+              </div>
+            </div>
+          </ng-template>
+
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="width: 10%" class="title_setting table-text-left text-uppercase">NO</th>
+              <th style="width: 35%" class="title_setting table-text-left text-uppercase">USER</th>
+              <th style="width: 15%" class="title_setting table-text-left text-uppercase">ROLE</th>
+              <th style="width: 15%" class="title_setting table-text-left text-uppercase">USERNAME</th>
+              <th style="width: 25%" class="title_setting table-text-center text-uppercase">ACTION</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-s let-rowIndex="rowIndex">
+            <tr>
+              <td style="width: 10%">{{rowIndex + 1}}</td>
+              <td class="word-wrap" style="width: 35%">{{s.username}}</td>
+              <td style="width: 15%" class="desc_text">{{s.role}}</td>
+              <td class="word-wrap" style="width: 15%">{{s.customer_name || '-'}}</td>
+              <td class="table-text-center" style="width: 25%">
+                <span class="cancel_button d-none" (click)="editUser(s,'edit')">
+                  <i style="font-size:18px" class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                </span>&nbsp;&nbsp;&nbsp;
+                <span class="cancel_button" *ngIf="!s.isAdminUser && !s.isSameLogin " (click)="removeUser(s)">
+                  <i style="font-size:18px" class="fa fa-times" aria-hidden="true"></i>
+                </span>
+                <span class="cancel_button" *ngIf="s.isAdminUser || s.isSameLogin ">
+                  <i style="font-size:18px; cursor:none;color: #9E9E9E;" class="fa fa-times" aria-hidden="true"></i>
+                </span>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+        <div class="ai3-table-no-data" *ngIf="userMgtList.length ==  0">
+          NO DATA AVAILABLE
+        </div>
+
+
+      </div>
+
+      <!-- notification -->
+
+      <div class="col ai3-fade-in" *ngIf='active_list == "email"'>
+        <p-table [value]="emailreport" [scrollable]="true" tableStyleClass="ktable" scrollHeight="{{table_height}}"
+          styleClass="license_style">
+
+          <ng-template pTemplate="caption">
+            <div class="row">
+              <div style="text-align: left" class="col-sm-2 col-md-2 col-lg-2 pl-0">
+                <button type="button" style="float: left" (click)="email_create()" class="change_button m-0">
+                  ADD
+                </button>
+              </div>
+
+              <div class="col-sm-10 col-md-10 col-lg-10 pr-0">
+              </div>
+            </div>
+          </ng-template>
+
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="width: 10%" class="title_setting table-text-left">NO</th>
+              <th style="width: 70%" class="title_setting table-text-left">EMAIL-ID</th>
+              <th style="width: 20%" class="title_setting">ACTION</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-e let-rowIndex="rowIndex">
+            <tr>
+              <td style="width: 10%">{{rowIndex + 1}}</td>
+              <td style="width: 70%" class="desc_text">
+                {{e.emailid}}
+              </td>
+              <td class="table-text-center" style="width: 20%">
+                <span class="cancel_button" (click)="email_remove(e,2)">
+                  <i style="font-size:18px" class="fa fa-times" aria-hidden="true"></i>
+                </span>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+
+        <div class="ai3-table-no-data" *ngIf="emailreport.length ==  0">
+          NO DATA AVAILABLE
+        </div>
+      </div>
+
+      <!-- license management -->
+      <div class="col ai3-fade-in license-overflow" *ngIf='active_list == "licence"'>
+        <!-- *ngIf="liscensmanagement.length < 5" -->
+        <div class="row">
+          <div style="text-align: left" class="col-12 mb-3">
+            <button type="button" style="float: left" [disabled]="isGlDisabled" (click)="generate_licence()"
+              class="generate_licence_button">
+              GENERATE NEW LICENSE
+            </button>
+          </div>
+        </div>
+        <p-table [value]="liscensmanagement" [scrollable]="true" tableStyleClass="ktable"
+          scrollHeight="{{table_height}}" [resizableColumns]="true" styleClass="license_style ai3-license-mnt">
+
+          <ng-template pTemplate="header">
+            <tr class="ai3-header-res">
+              <th style="width: 5%" class="title_setting table-text-left">NO</th>
+              <th style="width: 20%" class="title_setting table-text-left">LICENSE</th>
+              <th style="width: 10%" class="title_setting table-text-left">VERSION</th>
+              <th style="width: 20%" class="title_setting table-text-left">DESCRIPTION</th>
+              <!-- <th *ngIf='user_id == 0' style="width: 20%" class="title_setting table-text-left">ENVIROMENT STATE</th> -->
+              <!-- <th *ngIf='user_id == 0' style="width: 10%" class="title_setting">NO OF MODULE</th> -->
+              <th style="width: 10%" class="title_setting">LOCATION</th>
+              <th style="width: 10%" class="title_setting">ACTION</th>
+              <th style="width: 15%" class="title_setting">BINARY DOWNLOAD</th>
+              <!-- <th style="width: 10%" class="title_setting">UPGRADE</th> -->
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-lm let-rowIndex="rowIndex">
+            <tr>
+              <td class="table-text-left" style="width: 5%">{{rowIndex + 1}}</td>
+              <td class="table-text-left" style="width: 20%" class="desc_text">
+                {{lm.licence_key}}
+              </td>
+              <td class="table-text-left" style="width: 10%" class="desc_text">
+                {{lm.collector_version == null ? "Not Installed" : lm.collector_version}}
+              </td>
+              <td class="table-text-left" style="width: 20%;cursor: pointer;" class="desc_text"
+                (click)="description_popup(lm)">
+                {{lm.licence_desc || "-"}}
+              </td>
+              <!-- <td style="width: 20%" *ngIf='user_id == 0'>
+                <label class="switch">
+                  <input type="checkbox" (click)="toggle_status_env(lm.isEnvironment_state)" [checked]="lm.isEnvironment_state == true" />
+                  <span class="slider round"></span>
+                </label>
+              </td> -->
+              <!-- <td *ngIf='user_id == 0' style="width: 10%">{{lm.streamflow_mod_cnt || "-"}}</td> -->
+              <td class="table-text-center" style="width: 10%;cursor: pointer;">
+                <i title="Location" style="font-size:2rem" (click)="info_location(lm.licence_location)"
+                  class="fa fa-map-marker"></i>
+              </td>
+              <td class="table-text-center" style="width: 10%;cursor: pointer;">
+                <div>
+                  <i title="Edit" style="font-size:2rem" (click)="edit_location(lm)" class="fa fa-edit"></i>
+                  &nbsp;&nbsp;
+                  <i title="Reset" style="font-size:2rem" (click)="reset(lm.resetLink)" class="fa fa-repeat"></i>
+                </div>
+              </td>
+              <td class="table-text-center" style="cursor: pointer;width: 15%">
+                <!-- <i pTooltip="Windows" tooltipPosition="bottom" style="font-size:2rem"
+                  (click)="cloud_download(lm.downloadwindowsLink)" class="fa fa-windows">
+                </i>&nbsp;&nbsp;<i pTooltip="Linux" tooltipPosition="bottom" style="font-size:2rem"
+                  (click)="cloud_download(lm.downloadLink)" class="fa fa-linux"></i> -->
+
+                <i title="Windows" style="font-size:2rem" (click)="downloadFile_windows(lm.licence_key)"
+                  class="fa fa-windows"></i>&nbsp;&nbsp;<i title="Linux" style="font-size:2rem"
+                  (click)="downloadFile_linux(lm.licence_key)" class="fa fa-linux"></i>
+              </td>
+              <!-- <td style="cursor: pointer;width: 10%">
+                <button type="button" title="EMAIL REQUEST" (click)="open_upgrade()"
+                  class="email_request_btn email_request">
+                  EMAIL REQUEST
+                </button>
+              </td> -->
+            </tr>
+          </ng-template>
+        </p-table>
+        <div class="ai3-table-no-data" *ngIf="liscensmanagement.length ==  0">
+          NO DATA AVAILABLE
+        </div>
+      </div>
+
+
+      <!-- change password -->
+      <div class="col-sm-12 col-md-6 col-lg-4 ai3-fade-in" *ngIf='active_list == "changepassword"'>
+        <div style="width:360px" class="box_setting_subnet">
+          <h6 class="title_setting"> CHANGE PASSWORD </h6>
+          <p class="subnet_content">Change your password by entering <br>your current password.</p>
+
+          <form [formGroup]="changepasswordForm" (ngSubmit)="change_password()"
+            style="margin-top:15px; overflow: auto;">
+
+            <div class="form-group">
+              <div id="input-container">
+                <input id="input-field1" type="{{type}}" formControlName="current" placeholder="Current password"
+                  class="form-control change_input change_input_revamped"
+                  [ngClass]="{ 'is-invalid': submitted && f.current.errors }" [(ngModel)]="model.oldpassword">
+                <i (click)="toggleShow(0)" class="fa" [class.fa-eye-slash]="type == 'password'"
+                  [class.fa-eye]="type == 'text'" id="icon"></i>
+              </div>
+              <div *ngIf="submitted && f.current.errors" class="errormsg1">
+                <div *ngIf="f.current?.errors.required">Enter the current password</div>
+              </div>
+            </div>
+
+            <hr style="border-top: dotted 1px;color: grey;margin-top: 30px" />
+
+            <div class="form-group">
+              <div id="input-container">
+                <input id="input-field2" type="{{type1}}" formControlName="new" placeholder="New password"
+                  class="form-control change_input change_input_revamped"
+                  [ngClass]="{ 'is-invalid': submitted && f.new.errors }" [(ngModel)]="model.newpassword"
+                  (keydown.space)="$event.preventDefault()">
+                <i (click)="toggleShow(1)" class="fa" [class.fa-eye-slash]="type1 == 'password'"
+                  [class.fa-eye]="type1 == 'text'" id="icon"></i>
+              </div>
+              <div *ngIf="submitted && f.new.errors" class="errormsg1">
+                <div *ngIf="f.new?.errors.required">Type the new password</div>
+                <div *ngIf="f.new.errors.pattern">Input must contain at least one symbol character, digit, lowercase and
+                  uppercase letter and at least 8 characters long</div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div id="input-container">
+                <input id="input-field3" type="{{type2}}" formControlName="password" placeholder="Retype New password"
+                  class="form-control change_input change_input_revamped"
+                  [ngClass]="{ 'is-invalid': submitted && f.password.errors }" [(ngModel)]="model.confirmpassword"
+                  (keydown.space)="$event.preventDefault()">
+                <i (click)="toggleShow(2)" class="fa" [class.fa-eye-slash]="type2 == 'password'"
+                  [class.fa-eye]="type2 == 'text'" id="icon"></i>
+              </div>
+              <div *ngIf="submitted && f.password.errors" class="errormsg1">
+                <div *ngIf="f.password?.errors.required">Retype the new password</div>
+                <div *ngIf="f.password.errors.mustMatch">Passwords must match</div>
+              </div>
+            </div>
+
+            <div class="form-group btn-wrap">
+              <button class="change_button">UPDATE</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+
+
+      <!-- ad configuration -->
+
+
+      <div class="col ai3-fade-in" *ngIf='active_list == "ad"'>
+        <p-table [value]="adconfig" [scrollable]="true" tableStyleClass="ktable" scrollHeight="200px"
+          styleClass="license_style">
+          <ng-template pTemplate="caption">
+            <div class="row">
+              <div style="text-align: left" class="col-sm-2 col-md-2 col-lg-2 pl-0">
+                <button *ngIf="ad_add_btn == 1" type="button" (click)="ad_create('create')" style="float: left"
+                  class="change_button m-0">
+                  ADD
+                </button>
+              </div>
+
+              <div class="col-sm-10 col-md-10 col-lg-10 pr-0">
+                <p-dropdown [options]="license" [autoDisplayFirst]="true" optionLabel="desc"
+                  styleClass="multi-tenant-selector" [style]="{
+                      width: '25%',
+                      'margin-right': '0px',
+                      'margin-bottom': '10px',
+                      'margin-top': '0px'
+                    }" [showTransitionOptions]="'100ms'" [hideTransitionOptions]="'200ms'" [filter]="false"
+                  [showClear]="false" (onChange)="onChange_ad($event)">
+                </p-dropdown>
+              </div>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header">
+            <tr class="ai3-header-res">
+              <th style="width: 10%" class="title_setting table-text-left">NO</th>
+              <th style="width: 10%" class="title_setting table-text-left">STATUS</th>
+              <th style="width: 25%" class="title_setting table-text-left">DOMAIN NAME</th>
+              <th style="width: 20%" class="title_setting table-text-left">IP ADDRESS</th>
+              <th style="width: 25%" class="title_setting table-text-left">ADMIN ACCOUNT</th>
+              <th style="width: 10%" class="title_setting">ACTION</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-ad let-rowIndex="rowIndex">
+            <tr>
+              <td style="width: 10%">{{rowIndex + 1}}</td>
+              <td style="width: 10%">
+                <label class="switch">
+                  <input type="checkbox" (click)="toggle_status_ad('toggle',ad)" [checked]="ad.status == 'ENABLE'" />
+                  <span class="slider round"></span>
+                </label>
+              </td>
+              <td style="width: 25%" class="desc_text2">{{ad.domain_name || ' - '}}</td>
+              <td style="width: 20%" class="desc_text2">{{ad.ip_address || ' - '}}</td>
+              <td style="width: 25%" class="desc_text2">{{ad.admin_account || ' - '}}</td>
+              <td class="table-text-center" style="width: 10%">
+                <span class="cancel_button" (click)="ad_create('edit')">
+                  <i style="font-size:18px" class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                </span>&nbsp;&nbsp;&nbsp;
+
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+
+        <div class="ai3-table-no-data" *ngIf="ad_add_btn == 1">
+          NO DATA AVAILABLE
+        </div>
+
+      </div>
+
+
+      <!-- aws configuration -->
+
+
+      <div style="overflow: auto" class="col ai3-fade-in" *ngIf='active_list == "aws"'>
+        <div class="row">
+          <div style="text-align: left" class="col-12 mb-2">
+            <button type="button" style="float: left" (click)="aws_create('create')" class="change_button m-0">
+              ADD
+            </button>
+          </div>
+        </div>
+
+        <p-table [value]="asset" [scrollable]="true" tableStyleClass="ktable" scrollHeight="{{table_height}}"
+          [resizableColumns]="true" styleClass="license_style ai3-license-mnt">
+
+          <ng-template pTemplate="caption">
+            <div class="row">
+              <div class="col-sm-10 col-md-10 col-lg-10 pr-0">
+                <p-dropdown class="d-none" [options]="license" [autoDisplayFirst]="true" optionLabel="desc"
+                  styleClass="multi-tenant-selector" [style]="{
+                      width: '25%',
+                      'margin-right': '0px',
+                      'margin-bottom': '10px',
+                      'margin-top': '0px'
+                    }" [showTransitionOptions]="'100ms'" [hideTransitionOptions]="'200ms'" [filter]="false"
+                  [showClear]="false" (onChange)="onChange_aws($event)">
+                </p-dropdown>
+              </div>
+            </div>
+          </ng-template>
+
+          <ng-template pTemplate="header">
+            <tr class="ai3-header-res">
+              <th style="width: 10%" class="title_setting table-text-left">NO</th>
+              <th style="width: 10%" class="title_setting table-text-left">STATUS</th>
+              <th style="width: 25%" class="title_setting table-text-left">AWS ACCESS KEY ID</th>
+              <th style="width: 25%" class="title_setting table-text-left">AWS SECRET ACCESS KEY</th>
+              <th style="width: 20%" class="title_setting table-text-left">AWS REGION</th>
+              <th style="width: 10%" class="title_setting">ACTION</th>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="body" let-a let-rowIndex="rowIndex">
+            <tr>
+              <td style="width: 10%">{{rowIndex + 1}}</td>
+              <td style="width: 10%">
+                <label class="switch">
+                  <input type="checkbox" (click)="toggle_status_aws('toggle',a)" [checked]="a.status == 'ENABLE'" />
+                  <span class="slider round"></span>
+                </label>
+              </td>
+              <td style="width: 25%" class="desc_text2">{{a.aws_access_key_id}}</td>
+              <td style="width: 25%" class="desc_text2">{{a.aws_secret_key}}</td>
+              <td style="width: 20%" class="desc_text2">{{a.aws_region}}</td>
+              <td class="table-text-center" style="width: 10%"><span class="cancel_button"
+                  (click)="aws_create('edit',a)">
+                  <i style="font-size:18px" class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                </span>&nbsp;&nbsp;&nbsp;
+                <span class="cancel_button" (click)="toggle_status_aws('delete',a)">
+                  <i style="font-size:18px" class="fa fa-times" aria-hidden="true"></i>
+                </span>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+        <div class="ai3-table-no-data" *ngIf="asset.length == 0">
+          NO DATA AVAILABLE
+        </div>
+      </div>
+
+      <!-- wlc configuration -->
+
+      <div class="col ai3-fade-in" *ngIf='active_list == "wlc"'>
+        <p-table [value]="wlc" [scrollable]="true" tableStyleClass="ktable" scrollHeight="200px"
+          styleClass="license_style">
+
+
+          <ng-template pTemplate="caption">
+            <div class="row">
+              <div style="text-align: left" class="col-sm-2 col-md-2 col-lg-2 pl-0">
+                <button type="button" (click)=" wlc_create()" style="float: left" class="change_button m-0">
+                  ADD
+                </button>
+              </div>
+
+              <div class="col-sm-10 col-md-10 col-lg-10 pr-0">
+                <p-dropdown [options]="license" [autoDisplayFirst]="true" optionLabel="desc"
+                  styleClass="multi-tenant-selector" [style]="{
+                      width: '25%',
+                      'margin-right': '0px',
+                      'margin-bottom': '10px',
+                      'margin-top': '0px'
+                    }" [showTransitionOptions]="'100ms'" [hideTransitionOptions]="'200ms'" [filter]="false"
+                  [showClear]="false" (onChange)="onChange_wlc($event)">
+                </p-dropdown>
+              </div>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="width: 10%" class="title_setting table-text-left">NO</th>
+              <th style="width: 20%" class="title_setting table-text-left">VENDOR</th>
+              <th style="width: 20%" class="title_setting table-text-left">URL</th>
+              <th style="width: 20%" class="title_setting table-text-left">IP ADDRESS</th>
+              <th style="width: 20%" class="title_setting table-text-left">USERNAME</th>
+              <th style="width: 20%" class="title_setting table-text-left">Access Key </th>
+              <th style="width: 10%" class="title_setting table-text-left ">Path</th>
+              <th style="width: 20%" class="title_setting">ACTION</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-w let-rowIndex="rowIndex">
+            <tr>
+              <td style="width: 10%">{{rowIndex + 1}}</td>
+              <td style="width: 20%" class="word-wrap">{{w.vendor  || '-'}}</td>
+              <td style="width: 20%" class="word-wrap">{{w.url  || '-'}}</td>
+              <td style="width: 20%" class="word-wrap">{{w.ipaddress  || '-'}}</td>
+              <td style="width: 20%" class="word-wrap">{{w.username  || '-'}}</td>
+
+              <td style="width: 20%" class="word-wrap">{{w.accesskey || '-'}}</td>
+              <td style="width: 10%" class="word-wrap">{{w.path || '-'}}</td>
+              <td style="width: 10% ; display:none">{{w.wlc_id || '-'}}</td>
+              <td class="table-text-center" style="width: 20%"><span class="cancel_button" (click)="wlc_edit(w)">
+                  <i style="font-size:18px" class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                </span>&nbsp;&nbsp;&nbsp;
+                <span class="cancel_button" (click)="wlc_remove(w)">
+                  <i style="font-size:18px" class="fa fa-times" aria-hidden="true"></i>
+                </span>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+
+        <div class="ai3-table-no-data" *ngIf="wlc.length ==  0">
+          NO DATA AVAILABLE
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

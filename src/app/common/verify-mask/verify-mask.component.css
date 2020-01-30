@@ -1,0 +1,80 @@
+@media only screen and (max-width: 599px) {
+    .ai3-verify-wrapper {
+        display: block;
+    }
+
+    .ai3-verify-logo img {
+        position: relative;
+        top: 50%;
+        width: 20%;
+    }
+
+    .ai3-verify-footer img {
+        position: relative;
+        top: 50%;
+        width: 30%;
+    }
+}
+
+@media only screen and (min-width: 600px) {
+    .ai3-verify-wrapper {
+        display: none;
+    }
+
+    .ai3-verify-logo img {
+        position: relative;
+        top: 50%;
+        width: 150px;
+    }
+
+    .ai3-verify-footer img {
+        position: relative;
+        top: 50%;
+        width: 200px;
+    }
+}
+
+.ai3-verify-wrapper {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background: black;
+    z-index: 10000
+}
+
+.ai3-verify-logo {
+    height: 20%;
+    text-align: center;
+}
+
+.ai3-verify-body {
+    text-align: center;
+    height: 60%;
+}
+
+.ai3-verify-text {
+    position: relative;
+    font-size: 16px;
+    top: 40%;
+    white-space: normal;
+    padding: 0px 50px;
+}
+
+.ai3-verify-text a {
+    color: #f7931f;
+}
+
+.ai3-mask-text {
+    position: relative;
+    font-size: 16px;
+    top: 40%;
+    white-space: normal;
+    padding: 0px 50px;
+}
+
+.ai3-verify-footer {
+    text-align: center;
+    height: 20%;
+}

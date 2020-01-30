@@ -1,0 +1,201 @@
+<!-- Header Start -->
+<app-header></app-header>
+<!-- Header End -->
+
+<!-- Body Starts -->
+
+<!-- New password PopUP -->
+<p-dialog [(visible)]="goto_login_popup" [modal]="true" [responsive]="true"
+  [style]="{width: '300px', minWidth: '200px'}" [maximizable]="true" [baseZIndex]="10000"
+  [contentStyle]="{'max-height':'200px','height':'100px'}">
+  <h6 class="title_setting">UPDATED SUCCESSFULLY </h6>
+  <p class="subnet_content">Please login use new password.</p>
+  <div class="center_btn">
+    <button type="button" class="btn btn-sm" (click)="close_login()" class="reset_ok">OK</button>
+  </div>
+</p-dialog>
+<p-dialog [(visible)]="display" [modal]="true" [responsive]="true" [style]="{width: '300px', minWidth: '200px'}"
+  [maximizable]="true" [baseZIndex]="10000">
+  <h6 class="title_setting">WELCOME TO AI3 </h6>
+  <p class="subnet_content">It's your first time logging in,please enter a new password to continue.</p>
+
+  <form style="margin-top:20px" [formGroup]="updatepasswordForm" (ngSubmit)="update_password()">
+    <div class="form-group">
+      <input type="password" formControlName="password" placeholder="New password" class="form-control change_input"
+        [ngClass]="{ 'is-invalid': submitted && f.password.errors }" [(ngModel)]="model.newpassword"
+        (keydown.space)="$event.preventDefault()" />
+      <div *ngIf="submitted && f.password.errors" class="errormsg">
+        <div *ngIf="f.password.errors.required">Password is required</div>
+        <div *ngIf="f.password.errors.pattern">Input must contain at least one symbol character, digit, lowercase
+          <br>and uppercase letter and at least 8 characters long</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <input type="password" formControlName="confirmPassword" placeholder="Retype New password"
+        class="form-control change_input" [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }"
+        [(ngModel)]="model.confirmpassword" (keydown.space)="$event.preventDefault()" />
+      <div *ngIf="submitted && f.confirmPassword.errors" class="errormsg">
+        <div *ngIf="f.confirmPassword.errors.required">Retype New password is required</div>
+        <div *ngIf="f.confirmPassword.errors.mustMatch">Passwords must match</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <button class="btn change_button">UPDATE</button>
+    </div>
+  </form>
+</p-dialog>
+
+<!-- Loading Spinner -->
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="small" color="#fff" type="ball-spin-clockwise">
+  <p style="font-size: 12px; color: white">Loading...</p>
+</ngx-spinner>
+
+<!-- CalenderSpan Event -->
+<span class="event-settings" role="ee">
+  <a href="#calendarDatePickerModal" id="calendarDate" #calendarDate (click)="onClickTheCalendar()"
+    class=" d-none setting-icon" title="Calendar Picker" data-toggle="modal" data-backdrop="static"
+    data-keyboard="false">
+    <!-- <i class="fa fa-cog graycolor"></i> -->
+  </a>
+</span>
+
+<!-- ViewPort Routing -->
+<div class="container-fluid  ak-width h-100 p-0 d-flex flex-column">
+
+  <div id="dashboard-height-fix" class="row  bg-success0 module-bar">
+
+    <div class="moduleloader w-100 h-100" *ngIf="isUnityLodaded">
+      <router-outlet>
+      </router-outlet>
+    </div>
+  </div>
+</div>
+
+<!-- Device Details Modal -->
+<p-sidebar *ngIf="displayModelFullPage" [(visible)]="displayModelFullPage" [fullScreen]="true" [showCloseIcon]="true"
+  [autoZIndex]="true" [dismissible]="true" [baseZIndex]=8000 styleClass="fullpage-modal" [blockScroll]=false
+  (onShow)="onOpenCrowdSourcing($event)" (onHide)="onOpenFullSidebar($event)">
+  <app-devicedetails *ngIf="displayModelFullPage"></app-devicedetails>
+</p-sidebar>
+
+<!-- Unity Lobby -->
+<div id="UnityLobby" class="w-0 h-0 unity-lobby" style="z-index: -1; opacity: 0">
+</div>
+
+<!-- Datepiceker  Modal #calendarDatePickerModal  -->
+<div id="calendarDatePickerModal" #calendarDatePickerModal class="modal fade bd-example-modal-lg modal-dark">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <form>
+        <!-- <div class="modal-header d-none">
+          <button type="button" class="close" data-dismiss="modal" #closeDelCustomerModal>&times;</button>
+          <h4 class="modal-title">Datepiceker Modal</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        </div> -->
+        <div class="modal-body modal-xl">
+          <div class="container-fluid ak-width">
+            <div class="row">
+
+              <div class="col-md-5 calc-wrap0">
+
+                <!-- <p-calendar [(ngModel)]="fvalue" name="fvalue" timeOnly="true" [inline]="true" showTime="true"   showSeconds="true" hourFormat="24" [utc]="true" (onSelect)="onSelect($event)"></p-calendar>
+                  <span>{{ fvalue|json }}</span>
+                  <br />
+                  <span>{{ FtimeValue }}</span>
+                  <hr/> -->
+                <div class="datebox-header">{{ FromDateValue | date:'medium'}}</div>
+                <!-- {{minDateValue}} / {{maxDateValue}} -->
+                <div class="datebox">
+
+                  <!-- <p-calendar [(ngModel)]="FromDateValue" styleClass="fdate-select" id="FromDateValue" name="FromDateValue"
+                    [showIcon]="false" [inline]="true" showButtonBar="false" [showTime]="true" [showSeconds]="false"
+                    [hourFormat]="24" dateFormat="@" [minDate]="minDateValue" [maxDate]="maxDateValue" [readonlyInput]="false"></p-calendar> -->
+
+                  <p-calendar [(ngModel)]="FromDateValue" styleClass="fdate-select" id="FromDateValue"
+                    name="FromDateValue" [showIcon]="false" [inline]="true" showButtonBar="false" [showTime]="false"
+                    [showSeconds]="true" [hourFormat]="24" dateFormat="@" [readonlyInput]="false"
+                    [minDate]="minDateValue" [maxDate]="maxDateValue" (onSelect)="onSelectFromDate($event)">
+                  </p-calendar>
+
+                  <h3 class="date-time">Time</h3>
+
+                  <p-calendar [(ngModel)]="FromTimeValue" styleClass="fdate-select" id="FromTimeValue"
+                    name="FromTimeValue" [showIcon]="false" [inline]="true" showButtonBar="false" [timeOnly]="true"
+                    [showTime]="false" [showSeconds]="true" [hourFormat]="24" dateFormat="@" [readonlyInput]="false"
+                    (onSelect)="onSelectFromTime($event)">
+                  </p-calendar>
+
+                  <div class="datebox-footer">
+                    <!-- {{FromDateValue}} / {{FromTimeValue | date:'hh::mm::ss'}} -->
+                    <!--
+                      <timepicker [(ngModel)]="mytime"></timepicker> -->
+                    <a href="javascript:void(0);" (click)="resetDate()">Reset to earliest date/time</a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2 mx-auto ">
+                <div class="date-action-btn align-items-center h-100" role="date-action-btn">
+                  <br />
+                  <br />
+                  <br />
+                  <br />
+                  <br />
+                  <br />
+                  <br />
+                  <br />
+                  <br />
+                  <button #btnClose type="button" class="btn btn-default btn-light btn-block"
+                    (click)="getCalDurationDates($event)" aria-hidden="true" data-dismiss="modal"
+                    aria-label="Close">Save</button>
+
+                  <br />
+                  <button type="button" class="btn  btn-block  btn-gray-cancel" (click)="cancelCalDurationDates()"
+                    data-dismiss="modal">Cancel</button>
+                </div>
+                <!--date-action-btn-->
+
+              </div>
+              <div class="col-md-5 calc-wrap0">
+                <div class="datebox-header">{{ ToDateValue | date:'medium'}}</div>
+                <div class="datebox">
+                  <!-- <p-calendar [(ngModel)]="ToDateValue" styleClass="tdate-select" [inline]="true" id="ToDateValue" name="ToDateValue"
+                    [showTime]="true" [showSeconds]="false" [readonlyInput]="true" showButtonBar="false" dateFormat="@"
+                    [minDate]="minDateValue" [maxDate]="maxDateValue" [readonlyInput]="false"></p-calendar> -->
+
+                  <p-calendar [(ngModel)]="ToDateValue" styleClass="fdate-select" id="ToDateValue" name="ToDateValue"
+                    [showIcon]="false" [inline]="true" showButtonBar="false" [showTime]="false" [showSeconds]="true"
+                    [hourFormat]="24" dateFormat="@" [readonlyInput]="false" [minDate]="minDateValue"
+                    [maxDate]="maxDateValue" (onSelect)="onSelectToDate($event)"></p-calendar>
+                  <h3 class="date-time">Time</h3>
+                  <p-calendar [(ngModel)]="ToTimeValue" styleClass="fdate-select" id="ToTimeValue" name="ToTimeValue"
+                    [showIcon]="false" [inline]="true" showButtonBar="false" [timeOnly]="true" [showTime]="false"
+                    [showSeconds]="true" [hourFormat]="24" dateFormat="@" [readonlyInput]="false"
+                    (onSelect)="onSelectToTime($event)"></p-calendar>
+
+
+
+
+
+                  <!-- (onSelect)="getPickedToDate($event)" -->
+                  <div class="datebox-footer" role="reset footer">
+                    <!-- {{ToDateValue}} / {{ToTimeValue | date:'hh::mm::ss'}} -->
+                    <a href="javascript:void(0);" (click)="resetDate()">Reset to earliest date/time</a>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer d-none">
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Body Ends -->
+
+<!-- Footer Start -->
+<!-- <app-footer></app-footer> -->
+<!-- Footer End -->

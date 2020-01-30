@@ -1,0 +1,655 @@
+.forceGraph-3D {
+    /* height: 90% !important;
+    display: block;
+    position: absolute;*/
+} 
+#forceGraph-3D {
+    /* height: 100%;
+    width: 100%; */
+}
+
+
+
+
+div#overlay {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 40px;
+    left: 0;
+}
+
+.col-md-12.render {
+    position: absolute;
+    z-index: 500;
+    left: 1rem;
+    top: 1rem; 
+}
+.col-md-12.render button {
+    margin: 0 2px;
+}
+
+.twod-overlay .ui-overlaypanel{
+    background-color:green !important;
+  }
+
+  .children-components {
+    position: absolute;
+    top: 10em;
+    display: block;
+    width: 100%;
+    height: 100%;
+    left: 1em;
+    /* background: #080808; */
+}
+
+
+/* ------------------------------------------------- style csd from live map --------------- */
+.red{background: #dc4646;}
+.orange{background: #dc6e1e;}
+.violet{background: #645096;}
+
+
+
+canvas#anomaly {
+    width: 100% !important;
+    display: block;
+    position: relative;
+    height: 100% !important;
+    padding:0;
+    margin:0;
+  }
+  .map-container {
+    margin: 0;
+    padding: 0 !important;
+padding: 0;
+}
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  margin-bottom: 0.5rem;
+  font-family: inherit;
+  font-weight: 500;
+  line-height: 1.2;
+  color: inherit;
+  text-transform: uppercase;
+}
+
+h2 {
+  font-size: 1.0rem;
+}
+
+.tile {
+  background: #303030;
+  min-height: 80px;
+  border-radius: 3px;
+  margin: 3px;
+}
+
+.tile>span.ipaddress {}
+
+.tile>span.host {}
+
+/*####################################################
+TILE COLOURs
+#################################################### */
+
+.bg-bot-threat {
+  background: #dc4646;
+  border-radius: 3px !important;
+  margin: 3px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: 96px;
+  cursor: pointer;
+  padding: 1rem;
+}
+
+
+.bg-nothreat {
+  background: #645096;
+  border-radius: 3px !important;
+  margin: 3px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: 96px !important;
+  /* cursor: pointer; */
+  padding: 1rem;
+}
+
+
+.bg-threat {
+  background: #dc6e1e;
+  background-color: #dc6e1e;
+  border-radius: 3px !important;
+  margin: 3px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: 96px;
+  padding: 1rem;
+}
+
+.bg-offline {
+  background: #4E4E4E;
+  background-color: #4E4E4E;
+  border-radius: 3px !important;
+  margin: 3px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: 96px;
+  color:#636363;
+  padding: 1rem;
+}
+
+.bg-online {
+  background:#7fd060;
+  background-color:#7fd060;
+  border-radius: 3px !important;
+  margin: 3px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: 96px;
+  color:#636363 ;
+  padding: 1rem;
+}
+
+
+/* .bg-online span.broken-txt {
+  color: #000 !important;
+} */
+.card.bg-online {
+  background: #7fd060;
+}
+
+.red{background: #dc4646;}
+.orange{background: #dc6e1e;}
+.violet{background: #645096;}
+
+
+.bg-bot-threat:hover{
+  /* background: #b34e45; */
+  background: #dc4646 !important;
+  /* border-radius: 3px !important;
+  margin: 3px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: 96px; */
+}
+
+.bg-threat:hover {
+/* background: #b34e45; */
+background: #dc6e1e !important;
+/* border-radius: 3px !important;
+margin: 3px;
+text-align: center;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+min-height: 96px; */
+}
+.bg-nothreat:hover {
+  background: #645096 !important;
+  /* border-radius: 3px !important;
+  margin: 3px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: 96px !important;
+  cursor: pointer; */
+}
+
+/* .bg-threat:active, .bg-threat:focus {
+background: #fff;
+color: #000;
+} */
+
+
+/* .tile-overlay .ui-overlaypanel-content {
+  position: fixed;
+  top: 8.125rem !important;
+  left: 34%;
+  margin: 0 0 0 0 !important;
+  display: inline-flex;
+  background: orange;
+  border-radius: 5px;
+} */
+/* 
+.tile-overlay .p-overlaypanel {
+  z-index: 90000000;
+  display: block;
+  position: absolute;
+  top: 5%;
+  left: 34%;
+  width: 250px;
+  height: 430px;
+  background: #d57000;
+  border-radius: 6px;
+}
+
+p-overlaypanel {
+  opacity: 1;
+  
+  z-index: 90000000;
+  display: block;
+  position: absolute;
+  top: 5%;
+  left: 34%;
+  width: 250px;
+  height: 430px;
+
+  border-radius: 6px;
+} */
+
+.spinner {
+  display: inline-block;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  /* width: 200px; */
+  /* height: 100px; */
+  margin: 0 auto;
+  background: rgba(0, 0, 0, 0.7);
+  text-align: center;
+  padding: 18% 0 0 0;
+  z-index: 4000;
+}
+
+
+
+.cardblank {
+  background:gray;
+  border-radius: 3px !important;
+  margin: 3px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: 96px;
+  cursor: pointer;
+  box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+}
+
+
+.card {
+
+  border-radius: 3px !important;
+  margin: 3px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: 96px;
+  cursor: pointer;
+  box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+}
+
+.tiles-wrap .row {
+  /* margin-right: 0 !important; */
+  /* padding: 0 30px; */
+  padding:0;
+  text-align: center;
+  width: 90%;
+  /* margin: 0 auto; */
+}
+
+.tiles-wrap h2 {
+  padding-left: 35px;
+  color: #999;
+  color :#fff;
+  position: absolute;
+  z-index: 100;
+  margin: -24px 0 0 0;
+  display: block;
+  word-wrap: normal;
+  width: auto;
+  font-size: 1rem;
+}
+
+h5.card-title {
+  font-size: 1rem;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  color: #fff;
+  font-family: gilroy-medium;
+}
+
+p.card-text {
+  font-size: 0.85rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* font-weight: bold; */
+  color: #fff;
+  text-align: center !important;
+  padding: 0 4px;
+  letter-spacing: normal;
+  font-family: gilroy-medium;
+  width: 100px;
+  margin: 0 auto;
+  text-transform: lowercase;
+}
+
+.tile-panel .ui-widget-content,
+.tile-panel ui-scrollpanel-content {
+  /* border: 1px solid #323232; */
+  /* background: #000000; */
+  /* color: #cccccc; */
+  border: 0 !important;
+  background: none !important;
+  color: #fff !important;
+}
+
+/* .ui-widget-content {
+    border: 1px solid #323232;
+    background: #000000;
+    color: #cccccc;
+} */
+
+.custom .ui-scrollpanel-wrapper {
+  border-right: 9px solid #f4f4f4;
+}
+
+.custom .ui-scrollpanel-bar {
+  background-color: #1976d2;
+  opacity: 1;
+  transition: background-color .3s;
+}
+
+.custom .ui-scrollpanel-bar:hover {
+  background-color: #135ba1;
+}
+
+/* .bg-threat .card-body {
+  padding: 1rem !important;
+} */
+
+
+ul#tile-ul {
+  column-count: 2;
+}
+
+.tiles-wrap {
+  display: inline-block;
+  height: auto;
+  position: relative;
+  left: 0.5rem;
+  top: 2rem;
+  margin: 0 0 0 0;
+  /* width: 80%; */
+}
+
+.tiles-wrap .col-6 {
+  -ms-flex: 0 0 50%;
+  -webkit-box-flex: 0;
+  flex: 0 0 50%;
+  max-width: 50%;
+  padding: 2px !important;
+}
+
+.tiles-wrap .card-body {
+  -ms-flex: 1 1 auto;
+  -webkit-box-flex: 1;
+  flex: 1 1 auto;
+  /* padding: 0.55rem 0 0 0;; */
+}
+
+span.pthret,
+span.nothret,span.pBotthret {
+  color: #7f7d7d;
+  /* background: red; */
+  height: 2rem;
+  position: relative;
+  position: relative;
+  display: flex;
+}
+
+.preloading {
+  padding: 0 0 0 25px;
+}
+
+
+.tile-panel .ui-scrollpanel-wrapper {
+  border-right: 9px solid #f4f4f4; 
+}
+
+.tile-panel .ui-scrollpanel-bar {
+  background-color: #1976d2; 
+  opacity: 1; 
+  transition: background-color .3s; 
+}
+
+.tile-panel .ui-scrollpanel-bar:hover {
+  background-color: #135ba1;
+}
+
+
+
+
+/* legends bottom */
+
+span.pthret,span.pBotthret, span.nothret {
+  color: #7f7d7d;
+}
+span.pBotthret span {
+  width: 40px;
+  height: 20px;
+  background: #c8645a;
+   display: inline-flex;
+  background: url(/assets/img/home/Legend_Bot.png) center bottom no-repeat;
+  background-size: contain;
+  color: #7f7d7d;
+}
+span.pthret span {
+  width: 40px;
+  height: 20px;
+  background: #c8645a;
+   display: inline-flex;
+  background: url(/assets/img/home/Legend_Potential.png) center bottom no-repeat;
+  background-size: contain;
+  color: #7f7d7d;
+}
+
+span.nothret span {
+  width: 40px;
+  height: 20px;
+  background: #c8645a;
+   display: inline-flex;
+  background: url(/assets/img/home/Legend_NoPotential.png) center bottom no-repeat;
+  background-size: contain;
+  color: #7f7d7d;
+}
+
+span.nothret span {
+  width: 12px;
+  background: #785a6e;
+  height: 12px;
+  display: inline-block;
+  border-radius: 50%;
+  margin: 0 12px;
+} 
+ span.pthret, span.nothret {
+  color: #7f7d7d;
+}
+ul.legend-points li {
+  margin: 3px 0;
+  list-style: none;
+  font-size: 0.9rem;
+  list-style: none;
+  /* color: #909090; */
+}
+
+span.tile-icon {
+  position: absolute;
+  top: -1.5rem;
+  /* background: #d64742; */
+  right: 1.8rem;
+  width: 22px;
+  height: 35px;
+
+}
+span.tile-icon-btm {
+  position: absolute;
+  bottom: 1rem;
+  left: 1.8rem;
+  width: 22px;
+  height: 35px;
+
+}
+span.txt-av{
+  position: absolute;
+  bottom: 0.7rem;
+  left: 3.7rem;
+  text-transform: uppercase;
+  /* width: 22px; */
+  /* height: 35px; */
+}
+
+.attacker-icon{
+  background: url(/assets/img/home/ai3_attacker-icon.png) center bottom no-repeat !important;
+  background-size: contain !important;
+}
+.victim-icon{
+  background: url(/assets/img/home/Victim.png) center bottom no-repeat !important;
+  background-size: contain !important;
+}
+
+/* 
+.bot-threat{
+  background: url(/assets/img/home/ai3_attacker-icon.png) center bottom no-repeat !important;
+  background-size: contain !important;
+}
+.threat{
+  background: url(/assets/img/home/potential-atttacker.png) center bottom no-repeat !important;
+  background-size: contain !important;
+}
+.no-immediate-threat{
+  background: url(/assets/img/home/no-potential-attacker.png) center bottom no-repeat !important;
+  background-size: contain !important;
+} */
+
+
+table.table.deviceinfo {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  /* background:red; */
+  /* top: 1px; */
+}
+
+table.table.deviceinfo th,
+table.table.deviceinfo td {
+  border-top: 0 !important;
+  font-family: gilroy-regular 'arial', sans-serif;
+  font-size: 0.8rem;
+  /* float: left; */
+}
+
+table.table.deviceinfo td {
+  color: #fff;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-align: left;
+}
+
+table.table.deviceinfo td span {
+  color: #fff;
+  text-transform: capitalize;
+}
+span.broken-txt{
+  font-weight: normal;
+  display: flex;
+  /* word-wrap: break-word; */
+  min-width: 90px;
+  word-break: break-all;
+  white-space: pre-line;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-line;;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+  width: 150px;
+  
+}
+span.tile-icon-top {
+  position: absolute;
+  top: -0.6rem;
+  left: 1.7rem;
+  width: 22px;
+  height: 35px;
+}
+
+span.txt-av-top{
+  position: absolute;
+  top: 0.3rem;
+  left: 3.7rem;
+  text-transform: uppercase;
+  /* width: 22px; */
+  /* height: 35px; */
+}
+
+.livemap-footer {
+  position: fixed;
+  bottom: 9rem;
+  left: -1.1rem;
+}
+
+span.pthret, span.pBotthret, span.nothret{
+  color: #7f7d7d;
+  /* background: red; */
+  height: 2rem;
+   position: relative;
+  display: flex;
+}
+span.pnormalOnline, span.pnormalOffline {
+  text-transform: uppercase;
+  vertical-align: middle;
+  color: #7f7d7d;
+    height: 2rem;
+    position: relative;
+    display: flex;
+}
+
+span.pnormalOnline span {
+  width: 40px;
+  height: 20px;
+  background: #c8645a;
+   display: inline-flex;
+  background: url(/assets/img/home/normal_Online.png) center bottom no-repeat;
+  background-size: contain;
+  color: #7f7d7d;
+}
+span.pnormalOffline span {
+  width: 40px;
+  height: 20px;
+  background: #7f7d7d;
+   display: inline-flex;
+  background: url(/assets/img/home/normal_Offline.png) center bottom no-repeat;
+  background-size: contain;
+  color: #7f7d7d;
+}

@@ -1,0 +1,30 @@
+<div [ngClass]="customer_id == 0 ? 'ai3-admin' : 'ai3-user'" class="count-wrap float-right ai3-header-count-1">
+    <div class="totalcount">
+      <p class="count">{{totalOnlineCnt || 0 }}/{{ totalDevCnt || 0 }}  <span class="counttitle"> Online Devices</span> </p>
+    </div>
+    <div class="ano-count-red">
+      <p class="count">{{ totAbnorDevCnt || 0 }}<span class="counttitle"> Abnormal Devices</span> </p>
+    </div>
+    <div class="ano-count-red">
+      <p class="count">{{ totalVulnerabilityCnt || 0 }}  <span class="counttitle">Active
+          Incidents</span> </p>   
+    </div> 
+  </div>
+
+
+<div [ngClass]="customer_id == 0 ? 'ai3-admin' : 'ai3-user'" class="ai3-header-count-2">
+  <div style="width: 175px">
+    <div class="block-container">
+      <span class="block-counts">{{totalOnlineCnt || 0 }}/{{ totalDevCnt || 0 }}</span><span class="block-title">Online
+        Devices</span>
+    </div>   
+    <div class="block-container">
+      <span style="color: red" class="block-counts">{{ totAbnorDevCnt || 0 }}</span><span class="block-title">Abnormal
+        Devices</span>
+    </div>
+    <div class="block-container">
+      <span style="color: red" class="block-counts">{{ totalVulnerabilityCnt || 0 }}</span><span
+        class="block-title">Active Incidents</span>
+    </div>
+  </div>
+</div>

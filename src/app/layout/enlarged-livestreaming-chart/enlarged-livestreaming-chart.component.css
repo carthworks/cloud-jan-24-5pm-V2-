@@ -1,0 +1,82 @@
+.chart-container {
+  position: relative;
+  display: list-item;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+}
+
+canvas#liveStreamingChart {
+  /* height: 75px !important;
+  margin: 0 auto; */
+  /* width: 60%; */
+  height:6rem;
+}
+
+h5#exampleModalLongTitle {
+  font-weight: lighter;
+}
+
+.tiles-wrap .row {
+  margin-right: 0px;
+}
+.live-legend {
+  position: absolute;
+    top: 35px;
+    right: 2.5rem;
+    /* background: aqua; */
+    width: 100%;
+    display: inline-flex;
+  /* background: #fff; */
+}
+
+.live-legend ul {
+  list-style: none;
+  padding: 0;
+}
+
+.live-legend ul li {
+  text-align: left;
+  list-style: none;
+}
+
+.liveicon span.server-status {
+  /* background: #8cbe5a; */
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  margin: -3px 12px;
+  display: inline-block;
+  background: url(/assets/img/live-icon.svg) no-repeat center center;
+  
+}
+.liveicon span.server-time {
+  font-size: 13px;
+  font-weight: lighter;
+  color: #666;
+  letter-spacing: 0.03rem;overflow: hidden;
+}
+
+.liveicon span.server-time:after{
+  content: "";
+  display: inline-block;
+  height: 0.8em;
+  vertical-align: bottom;
+  width: 100%;
+  margin-right: -100%;
+  margin-left: 17px;
+  border-top: 1px solid #e7e0e0;
+
+}
+
+.liveicon span.underline{
+  border-bottom: 1px solid #dfdfdf;
+  position: relative;
+  height: 3px;
+  display: block;
+}
+span.liveicon {
+  float: left;
+   width : 99%;
+  position: relative;
+}

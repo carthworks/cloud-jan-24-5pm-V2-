@@ -1,0 +1,162 @@
+.count-wrap {
+  display: block;
+  position: relative;
+  width: auto;
+  padding: 3px;
+  /* margin: 8px 11px 0 0; */
+  /* margin: 1.4rem 11px 0 0; */
+  margin: 30px 10px 0 0;
+  display: inline-flex;
+  text-transform: uppercase;
+  font-size: 0.875rem;
+  /* right: 84px; */
+}
+
+/* .totalcount {
+  display: inline-grid;
+  float: left;
+  line-height: 26px;
+  margin: 0 0 0 2rem;
+  white-space: nowrap;
+} */
+
+
+
+.anomaliescount {
+  display: inline-grid;
+  float: left;
+  line-height: 26px;
+  margin: 0 0 0 2rem;
+}
+
+.ano-count-red {
+  display: inline-grid;
+  float: left;
+  line-height: 26px;
+  margin: 0 0 0 2rem;
+}
+
+/* .ano-count-red > .count {
+  color: #f34048;
+  text-align: left;
+  font-family: gilroy-sbold;
+}
+
+.totalcount > .count {
+  color: #666;
+  text-align: left;
+  font-family: gilroy-regular;
+
+}
+
+span.counttitle {
+  color: #666;
+  font-weight: lighter;
+  letter-spacing: 0.03rem;
+} */
+
+/* header data tab responsiveness */
+@media only screen and (min-width: 600px) and (max-width: 991px) {
+  .totalcount {
+    margin: 0 0 0 1.5rem !important;
+  }
+
+  .ano-count-red {
+    margin: 0 0 0 1.5rem !important;
+  }
+}
+
+.block-container {
+  display: table;
+  width: 100%;
+}
+
+.block-counts {
+  color: #666;
+  display: table-cell;
+  width: 40%;
+  text-align: right;
+  padding-right: 5px;
+}
+
+.block-title {
+  color: #666;
+  display: table-cell;
+  width: 60%;
+}
+
+@media only screen and (min-width: 769px) {
+  .ai3-admin.ai3-header-count-1 {
+    display: block;
+  }
+
+  .ai3-admin.ai3-header-count-2 {
+    display: none;
+  }
+
+  .ai3-user.ai3-header-count-1 {
+    display: block;
+  }
+
+  .ai3-user.ai3-header-count-2 {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .ai3-admin.ai3-header-count-1 {
+    display: none;
+  }
+
+  .ai3-admin.ai3-header-count-2 {
+    display: block;
+  }
+
+  .ai3-user.ai3-header-count-1 {
+    display: block;
+  }
+
+  .ai3-user.ai3-header-count-2 {
+    display: none;
+  }
+}
+
+
+
+.totalcount {
+  display: inline-grid;
+  float: left;
+  line-height: 26px;
+  margin: 0 0 0 2rem;
+  white-space: nowrap;
+  font-weight: 900;
+}
+
+
+
+.ano-count-red > .count {
+  color: #f34048;
+  text-align: left;
+  font-family: gilroy-sbold;
+  font-size: 1.3rem;
+}
+
+.totalcount > .count {
+  color: #666;
+  text-align: left;
+  font-family: gilroy-regular;
+  font-size: 1.3rem;
+}
+
+span.counttitle {
+  font-size: 15px;
+  color: #666;
+  font-weight: lighter;
+  letter-spacing: 0.03rem;
+}
+
+@media (min-width: 576px) {
+  span.counttitle {
+    font-size: calc(0.5625rem + ((1vw - 5.76px) * 0.5208));
+  }
+}

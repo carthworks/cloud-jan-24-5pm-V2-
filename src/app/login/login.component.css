@@ -1,0 +1,270 @@
+.login-wrap {
+    position: relative;
+    margin: 0;
+}
+
+.login-top {
+    margin: 20% 0 0 0;
+}
+
+.card.p-4.login-wrap {
+    border-right: 6px solid #f87170;
+}
+
+img.logo {
+    width: 60%;
+}
+
+
+
+.vertical-center {
+    min-height: 100%;
+    /* Fallback for browsers do NOT support vh unit */
+    min-height: 100vh;
+    /* These two lines are counted as one :-)       */
+
+    display: flex;
+    align-items: center;
+}
+
+/*----------------------------------
+sign in
+----------------------------------*/
+
+.brand {
+    display: block;
+    margin-bottom: 50px;
+}
+
+.login-section {
+    margin: 15% auto 15%;
+    font-size: 0.9rem;
+    /* padding: 20px; */
+}
+
+.btn-login {
+    color: #fff;
+    background-color: #ff9036;
+    border-color: #ff9036;
+    text-transform: uppercase;
+    margin: 1rem 0 0 0;
+}
+
+.text-login {
+    color: #fff !important;
+    font-size: 0.9rem;
+    cursor: move;
+}
+
+.text-gray {
+    color: gray;
+    font-size: 0.9rem;
+}
+
+.form-signin {
+    max-width: 250px;
+    /* margin: 15% auto 15%;
+    padding: 20px; */
+    /* background: #fff;
+  box-shadow: 0 10px 70px 0 rgba(108, 158, 195, .25); */
+}
+
+.form-signin .form-signin-heading {
+    font-size: 16px;
+}
+
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+    margin-bottom: 10px;
+}
+
+.form-signin .checkbox {
+    font-weight: 400;
+}
+
+.form-signin .form-control {
+    position: relative;
+    box-sizing: border-box;
+    height: auto;
+    padding: 8px 20px;
+    font-size: 13px;
+}
+
+.form-signin .form-control:focus {
+    z-index: 2;
+}
+
+.signin-gray-bg {
+    background: #f2f6f9;
+}
+
+.signin-body-background {
+    /* background-image: url("../img/signin-bg.jpg"); */
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+}
+
+.form-lock {
+    position: relative;
+    max-width: 400px;
+    margin: 15% auto;
+    background: #fff;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.default-color,
+.default-color a {
+    color: #53505f;
+}
+
+img.login-logo-ai3 {
+    position: relative;
+    /* width: 23%; */
+    width: 175px;
+    float: right;
+}
+
+img.login-btm-logo-ai3 {
+    width: 200px;
+    padding: 0 0 3rem 0;
+}
+
+.form-group {
+    margin-bottom: 0.5rem !important;
+}
+
+
+.name {
+    color: white;
+}
+
+.matitory_start {
+    color: red;
+    position: relative;
+    display: inline-block;
+    padding: 0 0.3em;
+}
+
+.change_input {
+    background-color: black;
+    border: 1px solid grey;
+    padding: 10px;
+    border-radius: 3px;
+    color: white;
+}
+
+.errormsg {
+    color: #dc3545;
+    padding: 0.3rem;
+    display: block;
+    text-align: left;
+    white-space: normal;
+    text-transform: initial;
+    line-height: 1.4em;
+    float: left;
+}
+
+.change_button {
+    background-color: black;
+    border: 1px solid green;
+    padding: 7px;
+    border-radius: 3px;
+    color: white;
+    width: 100px !important;
+    font-size: 14px;
+    cursor: pointer;
+    float: right;
+    text-align: center;
+}
+
+
+.change_button:hover {
+    background-color: #c6f0c6;
+    border: 1px solid green;
+    padding: 7px;
+    border-radius: 3px;
+    color: black;
+    width: 100px !important;
+    font-size: 14px;
+    cursor: pointer;
+    float: right;
+    font-weight: bold;
+}
+
+.center_btn {
+    /* display: flex;
+    align-items: center;
+    justify-content: center; */
+    margin-right: 10px;
+}
+
+.title_setting {
+    font-size: 1em;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.textarea_style {
+    background-color: black;
+    border: 1px solid grey;
+    color: white;
+    width: 100%;
+    border-radius: 5px;
+    float: left;
+}
+
+.rc-anchor-normal {
+    height: 74px;
+    width: 249px;
+}
+
+
+ngx-loading * {
+    border-radius: 10px;
+    text-align: center
+}
+
+
+.login_input {
+    background-color: white !important;
+    border: 1px solid grey;
+    padding: 10px;
+    border-radius: 3px;
+    color: white !important;
+}
+
+.login_input_revamped {
+    border-radius: 3px 0px 0px 3px !important;
+    border-right: 0px !important;
+}
+
+#input-container_login {
+    display: -ms-flexbox;
+    /* IE10 */
+    display: flex;
+    width: 100%;
+}
+
+#icon_login {
+    padding: 11px;
+    background: white;
+    color: #5f5f5f;
+    min-width: 25px;
+    text-align: center;
+    border-radius: 0px 3px 3px 0px;
+    cursor: pointer;
+}
+
+.country-hr {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    border-top: 1px solid #313030;
+}

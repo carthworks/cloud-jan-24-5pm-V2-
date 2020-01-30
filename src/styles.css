@@ -1,0 +1,878 @@
+/* You can add global styles to this file, and also import other style files */
+/* @import "~@angular/material/prebuilt-themes/indigo-pink.css";  */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+@font-face {
+  font-family: gilroy-regular;
+  src: url(assets/fonts/gilroy/Gilroy-Regular.otf) format("opentype");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: gilroy-medium;
+  src: url(assets/fonts/gilroy/Gilroy-Medium.otf) format("opentype");
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: gilroy-sbold;
+  src: url(assets/fonts/gilroy/Gilroy-SemiBold.otf) format("opentype");
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: gilroy-bold;
+  src: url(assets/fonts/gilroy/Gilroy-Bold.otf) format("opentype");
+  font-weight: 800;
+}
+
+@font-face {
+  font-family: gilroy-thin;
+  src: url(assets/fonts/gilroy/Gilroy-Thin.otf) format("opentype");
+  font-weight: 300;
+}
+
+
+
+label {
+  margin-bottom: 0;
+}
+
+@media print {
+
+  *,
+  *::before,
+  *::after {
+    text-shadow: none !important;
+    box-shadow: none !important;
+  }
+
+  a,
+  a:visited {
+    text-decoration: underline;
+  }
+
+  button {
+    appearance: none;
+    background: transparent;
+    /* Other styles */
+  }
+
+  abbr[title]::after {
+    content: " ("attr(title) ")";
+  }
+
+  pre {
+    white-space: pre-wrap !important;
+  }
+
+  pre,
+  blockquote {
+    border: 1px solid #999;
+    page-break-inside: avoid;
+  }
+
+  thead {
+    display: table-header-group;
+  }
+
+  tr,
+  img {
+    page-break-inside: avoid;
+  }
+
+  p,
+  h2,
+  h3 {
+    orphans: 3;
+    widows: 3;
+  }
+
+  h2,
+  h3 {
+    page-break-after: avoid;
+  }
+
+  .btn {
+    transition: all 0.3s ease;
+    opacity: 1;
+  }
+
+
+  .btn:hover,
+  .btn:focus {
+    color: #fff;
+    background-color: #b3a2a7;
+    opacity: 0.3;
+  }
+
+  .navbar {
+    display: none;
+  }
+
+  .badge {
+    border: 1px solid #000;
+  }
+
+  .table {
+    border-collapse: collapse !important;
+  }
+
+  .table td,
+  .table th {
+    background-color: #fff !important;
+  }
+
+  .table-bordered th,
+  .table-bordered td {
+    border: 1px solid #ddd !important;
+  }
+}
+
+html {
+  box-sizing: border-box;
+  /* font-family: sans-serif; */
+  line-height: 1.15;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -ms-overflow-style: scrollbar;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+body,
+html {
+  height: 100%;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+*:focus {
+  outline: none !important;
+}
+
+@-ms-viewport {
+  width: device-width;
+}
+
+article,
+aside,
+dialog,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+nav,
+section {
+  display: block;
+}
+
+html {
+  height: 100%
+}
+
+input,
+button,
+select,
+textarea {
+  font-family: gilroy-regular, Arial, sans-serif;
+}
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  font-family: gilroy-regular, Arial, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  letter-spacing: 0.01rem;
+  direction: ltr;
+  min-height: 100vh;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -ms-text-size-adjust: 100%;
+  color: #fafafa;
+  background-color: #000;
+  overflow: hidden;
+  text-align: left
+}
+
+
+body.page-fixed-width {
+  position: relative;
+  /* min-width:  991px !important; commented for tab responsive */
+  /* background:tomato; */
+  overflow-x: auto;
+  width: 100%;
+  white-space: nowrap !important;
+
+}
+
+body a {
+  color: #007ad9;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+body a:hover {
+  color: #116fbf;
+  opacity: 0.6 !important;
+}
+
+[tabindex="-1"]:focus {
+  outline: none !important;
+}
+
+@-ms-viewport {
+  width: device-width
+}
+
+article,
+aside,
+dialog,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+nav,
+section {
+  display: block
+}
+
+.livemap-wrapper {
+  top: 0;
+  background: #FF5722;
+  position: relative;
+  /* // padding: 1rem !important; */
+}
+
+::-webkit-input-placeholder {
+  /* WebKit, Blink, Edge */
+  color: #909;
+}
+
+:-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  color: #909;
+  opacity: 1;
+}
+
+::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  color: #909;
+  opacity: 1;
+}
+
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: #909;
+}
+
+::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: #909;
+}
+
+::placeholder {
+  /* Most modern browsers support this now. */
+  color: #909;
+}
+
+
+/* browser Starts */
+
+::-webkit-scrollbar {
+  width: 12px;
+  /* for vertical scrollbars */
+  height: 12px;
+  /* for horizontal scrollbars */
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(119, 115, 115, 0.5);
+}
+
+::-webkit-scrollbar-corner{
+  background: rgba(0, 0, 0, 0);
+}
+
+/* browser Ends */
+
+.page {
+  overflow: hidden;
+}
+
+/* Header Starts */
+.navbar {
+  margin-bottom: 0;
+  /* text-transform: uppercase; */
+  /* padding: 0.2rem 0.2rem;  */
+  border-bottom: 0;
+  letter-spacing: 1px;
+  background: 0 0;
+  -webkit-transition: background .5s ease-in-out, padding .5s ease-in-out, transform .5s ease-in-out;
+  -webkit-transition: background .5s ease-in-out, padding .5s ease-in-out, -webkit-transform .5s ease-in-out;
+  transition: background .5s ease-in-out, padding .5s ease-in-out, -webkit-transform .5s ease-in-out;
+  transition: background .5s ease-in-out, padding .5s ease-in-out, transform .5s ease-in-out;
+  transition: background .5s ease-in-out, padding .5s ease-in-out, transform .5s ease-in-out, -webkit-transform .5s ease-in-out;
+}
+
+/* .navbar-brand {
+
+} */
+
+.navbar-brand span.highlighted_company {
+  color: #E74E3E;
+}
+
+.navbar-brand:focus {
+  outline: 0;
+}
+
+ul.dashboard-components {
+  list-style-type: none;
+  display: inline-flex;
+  /* padding: 0 0 0.3rem 0; */
+  padding: 0 0 0.0 0;
+  position: relative;
+}
+
+ul.dashboard-components li {
+  margin-right: 1rem;
+}
+
+ul.dashboard-components li a {
+  position: relative;
+}
+
+/* Header Ends */
+
+.black-bg {
+  background: #000 !important;
+  background-color: #000 !important;
+}
+
+.gray-bg {
+  background: #272727;
+  background-color: #272727 !important;
+}
+
+
+/*####################################################
+TILE COLOURs
+#################################################### */
+.color-bg-bot-threat {
+  background: #dc4646 !important;
+}
+
+.color-bg-nothreat {
+  background: #645096 !important;
+}
+
+.color-bg-threat {
+  background: #dc6e1e !important;
+}
+
+/* border for theme */
+.bdr-bg-bot-threat {
+  border-color: #dc4646 !important;
+}
+
+.bdr-bg-nothreat {
+  border-color: #645096 !important;
+}
+
+.bdr-bg-threat {
+  border-color: #dc6e1e !important;
+}
+
+.bdr-ora-pVictim {
+  border-color: #dc6e1e !important;
+  border: 1px solid #dc6e1e !important;
+}
+
+.bdr-grn-pVictim {
+  /* color: green !important; */
+  border-color: #8BC34A !important;
+  border: 1px solid #8BC34A !important;
+}
+
+.bdr-gray-offline {
+  border-color: #989898 !important;
+  border: 1px solid #989898 !important;
+}
+
+.bdr-grn-online {
+  border-color: #8BC34A !important;
+  /* border-color: #989898 !important; */
+
+}
+
+
+.txt-bg-bot-threat {
+  color: #dc4646 !important;
+}
+
+.txt-bg-nothreat {
+  color: #645096 !important;
+}
+
+.txt-bg-threat {
+  color: #dc6e1e !important;
+}
+
+.txt-ora-pVictim {
+  color: #dc6e1e !important;
+}
+
+.txt-grn-pVictim {
+  /* color: green !important; */
+  color: #8BC34A !important;
+}
+
+.txt-grn-online {
+  color: #8BC34A !important;
+  /* color: #989898 !important; */
+}
+
+
+
+.bg-bot-threat {
+  background: #dc4646 !important;
+  border-radius: 3px !important;
+  margin: 3px 3px 8px 8px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: 96px;
+  cursor: pointer;
+}
+
+.bg-nothreat {
+  background: #645096 !important;
+  border-radius: 3px !important;
+  margin: 3px 3px 8px 8px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: 96px !important;
+  cursor: pointer;
+}
+
+.bg-threat {
+  background: #dc6e1e !important;
+  border-radius: 3px !important;
+  margin: 3px 3px 8px 8px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: 96px;
+  cursor: pointer;
+}
+
+.bg-offline {
+  background: #4E4E4E !important;
+  ;
+  border-radius: 3px !important;
+  margin: 3px 3px 8px 8px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: 96px;
+  cursor: pointer;
+  color: #636363;
+}
+
+.spinner {
+  display: inline-block;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  /* width: 200px; */
+  /* height: 100px; */
+  margin: 0 auto;
+  background: rgba(0, 0, 0, 0.7);
+  text-align: center;
+  padding: 18% 0 0 0;
+  z-index: 4000;
+
+}
+
+
+
+span.nodata {
+  text-align: center;
+  position: relative;
+  display: block;
+  padding: 1rem;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #dc4646 !important;
+}
+
+
+/* tr.row-hover{
+  background:red !important;
+  background-color:red !important;
+  } */
+
+#showAllDeviceTableView {
+  position: relative;
+  background: #8BC34A;
+  min-width: 991px !important;
+  width: auto;
+}
+
+
+@-moz-document url-prefix() {
+  h1 {
+    color: red;
+  }
+}
+
+/*
+      Define here the CSS styles applied only to Safari browsers
+      (any version and any device)
+     */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+
+  /* body{
+  background-color:rose;
+} */
+  /* It will effect both safari and chrome */
+  /* body {
+   color:red;
+  } */
+
+  /* to only effect on safari, you can add this  */
+  ::i-block-chrome,
+  body {
+    color: rose !important;
+  }
+}
+
+@media screen and (min-color-index:0) and(-webkit-min-device-pixel-ratio:0) {
+  @media {
+    body {
+      color: blue !important;
+    }
+
+    /*
+      Define here the CSS styles applied only to Safari browsers
+      (any version and any device)
+     */
+  }
+
+  /* to only effect on safari, you can add this  */
+  ::i-block-chrome,
+  body {
+    color: rose !important;
+  }
+}
+
+
+body .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a {
+  background-color: none;
+}
+
+
+
+.ak-width {
+  position: relative;
+  /* min-width:  991px !important; commented for tab responsive */
+  /* overflow-x: auto; */
+  width: 100%;
+  white-space: nowrap !important;
+}
+
+/* Dashboard tile overrides sakthi */
+.ai3-card {
+  background-color: #0e1319 !important;
+  width: 100%;
+  padding: 22px;
+  border-radius: 10px;
+}
+
+.ai3-card h4,
+.ai3-card h6 {
+  font-weight: 600;
+}
+
+.ai3-card h4 {
+  font-size: 1.4rem;
+}
+
+@media (min-width: 576px) {
+
+  .dev-timeline-font,
+  .bar-value {
+    font-size: calc(0.75rem + ((1vw - 5.76px) * 1.0417));
+  }
+
+  .hex-responsive {
+    /* width: calc(0.875rem + ((1vw - 5.76px) * 3.125)); */
+    width: 15px;
+    margin-right: 5px;
+    margin-bottom: 15px;
+  }
+
+  .counttitle,
+  .block-title {
+    font-size: calc(0.5rem + ((1vw - 5.76px) * 0.9615));
+  }
+
+  .totalcount,
+  .ano-count-red {
+    /* font-size: calc(0.875rem + ((1vw - 5.76px) * 1.4423)); */
+    font-size: 25px;
+  }
+
+  .block-counts {
+    font-size: calc(0.875rem + ((1vw - 5.76px) * 1.4423));
+  }
+}
+
+@media (min-width: 768px) {
+
+  .dev-timeline-font,
+  .bar-value {
+    font-size: calc(0.75rem + ((1vw - 7.68px) * 0.8929));
+  }
+
+  .hex-responsive {
+    /* width: calc(0.875rem + ((1vw - 7.68px) * 2.6786)); */
+    width: 15px;
+    margin-right: 5px;
+    margin-bottom: 15px;
+  }
+}
+
+
+@media (min-width: 992px) {
+
+  .totalcount,
+  .ano-count-red {
+    font-size: calc(1.875rem + ((1vw - 9.92px) * 0.6466));
+  }
+
+  .dev-timeline-font,
+  .bar-value,
+  .counttitle {
+    font-size: calc(0.625rem + ((1vw - 9.92px) * 0.431));
+  }
+
+  .hex-responsive {
+    /* width: calc(0.875rem + ((1vw - 9.92px) * 0.6466)); */
+    width: 15px;
+    margin-right: 5px;
+    margin-bottom: 15px;
+  }
+}
+
+/* Theme.css font */
+body .ui-widget {
+  font-family: inherit !important;
+}
+
+/* Dashboard barchart tooltip themed like chartjs tooltip */
+.ui-tooltip .ui-tooltip-text {
+  background-color: rgba(0, 0, 0, 0.8) !important;
+}
+
+.ui-tooltip .ui-tooltip-arrow {
+  border-top-color: rgba(0, 0, 0, 0.8) !important;
+}
+
+.toast-container .toast {
+  position: relative;
+  overflow: hidden;
+  margin: 0 0 6px;
+  padding: 15px 15px 15px 50px;
+  width: 100% !important;
+  border-radius: 3px 3px 3px 3px;
+  background-position: 15px center;
+  background-repeat: no-repeat;
+  background-size: 24px;
+  box-shadow: 0 0 12px #999999;
+  color: #FFFFFF;
+  white-space: normal;
+}
+
+/* Line chart legend customization */
+.line-chart-legend li {
+  user-select: none;
+  display: inline-table;
+  cursor: pointer;
+  margin-right: 2vw;
+}
+
+.line-chart-legend li span {
+  width: 10px;
+  height: 10px;
+  margin-right: 8px;
+  display: inherit;
+  border-radius: 2px;
+}
+
+.hidden span {
+  background-color: inherit !important;
+}
+
+/* Device details edit */
+.device-detail-autocomplete.ui-autocomplete .ui-autocomplete-input {
+  width: 100%;
+  border-radius: 4px;
+  background-color: #071820;
+  color: white;
+}
+
+.device-detail-autocomplete.ui-autocomplete .ui-autocomplete-panel .ui-autocomplete-items .ui-autocomplete-list-item.ui-state-highlight {
+  background-color: #999 !important;
+}
+
+/* Dashboard table */
+body .ui-table .ui-table-tbody>tr>td {
+  border: 0px !important;
+}
+
+/* @media screen and (max-width: 80em) {
+    .ui-table-responsive .ui-table-thead>tr>th,.ui-table-responsive .ui-table-tfoot>tr>td {
+        display:none !important
+    }
+
+    .ui-table-responsive .ui-table-tbody>tr>td {
+        text-align: left;
+        display: block;
+        border: 0 none;
+        width: 100% !important;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        float: left;
+        clear: left
+    }
+
+    .ui-table-responsive .ui-table-tbody>tr>td .ui-column-title {
+        padding: .4em;
+        min-width: 30%;
+        display: inline-block !important;
+        margin: -.4em 1em -.4em -.4em;
+        font-weight: bold
+    }
+} */
+
+/* Settings menu style */
+.col-pixel-width-235 {
+  flex: 0 0 235px;
+  padding: 0px 15px;
+}
+
+/* Device communication tooltip */
+#ai3-dc-tooltip {
+  padding: 5px;
+  position: fixed;
+  border-radius: 3px;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  z-index: 10000;
+  display: none;
+  text-align: center;
+}
+
+/* Dashboard horizontal scroll */
+/* @media only screen and (max-width: 1400px) and (min-width: 991px) {
+  .add-horizontal-scroll{
+    min-width: 1400px;
+  }
+} */
+
+.ng2-tooltip-custom {
+  background: rgba(0, 0, 0, .8) !important;
+}
+/* for signup country selector fix */
+.country-selector ul>li:nth-child(1) {
+  border-bottom: 1px solid #666666 !important;
+  margin: 0px 13px !important;
+  text-indent: -13px;
+}
+
+.country-selector .ui-dropdown-list{
+  background-color: #000 !important;
+}
+
+/* Device popup overrides */
+.tabpanel_style ul.ui-tabview-nav {
+  padding-bottom: 5px !important;
+  border-bottom: 2px solid #1f3c4a !important;
+}
+
+#lineChartLegend .line-chart-legend{
+  margin-bottom: 0px !important;
+  padding-inline-start: 0px !important;
+}
+
+.word-wrap {
+  position: relative;
+  min-height: auto;
+  color: #909090 !important;
+  font-size: 0.9rem;
+  text-align: left;
+  vertical-align: middle;
+  word-break: break-word;
+  word-wrap: anywhere;
+  white-space: normal;
+  padding-right: 10px;
+}
+
+
+.border-gray {
+  border: 1px solid;
+  border-color: grey !important;
+}
+
+.ai3-report-dropdown .ui-dropdown {
+  border: 0px !important;
+}
+
+.ai3-report-dropdown .ui-dropdown.ui-dropdown-label {
+  background: #fff !important;
+}
+
+.mat-autocomplete-panel.mat-autocomplete-visible {
+  width: auto !important;
+}
+
+.cdk-overlay-pane {
+  width: auto !important;
+}
+
+.mat-option.mat-active,
+.mat-option:hover:not(.mat-option-disabled) {
+    font-weight: 600 !important;
+    background-color: rgba(255, 140, 0, 0.61);
+}
+
+.mat-standard-chip {
+  border-radius: 5px !important;
+}

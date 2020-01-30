@@ -1,0 +1,87 @@
+.ai3-reports-view-wrapper {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    height: calc(100% - 65px);
+    margin: 0px 15px;
+    background-color: #141e28 !important;
+}
+
+.ai3-reports-view {
+    padding: 30px 30px;
+}
+
+.report-view-wrapper {}
+
+.report-view-template {
+    background-color: #fff;
+    border-radius: 10px;
+    margin-right: 40px;
+    /* min-height: 800px; */
+    overflow: hidden;
+    padding-top: 40px;
+}
+
+.report-view-controls {
+    background: #10141A;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.report-view-controls .ui-button {
+    color: #fff;
+    background: #2AABE5 !important;
+    border: 0px;
+    font-weight: 600;
+}
+
+.report-create-body .ui-button {
+    color: grey;
+    background: #222e3b !important;
+    border: 0px;
+    margin-right: 10px;
+    font-weight: 600;
+    text-transform: inherit !important;
+}
+
+.report-create-body .ui-button.active {
+    color: #000;
+    background: #fff !important;
+}
+
+.report-view-controls h5 {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.report-view-controls h6 {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.email-inputbox {
+    width: 95% !important;
+    background: transparent;
+    border: inherit;
+    border-bottom: 1px solid grey;
+    color: #fff;
+    padding-left: 0px;
+}
+
+.email-inputbox:focus {
+    border-bottom: 1px solid #fff !important;
+}
+
+.email-input-control {
+    border-radius: 25px;
+    width: 23px !important;
+    height: 23px !important;
+}
+
+#email-pi.ui-button {
+    background-color: #222e3b !important;
+}
+
+.ui-inputtext.ng-dirty.ng-invalid {
+    border: 0px !important;
+    border-bottom: 1px solid #B34F56 !important;
+}
